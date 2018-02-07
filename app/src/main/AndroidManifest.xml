@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TestActivity"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <service
+            android:name="com.example.alvarogomez.localDB.RSSPullService"
+            android:exported="false" />
     </application>
 
 </manifest>
