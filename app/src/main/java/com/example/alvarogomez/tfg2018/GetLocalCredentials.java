@@ -27,16 +27,19 @@ public class GetLocalCredentials {
 
             SQLiteDatabase db = localUserDB.getReadableDatabase();
             
-            String[] prueba = new String[0];
+            if(db != null) {
+                //localUserDB.onInsert2(db, null);
+                credential = localUserDB.onSelect(db, null);
+                credential.setRememberMe(true);
+                System.out.println("**************      ejecutando historias en la BBDD            ****************");
+                System.out.println("**************      User:" + credential.getUser() +"            ****************");
+                System.out.println("**************      Password:" + credential.getPass() +"            ****************");
+                System.out.println("**************      RememberMe:" + credential.getRememberMe() +"            ****************");
 
-            if(db == null) {
-                localUserDB.onCreate(db);
-                credential.setRememberMe(false);
-            }else {
-                //credential = localUserDB.onSelect(db, null);
-                //localUserDB.onSelect(db, prueba);
-                //credential.setRememberMe(true);
                 //context.deleteDatabase("LocalUserDB");
+            }else {
+                System.out.println("***** No existe la BBDD que esta intentando abrir *****");
+
             }
 
             db.close();

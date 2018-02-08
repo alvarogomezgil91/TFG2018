@@ -112,9 +112,9 @@ public class PresentationActivity extends AppCompatActivity {
 
         //Servicio de consulta de conexión a internet, método ping.php (RetrieveConection.java)
         System.out.println("Llamando al WS PHP de consulta de conexión a internet");
-        sleep(4000);
+        sleep(1000);
         System.out.println("Conexión a internet correcta");
-        conectionOK = true;
+        conectionOK = false;
 
 
         return conectionOK;
@@ -138,7 +138,7 @@ public class PresentationActivity extends AppCompatActivity {
 
 
             try {
-                sleep(5000);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -150,7 +150,7 @@ public class PresentationActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             try {
-                sleep(5000);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
