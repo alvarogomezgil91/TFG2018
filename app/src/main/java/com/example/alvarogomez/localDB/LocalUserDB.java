@@ -14,7 +14,8 @@ import com.example.alvarogomez.tfg2018.Credential;
 public class LocalUserDB extends SQLiteOpenHelper {
 
     String sqlCreate = "CREATE TABLE local_user_credentials (user_name VARCHAR(20), email VARCHAR(30), "
-            + "password VARCHAR(16), remember_me BOOLEAN NOT NULL DEFAULT 0, last_sucessfull_login DATE)";
+            + "password VARCHAR(16), remember_me BOOLEAN NOT NULL" +
+            " DEFAULT 0, last_sucessfull_login DATE)";
 
 
     String sqlUpdateRememberMe = "UPDATE local_user_credentials SET rememberMe = ? WHERE email = ?";

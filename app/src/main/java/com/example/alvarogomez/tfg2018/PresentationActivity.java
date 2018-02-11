@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.example.alvarogomez.remoteDB.RemoteUserDB;
+
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
@@ -30,6 +32,10 @@ public class PresentationActivity extends AppCompatActivity {
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute();
 
+
+
+
+
     }
 
 
@@ -39,10 +45,10 @@ public class PresentationActivity extends AppCompatActivity {
     public String presentationActivity() throws InterruptedException {
 
 
-        Boolean internetConection;
-        internetConection = retrieveInternetConection();
+        Boolean internetConnection;
+        internetConnection = retrieveInternetConnection();
 
-        if (internetConection != true) {
+        if (internetConnection != true) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -65,7 +71,7 @@ public class PresentationActivity extends AppCompatActivity {
         Credential credential = localcredentials.getLocalCredentials(this);
 
         String user = credential.getUser();
-        String pass = credential.getPass();
+        String password = credential.getPass();
         Boolean rememberMe = credential.getRememberMe();
 
         // Pruebas
@@ -75,19 +81,27 @@ public class PresentationActivity extends AppCompatActivity {
             //Comprobamos usuario y contraseña con la base de datos
             //e intentamos conectarnos
 
-            mensaje = "mas de una ejecuciones";
-
             Boolean credentialsOK = false;
+            RemoteUserDB remoteUserDB = new RemoteUserDB();
+            credentialsOK = remoteUserDB.GetRemoteCredentials(user, password);
+
+
+
+
+
+
             //RetrieveRemoteCredentials
 
             if(credentialsOK){
                 //MainActivity
                 //Intent intent = new Intent(PresentationActivity.this, MainActivity.class);
+                mensaje = "credenciales OK";
 
 
             }else{
                 //LoginActivity
                 //Intent intent = new Intent(PresentationActivity.this, LoginActivity.class);
+                mensaje = "Error en las credenciales";
 
             }
 
@@ -106,21 +120,21 @@ public class PresentationActivity extends AppCompatActivity {
 
     }
 
-    public Boolean retrieveInternetConection() throws InterruptedException {
+    public Boolean retrieveInternetConnection() throws InterruptedException {
 
-        Boolean conectionOK = false;
+        Boolean connectionOK = false;
 
         //Servicio de consulta de conexión a internet, método ping.php (RetrieveConection.java)
         System.out.println("Llamando al WS PHP de consulta de conexión a internet");
         sleep(1000);
         System.out.println("Conexión a internet correcta");
-        conectionOK = false;
+        connectionOK = true;
 
 
-        return conectionOK;
+        return connectionOK;
     }
 
-    private class ThreadCreation extends AsyncTask<Void, Integer, Void>{
+    private class ThreadCreation extends AsyncTask<Void, Integer, String>{
 
         //Ponemos las ejecuciones por orden de ejecución
 
@@ -134,35 +148,25 @@ public class PresentationActivity extends AppCompatActivity {
         //El primer parametro del AsyncTask (Void), corresponde con este parametro de entrada
         //El tercer parametro del AsyncTask (Void), correponde con el parametro de salida
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected String doInBackground(Void... voids) {
 
 
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("despues de 5 segundos");
-                String mensaje = null;
+            String mensaje = null;
             try {
                 mensaje = presentationActivity();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
-            System.out.println("despues de 10 segundos");
             System.out.println("****** EL MENSAJE ES " + mensaje + "*******");
 
 
 
 
 
-            return null;
+
+
+            return mensaje;
         }
 
         //El segundo parametro del AsyncTask (Integer), corresponde con este parametro de entrada
@@ -173,9 +177,22 @@ public class PresentationActivity extends AppCompatActivity {
         //Se ejecuta cuando ya ha acabado la ejecucion del segundo hilo
         //El parametro de salida del doInBackground, coincide con el parametro de entrada (Void)
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Toast.makeText(getBaseContext(), "Tarea pesada finalizada", Toast.LENGTH_SHORT).show();
+        protected void onPostExecute(String mensaje) {
+            super.onPostExecute(mensaje);
+            Toast.makeText(getBaseContext(), "Conexión realizada", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(PresentationActivity.this, TestActivity.class);
+            Bundle b = new Bundle();
+
+
+
+            b.putString("mensaje>", mensaje);
+            intent.putExtras(b);
+
+            startActivity(intent);
+
+            finish();
+
 
         }
 

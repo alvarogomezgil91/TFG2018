@@ -27,7 +27,9 @@ public class TestActivity extends AppCompatActivity {
         texto = (TextView)findViewById(R.id.testTextView);
         Bundle b = this.getIntent().getExtras();
 
-        texto.setText(b.getString("1234"));
+        texto.setText(b.getString("mensaje"));
+
+        String mensaje = b.getString("menaje");
 
 
 
