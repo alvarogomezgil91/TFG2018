@@ -6,6 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.example.alvarogomez.tfg2018.Credential;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 /**
  * Created by Alvaro Gomez on 27/01/2018.
@@ -20,7 +24,9 @@ public class LocalUserDB extends SQLiteOpenHelper {
 
     String sqlUpdateRememberMe = "UPDATE local_user_credentials SET rememberMe = ? WHERE email = ?";
 
-    String sqlUpdateLastSuccesfullLogin = "UPDATE local_user_credentials SET last_sucessfull_login = ? WHERE email = ?";
+    //String sqlUpdateLastSuccesfullLogin = "UPDATE local_user_credentials SET remember_me = ? last_sucessfull_login = ? WHERE user_name = ?";
+
+
 
     String sqlSelect = "SELECT user_name, password, remember_me, last_sucessfull_login FROM local_user_credentials WHERE last_sucessfull_login = "
             + "(SELECT MAX(last_sucessfull_login) FROM local_user_credentials)";
@@ -108,9 +114,24 @@ public class LocalUserDB extends SQLiteOpenHelper {
         db.rawQuery(sqlUpdateRememberMe, args);
     }
 
-    public void onUpdateLastSuccesfullLogin(SQLiteDatabase db, String[] args){
+    public void onUpdateLastSuccesfullLogin(SQLiteDatabase db, Boolean rememberMe, String userName){
 
-        db.rawQuery(sqlUpdateLastSuccesfullLogin, args);
+        Date sysdate = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(sysdate);
+
+        int rememberMeInt = rememberMe ? 1 : 0;
+
+
+        String updateSql = "UPDATE local_user_credentials ";
+        String setSql = "SET remember_me = " + rememberMeInt + ", last_sucessfull_login = '" + date + "' ";
+        String whereSql = "WHERE user_name = '" + userName +"'";
+        String sqlStatement = updateSql + setSql + whereSql;
+
+        System.out.println("*************vamos a pintar la SQL --> " + sqlStatement);
+
+
+        db.execSQL(sqlStatement);
     }
 
 

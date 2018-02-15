@@ -1,38 +1,30 @@
 package com.example.alvarogomez.tfg2018;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.Toast;
 
 
 import com.example.alvarogomez.remoteDB.RemoteUserDB;
 
-import java.util.concurrent.TimeUnit;
-
 import static java.lang.Thread.sleep;
 
 public class PresentationActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_presentation);
 
+
         //Utilizamos la clase creada para realizar el proceso de conseguir
         //credenciales en segundo plano, mientras que la actividad se muestra.
 
         ThreadCreation threadCreation = new ThreadCreation();
-        threadCreation.execute();
-
-
+        threadCreation.execute().toString();
 
 
 
@@ -42,7 +34,7 @@ public class PresentationActivity extends AppCompatActivity {
     /**
      * This method is going to take care of the previous preparations of the app
      */
-    public String presentationActivity() throws InterruptedException {
+    public Boolean presentationActivity() throws InterruptedException {
 
 
         Boolean internetConnection;
@@ -77,12 +69,15 @@ public class PresentationActivity extends AppCompatActivity {
         // Pruebas
         String mensaje = "";
 
+        Boolean credentialsOK = false;
+
         if(rememberMe){
             //Comprobamos usuario y contraseña con la base de datos
             //e intentamos conectarnos
 
-            Boolean credentialsOK = false;
+
             RemoteUserDB remoteUserDB = new RemoteUserDB();
+
             credentialsOK = remoteUserDB.GetRemoteCredentials(user, password);
 
 
@@ -96,12 +91,14 @@ public class PresentationActivity extends AppCompatActivity {
                 //MainActivity
                 //Intent intent = new Intent(PresentationActivity.this, MainActivity.class);
                 mensaje = "credenciales OK";
+                System.out.println("************* El mensaje es -> " + mensaje + "************");
 
 
             }else{
                 //LoginActivity
                 //Intent intent = new Intent(PresentationActivity.this, LoginActivity.class);
                 mensaje = "Error en las credenciales";
+                System.out.println("************* El mensaje es -> " + mensaje + "************");
 
             }
 
@@ -115,7 +112,7 @@ public class PresentationActivity extends AppCompatActivity {
 
         }
 
-        return mensaje;
+        return credentialsOK;
 
 
     }
@@ -134,7 +131,7 @@ public class PresentationActivity extends AppCompatActivity {
         return connectionOK;
     }
 
-    private class ThreadCreation extends AsyncTask<Void, Integer, String>{
+    private class ThreadCreation extends AsyncTask<Void, Integer, Boolean>{
 
         //Ponemos las ejecuciones por orden de ejecución
 
@@ -148,25 +145,17 @@ public class PresentationActivity extends AppCompatActivity {
         //El primer parametro del AsyncTask (Void), corresponde con este parametro de entrada
         //El tercer parametro del AsyncTask (Void), correponde con el parametro de salida
         @Override
-        protected String doInBackground(Void... voids) {
+        protected Boolean doInBackground(Void... voids) {
 
 
-            String mensaje = null;
+            Boolean credentialsOK = false;
             try {
-                mensaje = presentationActivity();
+                credentialsOK = presentationActivity();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            System.out.println("****** EL MENSAJE ES " + mensaje + "*******");
-
-
-
-
-
-
-
-            return mensaje;
+            return credentialsOK;
         }
 
         //El segundo parametro del AsyncTask (Integer), corresponde con este parametro de entrada
@@ -177,21 +166,44 @@ public class PresentationActivity extends AppCompatActivity {
         //Se ejecuta cuando ya ha acabado la ejecucion del segundo hilo
         //El parametro de salida del doInBackground, coincide con el parametro de entrada (Void)
         @Override
-        protected void onPostExecute(String mensaje) {
-            super.onPostExecute(mensaje);
+        protected void onPostExecute(Boolean credentialsOK) {
+            super.onPostExecute(credentialsOK);
             Toast.makeText(getBaseContext(), "Conexión realizada", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(PresentationActivity.this, TestActivity.class);
+            if (credentialsOK){
+
+                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+
+                finish();
+
+                startActivity(intent);
+
+            } else {
+
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+
+                finish();
+
+                startActivity(intent);
+
+
+            }
+
+
+
+            /*Intent intent = new Intent(getApplicationContext(), TestActivity.class);
             Bundle b = new Bundle();
+
+
 
 
 
             b.putString("mensaje>", mensaje);
             intent.putExtras(b);
 
-            startActivity(intent);
-
             finish();
+
+            startActivity(intent);*/
 
 
         }

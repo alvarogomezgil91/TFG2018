@@ -25,11 +25,9 @@ public class TestActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         texto = (TextView)findViewById(R.id.testTextView);
-        Bundle b = this.getIntent().getExtras();
 
-        texto.setText(b.getString("mensaje"));
+        texto.setText("pa dentro");
 
-        String mensaje = b.getString("menaje");
 
 
 
