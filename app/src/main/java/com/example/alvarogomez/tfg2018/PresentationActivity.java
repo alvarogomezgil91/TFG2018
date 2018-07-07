@@ -7,24 +7,50 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 
+import com.example.alvarogomez.remoteDB.RemoteGraphicData;
 import com.example.alvarogomez.remoteDB.RemoteUserDB;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Thread.sleep;
 
 public class PresentationActivity extends AppCompatActivity {
 
+    private static boolean splashLoaded = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_presentation);
 
 
-        //Utilizamos la clase creada para realizar el proceso de conseguir
-        //credenciales en segundo plano, mientras que la actividad se muestra.
+        if (!splashLoaded){
 
-        ThreadCreation threadCreation = new ThreadCreation();
-        threadCreation.execute().toString();
+            setContentView(R.layout.activity_presentation);
+
+
+            //Utilizamos la clase creada para realizar el proceso de conseguir
+            //credenciales en segundo plano, mientras que la actividad se muestra.
+
+            ThreadCreation threadCreation = new ThreadCreation();
+            threadCreation.execute().toString();
+
+            splashLoaded = true;
+
+
+        } else {
+
+            //Evitamos que la pantalla de inicio se muestre varias veces
+
+            Intent intent = new Intent(PresentationActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+            finish();
+
+        }
+
+
 
 
 
@@ -150,6 +176,9 @@ public class PresentationActivity extends AppCompatActivity {
 
             Boolean credentialsOK = false;
             try {
+                //List<GraphicData> graphicDataList = new ArrayList<GraphicData>();
+                //RemoteGraphicData remoteGraphicData = new RemoteGraphicData();
+                //graphicDataList = remoteGraphicData.GetRemoteGraphicData("ABE.MC");
                 credentialsOK = presentationActivity();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -172,11 +201,11 @@ public class PresentationActivity extends AppCompatActivity {
 
             if (credentialsOK){
 
-                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
-
-                finish();
-
+                //Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ViewPagerActivity.class);
                 startActivity(intent);
+                finish();
 
             } else {
 

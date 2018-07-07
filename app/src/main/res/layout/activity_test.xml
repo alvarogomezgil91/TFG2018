@@ -20,7 +20,16 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_test" />
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_width="match_parent"
+        android:layout_height="356dp"
+        app:layout_anchor="@+id/include2"
+        android:id="@+id/linechart"
+        app:layout_anchorGravity="left|center"></com.github.mikephil.charting.charts.LineChart>
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/content_test" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -29,5 +38,14 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="bottom|center"
+        tools:layout_editor_absoluteX="254dp" />
 
 </android.support.design.widget.CoordinatorLayout>

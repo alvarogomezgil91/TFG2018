@@ -43,6 +43,15 @@
         <activity
             android:name="com.example.alvarogomez.tfg2018.LoginActivity"
             android:label="@string/title_activity_login" />
+        <activity
+            android:name="com.example.alvarogomez.tfg2018.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.alvarogomez.tfg2018.ViewPagerActivity"
+            android:label="@string/title_activity_view_pager"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="android.support.VERSION"

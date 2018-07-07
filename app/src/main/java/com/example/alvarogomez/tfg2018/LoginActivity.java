@@ -52,6 +52,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    private static boolean loginLoaded = false;
+
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -69,6 +71,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        if (loginLoaded){
+            Intent intent = new Intent(LoginActivity.this, TestActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+            finish();
+        }
+
+        loginLoaded = true;
+
         setContentView(R.layout.activity_login);
 
         mRememberMe = findViewById(R.id.remember_me_box);
@@ -366,11 +380,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 db.close();
 
-                //Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
 
-                //finish();
+                startActivity(intent);
 
-                //startActivity(intent);
+                finish();
 
             } else {
 
