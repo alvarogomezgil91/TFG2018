@@ -4,15 +4,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
-
-
-import com.example.alvarogomez.remoteDB.RemoteGraphicData;
 import com.example.alvarogomez.remoteDB.RemoteUserDB;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.lang.Thread.sleep;
 
 public class PresentationActivity extends AppCompatActivity {
@@ -23,6 +17,10 @@ public class PresentationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
+
+
 
 
         if (!splashLoaded){
@@ -56,13 +54,9 @@ public class PresentationActivity extends AppCompatActivity {
 
     }
 
-
-    /**
-     * This method is going to take care of the previous preparations of the app
-     */
     public Boolean presentationActivity() throws InterruptedException {
 
-
+        Boolean credentialsOK = false;
         Boolean internetConnection;
         internetConnection = retrieveInternetConnection();
 
@@ -73,10 +67,8 @@ public class PresentationActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "No existe conexión a internet", Toast.LENGTH_SHORT).show();
                 }
             });
-        } else {
 
-
-
+            return credentialsOK;
         }
 
 
@@ -95,45 +87,27 @@ public class PresentationActivity extends AppCompatActivity {
         // Pruebas
         String mensaje = "";
 
-        Boolean credentialsOK = false;
-
         if(rememberMe){
+
             //Comprobamos usuario y contraseña con la base de datos
             //e intentamos conectarnos
-
-
             RemoteUserDB remoteUserDB = new RemoteUserDB();
-
             credentialsOK = remoteUserDB.GetRemoteCredentials(user, password);
 
-
-
-
-
-
             //RetrieveRemoteCredentials
-
             if(credentialsOK){
-                //MainActivity
-                //Intent intent = new Intent(PresentationActivity.this, MainActivity.class);
                 mensaje = "credenciales OK";
                 System.out.println("************* El mensaje es -> " + mensaje + "************");
-
-
             }else{
-                //LoginActivity
-                //Intent intent = new Intent(PresentationActivity.this, LoginActivity.class);
                 mensaje = "Error en las credenciales";
                 System.out.println("************* El mensaje es -> " + mensaje + "************");
 
             }
 
-            //Nos metemos directamente en el MainActivity
-
         }else{
+
             //Nos metemos en la LoginActivity
             //Intent intent = new Intent(PresentationActivity.this, LoginActivity.class);
-
             mensaje = "primera ejecucion";
 
         }
@@ -176,9 +150,6 @@ public class PresentationActivity extends AppCompatActivity {
 
             Boolean credentialsOK = false;
             try {
-                //List<GraphicData> graphicDataList = new ArrayList<GraphicData>();
-                //RemoteGraphicData remoteGraphicData = new RemoteGraphicData();
-                //graphicDataList = remoteGraphicData.GetRemoteGraphicData("ABE.MC");
                 credentialsOK = presentationActivity();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -201,48 +172,26 @@ public class PresentationActivity extends AppCompatActivity {
 
             if (credentialsOK){
 
-                //Intent intent = new Intent(getApplicationContext(), TestActivity.class);
-                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 Intent intent = new Intent(getApplicationContext(), ViewPagerActivity.class);
+                //Intent intent = new Intent(getApplicationContext(), CombinedChartActivity.class);
                 startActivity(intent);
                 finish();
 
             } else {
 
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-
                 finish();
-
                 startActivity(intent);
 
-
             }
-
-
-
-            /*Intent intent = new Intent(getApplicationContext(), TestActivity.class);
-            Bundle b = new Bundle();
-
-
-
-
-
-            b.putString("mensaje>", mensaje);
-            intent.putExtras(b);
-
-            finish();
-
-            startActivity(intent);*/
-
 
         }
 
         @Override
         protected void onCancelled() {
             super.onCancelled();
-            Toast.makeText(getBaseContext(), "Tarea pesada cancelada", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Conexión cancelada", Toast.LENGTH_SHORT).show();
         }
-
 
     }
 

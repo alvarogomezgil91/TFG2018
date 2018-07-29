@@ -115,8 +115,8 @@ public class RemoteFavouriteStocksData {
 
                         stockDataList.add(stockData);
 
-                        System.out.println("*********** Elemento " + i + " de la lista: ");
-                        System.out.println("*********** " + arrayJSON.getString(i) + "*************");
+                        //System.out.println("*********** Elemento " + i + " de la lista: ");
+                        //System.out.println("*********** " + arrayJSON.getString(i) + "*************");
 
                     }
 

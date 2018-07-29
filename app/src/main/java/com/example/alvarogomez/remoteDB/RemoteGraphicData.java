@@ -36,10 +36,15 @@ public class RemoteGraphicData {
 
     String REMOTE_URL = "http://algomez.atwebpages.com/WebServicesPhp";
     String GET_REMOTE_CREDENTIALS = "/GetGeneralData.php";
+
+    private String mSimbolo;
+
+    public RemoteGraphicData(String simbolo) { mSimbolo = simbolo; }
+
     //String GET_REMOTE_CREDENTIALS = "/retrieve_users.php";
 
 
-    public List<GraphicData> GetRemoteGraphicData(String simbolo){
+    public List<GraphicData> GetRemoteGraphicData(){
 
         System.out.println("********* Entrando al comando GetRemoteGraphicData **************");
 
@@ -67,7 +72,7 @@ public class RemoteGraphicData {
             urlConn.connect();
             //Creo el Objeto JSON
             JSONObject jsonParam = new JSONObject();
-            jsonParam.put("simbolo", simbolo);
+            jsonParam.put("simbolo", mSimbolo);
             // Envio los parámetros post.
             OutputStream os = urlConn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
@@ -138,8 +143,8 @@ public class RemoteGraphicData {
                         //graphicDataList.set(i, graphicData);
 
 
-                        System.out.println("*********** Elemento " + i + "de la lista: ");
-                        System.out.println("*********** " + arrayJSON.getString(i) + "*************");
+                        //System.out.println("*********** Elemento " + i + "de la lista: ");
+                        //System.out.println("*********** " + arrayJSON.getString(i) + "*************");
 
 
 

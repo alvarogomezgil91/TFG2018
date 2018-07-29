@@ -2,6 +2,7 @@ package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.alvarogomez.localDB.LocalUserDB;
 
@@ -11,12 +12,9 @@ import com.example.alvarogomez.localDB.LocalUserDB;
 
 public class GetLocalCredentials {
 
-    private String user;
-    private String pass;
-    private Boolean rememberMe;
-
-
     public Credential getLocalCredentials(Context context) {
+
+        Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
         Credential credential = new Credential();
 
@@ -28,26 +26,21 @@ public class GetLocalCredentials {
             SQLiteDatabase db = localUserDB.getReadableDatabase();
             
             if(db != null) {
-                //localUserDB.onInsert2(db, null);
+
                 credential = localUserDB.onSelect(db, null);
                 credential.setRememberMe(true);
+
                 System.out.println("**************      ejecutando historias en la BBDD            ****************");
                 System.out.println("**************      User:" + credential.getUser() +"            ****************");
                 System.out.println("**************      Password:" + credential.getPass() +"            ****************");
                 System.out.println("**************      RememberMe:" + credential.getRememberMe() +"            ****************");
 
-                //context.deleteDatabase("LocalUserDB");
             }else {
                 System.out.println("***** No existe la BBDD que esta intentando abrir *****");
 
             }
 
             db.close();
-
-            //credential.setUser("ALVARO");
-            //credential.setPass("ALVARO");
-            //credential.setRememberMe(true);
-
 
         } catch (Exception e) {
 

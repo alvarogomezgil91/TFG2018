@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-49:12
+ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-63:12
+INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-63:12
+INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-63:12
+INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-63:12
 MERGED from [com.android.support:design:26.1.0] C:\Users\Alvaro Gomez\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\d3baec28ffc766aa8ae4d08b2927b4f2\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\Alvaro Gomez\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b21c2517a473124f6920f430bb35f1fb\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Alvaro Gomez\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\11e4c023650ebd05d0a5ad97302d8dc9\AndroidManifest.xml:2:1-11:12
@@ -18,20 +18,20 @@ MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\Alvaro Go
 MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\Alvaro Gomez\.gradle\caches\transforms-1\files-1.1\support-core-utils-26.1.0.aar\ce0ede6356118ef50a28d4202f66d7f6\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\Alvaro Gomez\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\63ea358296ce5f772beda2eab32df241\AndroidManifest.xml:17:1-31:12
 MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Alvaro Gomez\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\c51231356b402b911eda13dc1f2fb9c7\AndroidManifest.xml:17:1-30:12
-INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-49:12
-INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-49:12
+INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-63:12
+INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-63:12
+INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-63:12
 	package
 		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:3:5-46
 		INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml
 		INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml
-		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-49:12
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-63:12
 		INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml
-		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-49:12
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:1-63:12
 		INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:2:11-69
@@ -52,7 +52,7 @@ ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:10:5-72
 	android:name
 		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:10:22-69
 application
-ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:12:5-47:19
+ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:12:5-61:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\Alvaro Gomez\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\d3baec28ffc766aa8ae4d08b2927b4f2\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\Alvaro Gomez\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\d3baec28ffc766aa8ae4d08b2927b4f2\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\Alvaro Gomez\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b21c2517a473124f6920f430bb35f1fb\AndroidManifest.xml:25:5-29:19
@@ -136,15 +136,45 @@ ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:38:9-41:59
 	android:name
 		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:39:13-41
 activity#com.example.alvarogomez.tfg2018.ViewPagerActivity
-ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:42:9-46:52
+ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:42:9-46:59
 	android:screenOrientation
-		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:46:13-49
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:45:13-49
 	android:label
 		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:44:13-62
 	android:theme
-		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:45:13-56
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:46:13-56
 	android:name
 		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:43:13-46
+activity#com.example.alvarogomez.tfg2018.Test2Activity
+ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:47:9-51
+	android:name
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:47:19-48
+activity#com.example.alvarogomez.tfg2018.ViewPagerTest2Activity
+ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:48:9-52:59
+	android:label
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:51:13-62
+	android:configChanges
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:50:13-59
+	android:theme
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:52:13-56
+	android:name
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:49:13-51
+activity#com.example.alvarogomez.tfg2018.FeedActivity
+ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:53:9-50
+	android:name
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:53:19-47
+activity#com.example.alvarogomez.tfg2018.CandleStickActivity
+ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:54:9-56:62
+	android:configChanges
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:56:13-59
+	android:name
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:55:13-48
+activity#com.example.alvarogomez.tfg2018.CombinedChartActivity
+ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:57:9-59:62
+	android:configChanges
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:59:13-59
+	android:name
+		ADDED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml:58:13-50
 uses-sdk
 INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\workspaceGIT\TFG2018\app\src\main\AndroidManifest.xml

@@ -1,0 +1,260 @@
+package com.example.alvarogomez.tfg2018;
+
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.alvarogomez.ChartFormatter.MyXAxisValueFormatter;
+import com.example.alvarogomez.remoteDB.RemoteGraphicData;
+import com.example.alvarogomez.remoteDB.RemoteStocksData;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+/**
+ * Created by Alvaro Gomez on 14/07/2018.
+ */
+
+public class Test2holderFragment extends Fragment {
+
+    public static String mSimbolo;
+    private static int mColor;
+    public static String mMetodo;
+
+    List<GraphicData> graphicDataList;
+    private LineChart mChart;
+    private LineChart mChart1;
+    private LineData data;
+    private LineData data2;
+
+    View view;
+
+    private static final String ARG_SECTION_NUMBER = "section_number2";
+
+    public Test2holderFragment() {
+    }
+
+    public static Test2holderFragment newInstance(int sectionNumber, int color, String simbolo) {
+
+        Test2holderFragment fragment = new Test2holderFragment();
+
+        mColor = color;
+        mSimbolo = simbolo;
+        mMetodo = "GetRemoteGraphicData";
+
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
+
+        view = inflater.inflate(R.layout.fragment_view_test2, container, false);
+
+        mChart = (LineChart) view.findViewById(R.id.linechart);
+        mChart.setDragEnabled(true);
+        mChart.setScaleEnabled(true);
+        mChart.setPinchZoom(true);
+        Legend legend = mChart.getLegend();
+        legend.setEnabled(false);
+
+        mChart1 = (LineChart) view.findViewById(R.id.linechart2);
+        mChart1.setDragEnabled(true);
+        mChart1.setScaleEnabled(true);
+        mChart1.setPinchZoom(true);
+
+        ThreadCreation threadCreation = new ThreadCreation();
+        threadCreation.execute().toString();
+
+        return view;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+
+
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            System.out.println("Nos ponemos de lao");
+
+            Intent intent = new Intent(view.getContext(), CombinedChartActivity.class);
+
+            intent.putExtra("simbolo", mSimbolo);
+            startActivity(intent);
+
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            System.out.println("Nos ponemos de normal");
+        }
+
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.out.println("Me estoy parando" );
+    }
+
+
+    private class ThreadCreation extends AsyncTask<Void, Integer, Boolean> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+
+
+            Boolean credentialsOK = false;
+
+
+
+            java.lang.reflect.Method method = null;
+
+            try {
+                method = RemoteGraphicData.class.getMethod(mMetodo);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+
+            RemoteGraphicData remoteGraphicData = new RemoteGraphicData(mSimbolo);
+
+            try{
+                graphicDataList = (List<GraphicData>) method.invoke(remoteGraphicData);
+
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+
+            ArrayList<Entry> yValues = new ArrayList<>();
+            List<String> xList = new ArrayList<String>();
+            String[] xValues;
+
+            GraphicData graphicData;
+            float yAxis = 0;
+            int cont = 0;
+
+            for (ListIterator<GraphicData> iter = graphicDataList.listIterator(); iter.hasNext(); ){
+
+                graphicData = iter.next();
+                xList.add(graphicData.getFecha().replace("-","").substring(6, 8));
+                yAxis = Float.valueOf(graphicData.getMaximo());
+
+                yValues.add(new Entry(cont, yAxis));
+
+                cont++;
+
+
+            }
+
+
+            xValues = xList.toArray(new String[xList.size()]);
+
+            LineDataSet set1 = new LineDataSet(yValues, "Data Set 1");
+            LineDataSet set2 = new LineDataSet(yValues, "Data Set 2");
+
+            set1.setDrawCircles(false);
+            set1.setFillAlpha(110);
+            set1.setValueTextSize(0f);
+            set2.setFillAlpha(110);
+            set2.setValueTextSize(0f);
+
+            XAxis xAxis = mChart.getXAxis();
+            xAxis.setValueFormatter(new MyXAxisValueFormatter(xValues));
+
+            xAxis.setGranularity(1f);
+
+
+            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+            ArrayList<ILineDataSet> dataSets2 = new ArrayList<>();
+            set1.setColors(mColor);
+            set2.setColors(mColor);
+
+            set2.setDrawFilled(true);
+            set2.setFillColor(Color.RED);
+
+            dataSets.add(set1);
+            dataSets2.add(set2);
+            //dataSets.add(set2);
+
+
+
+            data = new LineData(dataSets);
+            data2 = new LineData(dataSets2);
+
+
+
+
+
+
+            credentialsOK = true;
+
+
+            return credentialsOK;
+        }
+
+
+        protected void onProgressUpdate(Integer values){
+            super.onProgressUpdate(values);
+        }
+
+
+        @Override
+        protected void onPostExecute(Boolean credentialsOK) {
+
+
+            mChart.setData(data);
+            mChart1.setData(data2);
+            mChart.notifyDataSetChanged();
+            mChart.invalidate();
+            mChart1.notifyDataSetChanged();
+            mChart1.invalidate();
+
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+
+        }
+
+
+    }
+
+
+
+
+
+}

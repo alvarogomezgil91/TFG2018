@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.mikephil.charting.charts.CombinedChart
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.alvarogomez.tfg2018.CombinedChartActivity"
+    android:id="@+id/combined_chart">
+
+</com.github.mikephil.charting.charts.CombinedChart>

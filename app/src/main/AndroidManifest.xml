@@ -42,8 +42,19 @@
         <activity
             android:name=".ViewPagerActivity"
             android:label="@string/title_activity_view_pager"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Test2Activity" />
+        <activity
+            android:name=".ViewPagerTest2Activity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_view_pager"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FeedActivity" />
+        <activity
+            android:name=".CombinedChartActivity"
+            android:configChanges="orientation|screenSize" />
+
     </application>
 
 </manifest>

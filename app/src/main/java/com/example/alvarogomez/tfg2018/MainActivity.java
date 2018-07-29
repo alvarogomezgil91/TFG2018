@@ -44,16 +44,6 @@ public class MainActivity extends AppCompatActivity {
     public List<Stock> mStockList;
 
     String metodo = "GetRemoteStocksData";
-    String mURL = Constants.GET_INDEX_STOCKS_DATA_URL;
-
-    private Button botonV;
-
-    private int buttonIdActive;
-
-
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mMainFooterAdapter;
-    private LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
 
     @Override
@@ -63,14 +53,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        buttonIdActive = 0;
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.footer_main_menu);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        mMainFooterAdapter = new MainFooterAdapter();
-        mRecyclerView.setAdapter(mMainFooterAdapter);
 
         lvStock = (ListView)findViewById(R.id.listview_product);
         lvStock.setVerticalScrollBarEnabled(false);
@@ -78,23 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivity.ThreadCreation threadCreation = new MainActivity.ThreadCreation();
         threadCreation.execute().toString();
-
-
-
-        /*try {
-            showData();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        */
-
-
-        //Add sample data for list
-        //We can get data from DB, webservice here
-
-        //MainActivity.ThreadCreation threadCreation = new MainActivity.ThreadCreation();
-        //threadCreation.execute().toString();
-
 
 
         //Init adapter
@@ -114,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 Stock stock = mStockList.get(position);
                 Toast.makeText(getApplicationContext(), "Clicked product id =" + view.getTag(), Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getBaseContext(), TestActivity.class);
+                //Intent intent = new Intent(getBaseContext(), TestActivity.class);
+                Intent intent = new Intent(getBaseContext(), Test2Activity.class);
 
 
                 intent.putExtra("simbolo", stock.getStockName());
@@ -123,10 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
 
 
     }
@@ -181,8 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            //?????????????????????????
-
             MainActivity mainActivity = new MainActivity();
             mainActivity.lanzaView();
 
@@ -206,22 +166,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-
-            //?????????????????????????
-
-
-
-
-
-
-
-
-
-
-
             int cont = 0;
-
-
 
             for (ListIterator<GraphicData> iter = stockDataList.listIterator(); iter.hasNext(); ){
 
@@ -236,8 +181,6 @@ public class MainActivity extends AppCompatActivity {
 
                 mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc"));
                 cont++;
-
-
 
 
             }
@@ -281,15 +224,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void llamaThread () {
-
-        MainActivity.ThreadCreation threadCreation = new MainActivity.ThreadCreation();
-        threadCreation.execute().toString();
-
-
-
-
-    }
 
     public void lanzaView (){
 

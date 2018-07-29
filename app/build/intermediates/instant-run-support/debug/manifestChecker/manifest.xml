@@ -52,6 +52,19 @@
             android:label="@string/title_activity_view_pager"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.example.alvarogomez.tfg2018.Test2Activity" />
+        <activity
+            android:name="com.example.alvarogomez.tfg2018.ViewPagerTest2Activity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_view_pager"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.example.alvarogomez.tfg2018.FeedActivity" />
+        <activity
+            android:name="com.example.alvarogomez.tfg2018.CandleStickActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name="com.example.alvarogomez.tfg2018.CombinedChartActivity"
+            android:configChanges="orientation|screenSize" />
 
         <meta-data
             android:name="android.support.VERSION"

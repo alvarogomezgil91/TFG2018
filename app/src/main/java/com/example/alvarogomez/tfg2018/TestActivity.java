@@ -3,6 +3,7 @@ package com.example.alvarogomez.tfg2018;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -42,13 +43,11 @@ import android.view.MenuItem;
 
 public class TestActivity extends AppCompatActivity {
 
-    TextView texto;
-
-    Button mLogOut;
-
     String simbolo = "";
 
     private LineChart mChart;
+    private LineChart mChart1;
+    private LineData data;
 
 
     @Override
@@ -62,139 +61,20 @@ public class TestActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        texto = (TextView)findViewById(R.id.testTextView);
-
-        texto.setText("pa dentro");
 
         mChart = (LineChart) findViewById(R.id.linechart);
         mChart.setDragEnabled(true);
         mChart.setScaleEnabled(true);
         mChart.setPinchZoom(true);
+        mChart.setBorderColor(Color.BLACK);
+
+        mChart1 = (LineChart) findViewById(R.id.linechart2);
+        mChart1.setDragEnabled(true);
+        mChart1.setScaleEnabled(true);
+        mChart1.setPinchZoom(true);
 
         TestActivity.ThreadCreation threadCreation = new TestActivity.ThreadCreation();
         threadCreation.execute().toString();
-
-
-
-
-
-        /*
-
-        LocalUserDB localUserDB = new LocalUserDB(this, "LocalUserDB", null, 1);
-
-        SQLiteDatabase db = localUserDB.getReadableDatabase();
-
-        ArrayList<Entry> yValues = new ArrayList<>();
-        ArrayList<Entry> yValues2 = new ArrayList<>();
-        List<String> xList = new ArrayList<String>();
-        String[] xValues;
-
-
-        if(db != null) {
-
-            String querySQL = "";
-
-            String sqlSelect = "SELECT date, close_value FROM stocks WHERE symbol = 'AAPL' order by date asc";
-
-            Cursor cursor = db.rawQuery(sqlSelect, null);
-
-            float yAxis = 0;
-
-            cursor.moveToFirst();
-
-            int cont = 0;
-
-            while (cursor.isAfterLast() == false){
-
-                //xAxis = Integer.valueOf(cursor.getString(0).replace("-", "").substring(6));
-                xList.add(cursor.getString(0).replace("-", ""));
-                yAxis = Float.valueOf(cursor.getString(1));
-
-                yValues.add(new Entry(cont, yAxis));
-                yValues2.add(new Entry(cont, yAxis-40));
-                cursor.moveToNext();
-
-                cont++;
-
-            }
-            
-            xValues = xList.toArray(new String[xList.size()]);
-
-            LineDataSet set1 = new LineDataSet(yValues, "Data Set 1");
-            set1.setFillAlpha(110);
-            set1.setValueTextSize(10f);
-
-            LineDataSet set2 = new LineDataSet(yValues2, "Data Set 2");
-            set1.setFillAlpha(110);
-            set1.setValueTextSize(10f);
-
-            XAxis xAxis = mChart.getXAxis();
-            xAxis.setValueFormatter(new MyXAxisValueFormatter(xValues));
-
-
-            xAxis.setGranularity(1f);
-
-
-            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set1);
-            dataSets.add(set2);
-
-
-            LineData data = new LineData(dataSets);
-
-            mChart.setData(data);
-
-
-        }else {
-            System.out.println("***** No existe la BBDD que esta intentando abrir *****");
-
-        }
-
-
-        db.close();
-        */
-
-
-
-
-
-
-
-
-
-/*        LocalUserDB localUserDB = new LocalUserDB(this, "LocalUserDB", null, 1);
-
-        SQLiteDatabase db = localUserDB.getWritableDatabase();
-
-        if(db != null) {
-
-            System.out.println("Vamos a guardar la tabla nueva***************************************************************************");
-
-            String querySQL = "DROP TABLE stocks";
-            db.execSQL(querySQL);
-
-            querySQL="CREATE TABLE stocks ( symbol VARCHAR(8) NOT NULL , association_name VARCHAR(30) NOT NULL , date DATE NOT NULL , open_value FLOAT NOT NULL , high_value FLOAT NOT NULL , low_value FLOAT NOT NULL , close_value FLOAT NOT NULL , adj_close_value FLOAT NOT NULL , volume FLOAT NOT NULL )";
-            db.execSQL(querySQL);
-
-            querySQL="INSERT INTO stocks (symbol, association_name, date, open_value, high_value, low_value, close_value, adj_close_value, volume) VALUES ('AAPL', 'AAPL INC', '2018-02-16', '172.360001', '174.820007', '160.770004', '172.429993', '192.429993', '37823080')";
-            db.execSQL(querySQL);
-
-            querySQL="INSERT INTO stocks (symbol, association_name, date, open_value, high_value, low_value, close_value, adj_close_value, volume) VALUES ('AAPL', 'AAPL INC', '2018-02-15', '171.360001', '173.820007', '181.770004', '152.429993', '172.429993', '37823080')";
-            db.execSQL(querySQL);
-
-            querySQL="INSERT INTO stocks (symbol, association_name, date, open_value, high_value, low_value, close_value, adj_close_value, volume) VALUES ('AAPL', 'AAPL INC', '2018-02-14', '170.360001', '175.820007', '141.770004', '162.429993', '192.429993', '37823080')";
-            db.execSQL(querySQL);
-
-            querySQL="INSERT INTO stocks (symbol, association_name, date, open_value, high_value, low_value, close_value, adj_close_value, volume) VALUES ('AAPL', 'AAPL INC', '2018-02-13', '169.360001', '170.820007', '171.770004', '192.429993', '152.429993', '37823080')";
-            db.execSQL(querySQL);
-
-        }else {
-            System.out.println("***** No existe la BBDD que esta intentando abrir *****");
-
-        }
-
-        db.close();*/
-
 
 
         Button mLogOut = (Button) findViewById(R.id.button3);
@@ -208,9 +88,6 @@ public class TestActivity extends AppCompatActivity {
 
             }
         });
-
-
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -228,7 +105,7 @@ public class TestActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.test_activity_menu, menu);
 
         return true;
     }
@@ -237,21 +114,34 @@ public class TestActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
-        switch (item.getItemId()){
 
+        switch (item.getItemId()){
             case R.id.item1:
-                Toast.makeText(this, "Item 1", Toast.LENGTH_LONG).show();
-                return true;
+                if(item.isChecked()){
+                    // If item already checked then unchecked it
+                    item.setChecked(false);
+                }else{
+                    // If item is unchecked then checked it
+                    item.setChecked(true);
+                    simbolo = "AENA.MC";
+                    TestActivity.ThreadCreation threadCreation = new TestActivity.ThreadCreation();
+                    threadCreation.execute().toString();
+                }
+                break;
             case R.id.item2:
-                Toast.makeText(this, "Item 2", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.item3:
-                Toast.makeText(this, "Item 3", Toast.LENGTH_LONG).show();
-                return true;
+                if(item.isChecked()){
+                    // If item already checked then unchecked it
+                    item.setChecked(false);
+                }else{
+                    // If item is unchecked then checked it
+                    item.setChecked(true);
+                }
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 
@@ -275,15 +165,9 @@ public class TestActivity extends AppCompatActivity {
 
             Boolean credentialsOK = false;
 
-
-            //mChart.setOnChartGestureListener(TestActivity.this);
-            //mChart.setOnChartValueSelectedListener(TestActivity.this);
-
-
-
-            List<GraphicData> graphicDataList = new ArrayList<GraphicData>();
-            RemoteGraphicData remoteGraphicData = new RemoteGraphicData();
-            graphicDataList = remoteGraphicData.GetRemoteGraphicData(simbolo);
+            List<GraphicData> graphicDataList;
+            RemoteGraphicData remoteGraphicData = new RemoteGraphicData(simbolo);
+            graphicDataList = remoteGraphicData.GetRemoteGraphicData();
 
             ArrayList<Entry> yValues = new ArrayList<>();
             ArrayList<Entry> yValues2 = new ArrayList<>();
@@ -318,6 +202,8 @@ public class TestActivity extends AppCompatActivity {
             LineDataSet set1 = new LineDataSet(yValues, "Data Set 1");
             set1.setFillAlpha(110);
             set1.setValueTextSize(0f);
+            set1.setColors(Color.YELLOW);
+            set1.setCircleColor(Color.GREEN);
 
 
             /*LineDataSet set2 = new LineDataSet(yValues2, "Data Set 2");
@@ -336,9 +222,9 @@ public class TestActivity extends AppCompatActivity {
             //dataSets.add(set2);
 
 
-            LineData data = new LineData(dataSets);
+            data = new LineData(dataSets);
 
-            mChart.setData(data);
+
             credentialsOK = true;
 
 
@@ -354,6 +240,12 @@ public class TestActivity extends AppCompatActivity {
         //El parametro de salida del doInBackground, coincide con el parametro de entrada (Void)
         @Override
         protected void onPostExecute(Boolean credentialsOK) {
+
+            mChart.setData(data);
+            mChart1.setData(data);
+
+
+
 
 
 

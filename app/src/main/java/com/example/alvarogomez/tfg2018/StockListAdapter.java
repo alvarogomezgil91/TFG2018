@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.List;
 
 public class StockListAdapter extends BaseAdapter {
@@ -48,6 +47,7 @@ public class StockListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         View v = View.inflate(mContext, R.layout.item_stock_list, null);
         TextView tvStock = (TextView)v.findViewById(R.id.tv_stock_name);
         TextView tvCierre = (TextView)v.findViewById(R.id.tv_cierre);
@@ -59,6 +59,7 @@ public class StockListAdapter extends BaseAdapter {
         tvDescription.setText(mStockList.get(position).getDescription());
         ivIcono.setImageResource(R.drawable.imagen_prueba);
         ivIcono.hasOnClickListeners();
+
         ivIcono.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -66,7 +67,6 @@ public class StockListAdapter extends BaseAdapter {
                 Toast.makeText(v.getContext(), "El stock es " + mStockList.get(position).getStockName(), Toast.LENGTH_SHORT).show();
             }
         });
-
 
         v.setTag(mStockList.get(position).getId());
 
