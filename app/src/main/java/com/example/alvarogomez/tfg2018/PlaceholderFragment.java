@@ -87,7 +87,7 @@ public class PlaceholderFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            List<GraphicData> stockDataList = new ArrayList<GraphicData>();
+            List<Stock> stockDataList = new ArrayList<Stock>();
             java.lang.reflect.Method method = null;
 
             try {
@@ -98,7 +98,7 @@ public class PlaceholderFragment extends Fragment {
             RemoteStocksData remoteStocksData = new RemoteStocksData();
 
             try{
-                stockDataList = (List<GraphicData>) method.invoke(remoteStocksData);
+                stockDataList = (List<Stock>) method.invoke(remoteStocksData);
 
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -106,17 +106,19 @@ public class PlaceholderFragment extends Fragment {
 
             int cont = 0;
 
-            for (ListIterator<GraphicData> iter = stockDataList.listIterator(); iter.hasNext(); ){
+            for (ListIterator<Stock> iter = stockDataList.listIterator(); iter.hasNext(); ){
 
-                GraphicData stockData;
+                Stock stockData;
 
                 stockData = stockDataList.get(cont);
 
                 stockData = iter.next();
-                String simbolo = stockData.getSimbolo();
+                String simbolo = stockData.getStockName();
                 float cierre = stockData.getCierre();
+                int favorito = stockData.getFavorito();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc"));
+
+                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", favorito));
                 cont++;
 
             }

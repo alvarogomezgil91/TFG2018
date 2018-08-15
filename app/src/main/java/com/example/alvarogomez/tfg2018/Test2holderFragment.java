@@ -2,23 +2,15 @@ package com.example.alvarogomez.tfg2018;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import com.example.alvarogomez.ChartFormatter.MyXAxisValueFormatter;
 import com.example.alvarogomez.remoteDB.RemoteGraphicData;
-import com.example.alvarogomez.remoteDB.RemoteStocksData;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -26,7 +18,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +30,8 @@ import java.util.ListIterator;
 public class Test2holderFragment extends Fragment {
 
     public static String mSimbolo;
-    private static int mColor;
+    private static int mLineColor = R.color.cyan;
+    private static int mAreaColor = R.color.light_blue;
     public static String mMetodo;
 
     List<GraphicData> graphicDataList;
@@ -55,11 +47,10 @@ public class Test2holderFragment extends Fragment {
     public Test2holderFragment() {
     }
 
-    public static Test2holderFragment newInstance(int sectionNumber, int color, String simbolo) {
+    public static Test2holderFragment newInstance(int sectionNumber, String simbolo) {
 
         Test2holderFragment fragment = new Test2holderFragment();
 
-        mColor = color;
         mSimbolo = simbolo;
         mMetodo = "GetRemoteGraphicData";
 
@@ -124,7 +115,7 @@ public class Test2holderFragment extends Fragment {
     }
 
 
-    private class ThreadCreation extends AsyncTask<Void, Integer, Boolean> {
+    private class ThreadCreation extends AsyncTask<Void, Integer, Void> {
 
 
         @Override
@@ -133,12 +124,7 @@ public class Test2holderFragment extends Fragment {
         }
 
         @Override
-        protected Boolean doInBackground(Void... voids) {
-
-
-            Boolean credentialsOK = false;
-
-
+        protected Void doInBackground(Void... voids) {
 
             java.lang.reflect.Method method = null;
 
@@ -176,9 +162,7 @@ public class Test2holderFragment extends Fragment {
 
                 cont++;
 
-
             }
-
 
             xValues = xList.toArray(new String[xList.size()]);
 
@@ -186,6 +170,7 @@ public class Test2holderFragment extends Fragment {
             LineDataSet set2 = new LineDataSet(yValues, "Data Set 2");
 
             set1.setDrawCircles(false);
+            set2.setDrawCircles(false);
             set1.setFillAlpha(110);
             set1.setValueTextSize(0f);
             set2.setFillAlpha(110);
@@ -193,47 +178,29 @@ public class Test2holderFragment extends Fragment {
 
             XAxis xAxis = mChart.getXAxis();
             xAxis.setValueFormatter(new MyXAxisValueFormatter(xValues));
-
             xAxis.setGranularity(1f);
-
 
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
             ArrayList<ILineDataSet> dataSets2 = new ArrayList<>();
-            set1.setColors(mColor);
-            set2.setColors(mColor);
+            set1.setColors(mLineColor);
+            set2.setColors(mLineColor);
 
+            set1.setDrawFilled(true);
+            set1.setFillColor(mAreaColor);
             set2.setDrawFilled(true);
-            set2.setFillColor(Color.RED);
+            set2.setFillColor(mAreaColor);
 
             dataSets.add(set1);
             dataSets2.add(set2);
-            //dataSets.add(set2);
-
-
 
             data = new LineData(dataSets);
             data2 = new LineData(dataSets2);
 
-
-
-
-
-
-            credentialsOK = true;
-
-
-            return credentialsOK;
+            return null;
         }
-
-
-        protected void onProgressUpdate(Integer values){
-            super.onProgressUpdate(values);
-        }
-
 
         @Override
-        protected void onPostExecute(Boolean credentialsOK) {
-
+        protected void onPostExecute(Void aVoid) {
 
             mChart.setData(data);
             mChart1.setData(data2);
@@ -250,11 +217,6 @@ public class Test2holderFragment extends Fragment {
 
         }
 
-
     }
-
-
-
-
 
 }

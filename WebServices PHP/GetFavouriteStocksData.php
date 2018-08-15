@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$body = json_decode(file_get_contents("php://input"), true);
 
     $retorno = StocksData::getFavouriteStocksData(
-		$body['simbolos']
+		$body['user_name']
 		);
 		
 

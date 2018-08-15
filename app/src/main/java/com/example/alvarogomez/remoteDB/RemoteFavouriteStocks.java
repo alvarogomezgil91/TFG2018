@@ -1,6 +1,8 @@
 package com.example.alvarogomez.remoteDB;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.alvarogomez.tfg2018.Constants;
 import com.example.alvarogomez.tfg2018.GraphicData;
@@ -30,30 +32,36 @@ import java.util.List;
 
 public class RemoteFavouriteStocks {
     String REMOTE_URL = "http://algomez.atwebpages.com/WebServicesPhp";
-    String GET_FAVOURITE_STOCKS = Constants.GET_FAVOURITE_STOCKS;
+    String INSERT_FAVOURITE_STOCK = Constants.INSERT_FAVOURITE_STOCK;
+    String DELETE_FAVOURITE_STOCK = Constants.DELETE_FAVOURITE_STOCK;
     String mUserName;
+    String mStock;
     String mFavouriteStocks;
+    View v;
+    Boolean comandoOk = false;
 
 
     public RemoteFavouriteStocks(String userName){
         mUserName = userName;
     }
+    public RemoteFavouriteStocks(String userName, String stock){
+        mUserName = userName;
+        mStock = stock;
+    }
 
 
 
-    public String GetRemoteFavouriteStocksData(){
+    public Boolean InsertRemoteFavouriteStock(){
 
-        System.out.println("********* Entrando al comando GetRemoteFavouriteStocks **************");
+        System.out.println("********* Entrando al comando InsertRemoteFavouriteStock **************");
 
-
-        List<GraphicData> stockDataList = new ArrayList<GraphicData>();
 
         try {
             HttpURLConnection urlConn;
 
             DataOutputStream printout;
             DataInputStream input;
-            URL url = new URL(REMOTE_URL + GET_FAVOURITE_STOCKS);
+            URL url = new URL(REMOTE_URL + INSERT_FAVOURITE_STOCK);
             urlConn = (HttpURLConnection) url.openConnection();
             urlConn.setRequestProperty("User-Agent", "Mozilla/5.0" +
                     " (Linux; Android 1.5; es-ES) Ejemplo HTTP");
@@ -68,6 +76,7 @@ public class RemoteFavouriteStocks {
             //Creo el Objeto JSON
             JSONObject jsonParam = new JSONObject();
             jsonParam.put("user_name", mUserName);
+            jsonParam.put("stock", mStock);
             OutputStream os = urlConn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
@@ -103,16 +112,15 @@ public class RemoteFavouriteStocks {
 
                 if (resultCode == "1") {      // hay un alumno que mostrar
 
-                    JSONArray arrayJSON = new JSONArray(respuestaJSON.getString("mensaje"));
-                    JSONObject jsonStockData = new JSONObject(arrayJSON.getString(0));
-
-                    mFavouriteStocks = favouriteStockFromat(jsonStockData.getString("simbolo"));
-
-                    System.out.println("**********************   Recibimos una lista de stocks favoritos: " + mFavouriteStocks + " elementos **************");
+                    comandoOk = true;
+                    System.out.println("**********************   Insercion realizada con exito " + mUserName + " -> " + mStock + " **************");
 
                 } else if (resultCode == "2") {
 
-                    System.out.println("!!!!!!!**********    Error al recuperar los datos de los stocks favoritos    **********!!!!!!!");
+                    comandoOk = false;
+                    //Toast.makeText(v.getContext(), "No se ha podido añadir a favoritos", Toast.LENGTH_SHORT).show();
+                    System.out.println("!!!!!!!**********    Error al realizar la insercion    **********!!!!!!!");
+                    System.out.println("**********************  " + mUserName + " -> " + mStock + " **************");
 
                 }
 
@@ -124,9 +132,97 @@ public class RemoteFavouriteStocks {
 
         System.out.println("********* Saliendo del comando GetRemoteFavouriteStocks **************");
 
-        return mFavouriteStocks;
+        return comandoOk;
 
     }
+
+
+    public Boolean DeleteRemoteFavouriteStock(){
+
+        System.out.println("********* Entrando al comando DeleteRemoteFavouriteStock **************");
+
+
+
+        try {
+            HttpURLConnection urlConn;
+
+            DataOutputStream printout;
+            DataInputStream input;
+            URL url = new URL(REMOTE_URL + DELETE_FAVOURITE_STOCK);
+            urlConn = (HttpURLConnection) url.openConnection();
+            urlConn.setRequestProperty("User-Agent", "Mozilla/5.0" +
+                    " (Linux; Android 1.5; es-ES) Ejemplo HTTP");
+            urlConn.setDoInput(true);
+            urlConn.setDoOutput(true);
+            urlConn.setUseCaches(false);
+            urlConn.setRequestProperty("Content-Type", "application/json");
+            urlConn.setRequestProperty("Accept", "application/json");
+            urlConn.connect();
+            // Envio los parámetros post.
+
+            //Creo el Objeto JSON
+            JSONObject jsonParam = new JSONObject();
+            jsonParam.put("user_name", mUserName);
+            jsonParam.put("stock", mStock);
+            OutputStream os = urlConn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(jsonParam.toString());
+            writer.flush();
+            writer.close();
+
+            int respuesta = urlConn.getResponseCode();
+
+
+            StringBuilder result = new StringBuilder();
+
+            if (respuesta == HttpURLConnection.HTTP_OK) {
+
+                String line;
+
+
+                InputStream in = new BufferedInputStream(urlConn.getInputStream());  // preparo la cadena de entrada
+                BufferedReader br = new BufferedReader(new InputStreamReader(in));
+
+                while ((line=br.readLine()) != null) {
+                    result.append(line);
+                    //response+=line;
+                }
+
+                //Creamos un objeto JSONObject para poder acceder a los atributos (campos) del objeto.
+                Log.i("tagconvertstr", "["+result+"]");
+
+                JSONObject respuestaJSON = new JSONObject(result.toString());   //Creo un JSONObject a partir del StringBuilder pasado a cadena
+
+                //Accedemos al vector de resultados
+                String resultCode = respuestaJSON.getString("estado");   // estado es el nombre del campo en el JSON
+
+                if (resultCode == "1") {      // hay un alumno que mostrar
+
+                    comandoOk = true;
+                    System.out.println("**********************   Insercion realizada con exito " + mUserName + " -> " + mStock + " **************");
+
+                } else if (resultCode == "2") {
+
+                    comandoOk = false;
+                    //Toast.makeText(v.getContext(), "No se ha podido añadir a favoritos", Toast.LENGTH_SHORT).show();
+                    System.out.println("!!!!!!!**********    Error al realizar la insercion    **********!!!!!!!");
+                    System.out.println("**********************  " + mUserName + " -> " + mStock + " **************");
+
+                }
+
+            }
+
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("********* Saliendo del comando GetRemoteFavouriteStocks **************");
+
+        return comandoOk;
+
+    }
+
 
     public String favouriteStockFromat(String cadena){
         String resultado = "'" + cadena.replace(",","', '") + "'";

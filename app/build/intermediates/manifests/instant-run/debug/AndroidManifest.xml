@@ -60,11 +60,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.example.alvarogomez.tfg2018.FeedActivity" />
         <activity
-            android:name="com.example.alvarogomez.tfg2018.CandleStickActivity"
-            android:configChanges="orientation|screenSize" />
-        <activity
             android:name="com.example.alvarogomez.tfg2018.CombinedChartActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <meta-data
             android:name="android.support.VERSION"

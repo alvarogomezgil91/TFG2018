@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 String simbolo = stockData.getSimbolo();
                 float cierre = stockData.getCierre();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc"));
+                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1));
                 cont++;
 
 

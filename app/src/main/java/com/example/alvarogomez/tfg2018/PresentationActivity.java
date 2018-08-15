@@ -20,13 +20,9 @@ public class PresentationActivity extends AppCompatActivity {
 
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
-
-
-
         if (!splashLoaded){
 
             setContentView(R.layout.activity_presentation);
-
 
             //Utilizamos la clase creada para realizar el proceso de conseguir
             //credenciales en segundo plano, mientras que la actividad se muestra.
@@ -35,7 +31,6 @@ public class PresentationActivity extends AppCompatActivity {
             threadCreation.execute().toString();
 
             splashLoaded = true;
-
 
         } else {
 
@@ -47,10 +42,6 @@ public class PresentationActivity extends AppCompatActivity {
             finish();
 
         }
-
-
-
-
 
     }
 
@@ -70,8 +61,6 @@ public class PresentationActivity extends AppCompatActivity {
 
             return credentialsOK;
         }
-
-
 
         //Miramos si tiene guardadas user:pass y si ha seleccionado que quiere entrar
         //directamente (remember me), esto lo haremos llamando directamente a la base
@@ -114,7 +103,6 @@ public class PresentationActivity extends AppCompatActivity {
 
         return credentialsOK;
 
-
     }
 
     public Boolean retrieveInternetConnection() throws InterruptedException {
@@ -126,7 +114,6 @@ public class PresentationActivity extends AppCompatActivity {
         sleep(1000);
         System.out.println("Conexión a internet correcta");
         connectionOK = true;
-
 
         return connectionOK;
     }

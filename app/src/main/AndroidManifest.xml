@@ -53,7 +53,8 @@
         <activity android:name=".FeedActivity" />
         <activity
             android:name=".CombinedChartActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
     </application>
 

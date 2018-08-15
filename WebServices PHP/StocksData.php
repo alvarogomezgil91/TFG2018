@@ -21,10 +21,15 @@ class StocksData
 	
 	public static function getIndexStocksData()
     {
-        $consulta = "SELECT simbolo, cierre
-							FROM stocks
-							WHERE fecha in (select max(fecha) from stocks)
-							ORDER BY cierre desc";
+        $consulta = "SELECT a.simbolo, a.cierre, a.tendencia, (
+    									select count(*)
+    									from stocks_favoritos f
+    									where f.user_name='Alvaro1' and f.stock=a.simbolo
+										) as favorito
+					FROM stocks a
+					WHERE a.fecha in (select max(a.fecha) from stocks)
+					GROUP BY a.simbolo
+					ORDER BY a.cierre desc";
 							
         try {
             // Preparar sentencia
@@ -97,7 +102,7 @@ class StocksData
         }
 		
     }
-	public static function getFavouriteStocksByUser(
+	public static function getFavouriteStocks(
 	$user_name
 	)
     {
@@ -124,14 +129,15 @@ class StocksData
     }
 
 	public static function getFavouriteStocksData(
-	$simbolos
+	$user_name
 	)
     {
-        $consulta = "SELECT simbolo, cierre
-							FROM stocks
-							WHERE fecha in (select max(fecha) from stocks)
-								AND simbolo in ($simbolos)
-							ORDER BY cierre desc";
+        $consulta = "SELECT a.simbolo, a.cierre, a.tendencia 
+					FROM stocks a, stocks_favoritos f
+					WHERE a.fecha in (select max(a.fecha) from stocks)
+						AND a.simbolo=f.stock
+						AND f.user_name = ?
+					ORDER BY a.cierre desc";
 							
         try {
             // Preparar sentencia
@@ -139,7 +145,7 @@ class StocksData
             // Ejecutar sentencia preparada
             $comando->execute(
 				array(
-					$simbolos
+					$user_name
 					)
 				);
 
@@ -149,7 +155,85 @@ class StocksData
             return false;
         }
 		
-    }    
+    }
+
+	public static function insertFavouriteStock(
+	$user_name,
+	$simbolo
+	)
+    {
+        $insercion = "INSERT INTO `stocks_favoritos`(`user_name`, `stock`)
+						VALUES ( ? , ? )";
+		
+		$consulta = "SELECT 1 FROM `stocks_favoritos`
+					WHERE user_name = ? AND stock = ?";
+					
+							
+        try {
+            // Preparar sentencia
+            $comando1 = Database::getInstance()->getDb()->prepare($insercion);
+            // Ejecutar sentencia preparada
+            $comando1->execute(
+				array(
+					$user_name,
+					$simbolo
+					)
+				);
+			$comando2 = Database::getInstance()->getDb()->prepare($consulta);
+            // Ejecutar sentencia preparada
+            $comando2->execute(
+				array(
+					$user_name,
+					$simbolo
+					)
+				);
+
+            return $comando2->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            return false;
+        }
+		
+    }
+	
+	
+	public static function deleteFavouriteStock(
+	$user_name,
+	$simbolo
+	)
+    {
+        $insercion = "DELETE FROM `stocks_favoritos` WHERE user_name = ? AND stock = ?";
+		
+		$consulta = "SELECT 1 FROM `stocks_favoritos`
+					WHERE user_name = ? AND stock = ?";
+					
+							
+        try {
+            // Preparar sentencia
+            $comando1 = Database::getInstance()->getDb()->prepare($insercion);
+            // Ejecutar sentencia preparada
+            $comando1->execute(
+				array(
+					$user_name,
+					$simbolo
+					)
+				);
+			$comando2 = Database::getInstance()->getDb()->prepare($consulta);
+            // Ejecutar sentencia preparada
+            $comando2->execute(
+				array(
+					$user_name,
+					$simbolo
+					)
+				);
+
+            return $comando2->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            return false;
+        }
+		
+    } 
 	
 	
 	

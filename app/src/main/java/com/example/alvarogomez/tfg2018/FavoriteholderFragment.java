@@ -26,6 +26,7 @@ public class FavoriteholderFragment extends Fragment{
     private List<Stock> mStockList;
     private static final String ARG_SECTION_NUMBER = "section_number";
     View view;
+    StockListAdapter mAdapter;
 
     public FavoriteholderFragment(){
     }
@@ -51,6 +52,7 @@ public class FavoriteholderFragment extends Fragment{
         lvStock.setVerticalScrollBarEnabled(false);
 
         mStockList = new ArrayList<>();
+        mAdapter = new StockListAdapter(view.getContext(), mStockList);
 
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
@@ -69,6 +71,33 @@ public class FavoriteholderFragment extends Fragment{
         });
 
         return view;
+
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState){
+        super.onViewStateRestored(savedInstanceState);
+        System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa         onViewStateRestored");
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa         onStart");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa         onResume");
+
+        if (mStockList != null) {
+            mAdapter.updateList(mStockList);
+            mAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -116,7 +145,7 @@ public class FavoriteholderFragment extends Fragment{
                 String simbolo = stockData.getSimbolo();
                 float cierre = stockData.getCierre();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc"));
+                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1));
                 cont++;
 
             }
@@ -135,7 +164,7 @@ public class FavoriteholderFragment extends Fragment{
         protected void onPostExecute(Void voids) {
             super.onPostExecute(voids);
 
-            StockListAdapter mAdapter = new StockListAdapter(view.getContext(), mStockList);
+            mAdapter = new StockListAdapter(view.getContext(), mStockList);
             lvStock.setAdapter(mAdapter);
 
         }

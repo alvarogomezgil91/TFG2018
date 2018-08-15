@@ -37,8 +37,6 @@ public class RemoteFavouriteStocksData {
 
     public List<GraphicData> GetRemoteFavouriteStocksData(){
 
-        RemoteFavouriteStocks remoteFavouriteStocks = new RemoteFavouriteStocks(mUserName);
-        String mFavouriteStocks = remoteFavouriteStocks.GetRemoteFavouriteStocksData();
 
         System.out.println("********* Entrando al comando GetRemoteFavouriteStocksData **************");
 
@@ -64,7 +62,7 @@ public class RemoteFavouriteStocksData {
             urlConn.connect();
             // Envio los parámetros post.
             JSONObject jsonParam = new JSONObject();
-            jsonParam.put("simbolos", mFavouriteStocks);
+            jsonParam.put("user_name", mUserName);
             System.out.println("******************************************************************" + jsonParam.toString());
             OutputStream os = urlConn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(

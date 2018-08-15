@@ -41,26 +41,21 @@ public class FeedholderFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     View view;
 
-    String urlConexion = "https://finance.yahoo.com/rss/topstories";
-    //String urlConexion = "http://ep01.epimg.net/rss/elpais/portada.xml";
-    TextView tView;
-
-
-
-
-
-
-
+    public static String urlConexion;
 
     public FeedholderFragment() {
     }
 
-    public static FeedholderFragment newInstance(int sectionNumber) {
+    public static FeedholderFragment newInstance(int sectionNumber, String ticker) {
 
         FeedholderFragment fragment = new FeedholderFragment();
 
-        mMetodo = "GetRemoteStocksData";
-        mURL = Constants.GET_INDEX_STOCKS_DATA_URL;
+        if (!ticker.equals("")){
+            urlConexion = Constants.RSS_YAHOO_FINANCE_BY_TICKER_START + ticker + Constants.RSS_YAHOO_FINANCE_BY_TICKER_END;
+        } else {
+            urlConexion = Constants.RSS_YAHOO_FINANCE;
+        }
+
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -71,7 +66,7 @@ public class FeedholderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
+        Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName() + " Req " + urlConexion);
 
         view = inflater.inflate(R.layout.fragment_view_pager, container, false);
 
@@ -94,7 +89,6 @@ public class FeedholderFragment extends Fragment {
                         Uri.parse(feed.getHyperlink()));
                 startActivity(browserIntent);
 
-
             }
         });
 
@@ -111,14 +105,10 @@ public class FeedholderFragment extends Fragment {
             String mHyperlink = "";
             String mImageLink = "";
             int mId = 0;
-
-
             int i = 0, j = 0;
-
 
             try {
                 URL url = new URL(urlConexion);
-
 
                 XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                 factory.setNamespaceAware(false);
@@ -138,8 +128,6 @@ public class FeedholderFragment extends Fragment {
                             insideItem = true;
                         } else if (xpp.getName().equalsIgnoreCase("title")) {
                             if (insideItem) {
-                                //headlines.add(xpp.nextText()); //extract the headline
-
                                 mTitle = xpp.nextText().replace("&apos;","'");
                             }
                         } else if (xpp.getName().equalsIgnoreCase("link")) {
@@ -160,12 +148,8 @@ public class FeedholderFragment extends Fragment {
 
                     }
 
-
-
-
                     eventType = xpp.next(); //move to next element
                 }
-
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -174,10 +158,6 @@ public class FeedholderFragment extends Fragment {
             } catch (XmlPullParserException e) {
                 e.printStackTrace();
             }
-
-
-
-
 
             return null;
         }
@@ -213,10 +193,6 @@ public class FeedholderFragment extends Fragment {
             super.onProgressUpdate();
         }
 
-
-
     }
-
-
 
 }

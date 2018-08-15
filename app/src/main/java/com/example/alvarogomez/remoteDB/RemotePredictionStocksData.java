@@ -34,9 +34,6 @@ public class RemotePredictionStocksData {
 
     public List<GraphicData> GetRemotePredictionStocksData(){
 
-        RemotePredictionStocks remotePredictionStocks = new RemotePredictionStocks(mUserName);
-        String mPredictionStocks = remotePredictionStocks.GetRemotePredictionStocksData();
-
         System.out.println("********* Entrando al comando GetRemotePredictionStocksData **************");
 
         List<GraphicData> stockDataList = new ArrayList<GraphicData>();
@@ -61,7 +58,7 @@ public class RemotePredictionStocksData {
             urlConn.connect();
             // Envio los parámetros post.
             JSONObject jsonParam = new JSONObject();
-            jsonParam.put("simbolos", mPredictionStocks);
+            jsonParam.put("user_name", mUserName);
             System.out.println("******************************************************************" + jsonParam.toString());
             OutputStream os = urlConn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(

@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.alvarogomez.ChartFormatter.MyXAxisValueFormatter;
 import com.example.alvarogomez.remoteDB.RemoteGraphicData;
@@ -49,7 +51,13 @@ public class CombinedChartActivity extends AppCompatActivity {
 
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
+        //requestWindowFeature((Window.FEATURE_NO_TITLE));
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         setContentView(R.layout.activity_combined_chart);
+
+
 
         combinedChart = (CombinedChart) findViewById(R.id.combined_chart);
 

@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.example.alvarogomez.tfg2018.Constants;
 import com.example.alvarogomez.tfg2018.GraphicData;
+import com.example.alvarogomez.tfg2018.Stock;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,11 +32,11 @@ public class RemoteStocksData {
     String GET_INDEX_STOCKS_DATA_URL = Constants.GET_INDEX_STOCKS_DATA_URL;
 
 
-    public List<GraphicData> GetRemoteStocksData(){
+    public List<Stock> GetRemoteStocksData(){
 
         System.out.println("********* Entrando al comando GetRemoteStocksData **************");
 
-        List<GraphicData> stockDataList = new ArrayList<GraphicData>();
+        List<Stock> stockDataList = new ArrayList<Stock>();
         int listSize;
 
         try {
@@ -92,12 +94,14 @@ public class RemoteStocksData {
 
                     for (int i = 0; i < arrayJSON.length(); i++){
 
-                        GraphicData stockData = new GraphicData();
+                        Stock stockData = new Stock();
 
                         JSONObject jsonStockData = new JSONObject(arrayJSON.getString(i));
 
-                        stockData.setSimbolo(jsonStockData.getString("simbolo"));
+                        stockData.setStockName(jsonStockData.getString("simbolo"));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));
+                        stockData.setFavorito(Integer.valueOf(jsonStockData.getString("favorito")));
+                        //stockData.setFavorito(true);
 
                         stockDataList.add(stockData);
 

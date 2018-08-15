@@ -110,16 +110,15 @@ public class ViewPagerTest2Activity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
 
-            System.out.println("++++++++++++++++++++++++++++++++++++++++++++            " + position + "              +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
             switch (position){
 
                 case 0:
-                    System.out.println("envio el color " + RED);
-                    return Test2holderFragment.newInstance(position + 1, RED, mSimbolo);
+                    return Test2holderFragment.newInstance(position + 1, mSimbolo);
                 case 1:
-                    System.out.println("envio el color " + BLUE);
                     return Test2holderFragment2.newInstance(position + 1, BLUE, mSimbolo);
+                case 2:
+                    return FeedholderFragment.newInstance(position + 1, mSimbolo);
+
             }
 
             return Test2holderFragment2.newInstance(position, Color.BLACK, mSimbolo);
@@ -129,7 +128,7 @@ public class ViewPagerTest2Activity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 4 total pages.
-            return 2;
+            return 3;
         }
 
     }

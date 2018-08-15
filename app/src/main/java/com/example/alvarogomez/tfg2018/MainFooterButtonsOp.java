@@ -140,7 +140,7 @@ public class MainFooterButtonsOp extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            List<GraphicData> stockDataList = new ArrayList<GraphicData>();
+            List<Stock> stockDataList = new ArrayList<Stock>();
             RemoteStocksData remoteStocksData = new RemoteStocksData();
             stockDataList = remoteStocksData.GetRemoteStocksData();
 
@@ -149,17 +149,17 @@ public class MainFooterButtonsOp extends AppCompatActivity {
 
 
 
-            for (ListIterator<GraphicData> iter = stockDataList.listIterator(); iter.hasNext(); ){
+            for (ListIterator<Stock> iter = stockDataList.listIterator(); iter.hasNext(); ){
 
-                GraphicData stockData = new GraphicData();
+                Stock stockData = new Stock();
 
                 stockData = stockDataList.get(cont);
 
                 stockData = iter.next();
-                String simbolo = stockData.getSimbolo();
+                String simbolo = stockData.getStockName();
                 float cierre = stockData.getCierre();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc"));
+                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1));
                 cont++;
 
             }

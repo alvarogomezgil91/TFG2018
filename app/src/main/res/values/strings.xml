@@ -50,9 +50,10 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="title_activity_main" />
     <string name="title_activity_view_pager">ViewPagerActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
+    <string name="tab_text_1">Índices</string>
+    <string name="tab_text_2">Favoritos</string>
+    <string name="tab_text_3">Predicciones</string>
+    <string name="tab_text_4">Noticias</string>
     <string name="tab_text_10">Tab 10</string>
     <string name="tab_text_20">Tab 20</string>
     <string name="tab_text_30">Tab 30</string>

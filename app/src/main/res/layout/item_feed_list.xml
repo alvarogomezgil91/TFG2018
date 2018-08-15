@@ -19,7 +19,8 @@
         android:layout_height="67dp"
         android:text="Name"
         android:textColor="#00a7f5"
-        android:textSize="16dp" />
+        android:textSize="12dp"
+        android:gravity="center_vertical"/>
 
 
     <ImageView

@@ -5,18 +5,33 @@ package com.example.alvarogomez.tfg2018;
  */
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.alvarogomez.remoteDB.RemoteFavouriteStocks;
+import com.example.alvarogomez.remoteDB.RemoteFavouriteStocksData;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class StockListAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Stock> mStockList;
+    private int mFavorito = 0;
+    private String mStock;
+    Boolean comandoOk = false;
+    String mMetodo;
+
+
+
 
     //Constructor
 
@@ -45,6 +60,11 @@ public class StockListAdapter extends BaseAdapter {
         return position;
     }
 
+    public void updateList(List<Stock> list) {
+        this.mStockList.clear();
+        this.mStockList.addAll(list);
+    }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -52,19 +72,47 @@ public class StockListAdapter extends BaseAdapter {
         TextView tvStock = (TextView)v.findViewById(R.id.tv_stock_name);
         TextView tvCierre = (TextView)v.findViewById(R.id.tv_cierre);
         TextView tvDescription = (TextView)v.findViewById(R.id.tv_description);
-        ImageView ivIcono = (ImageView)v.findViewById(R.id.imageView2);
+        final ImageView ivIcono = (ImageView)v.findViewById(R.id.imageView2);
 
         tvStock.setText(mStockList.get(position).getStockName());
         tvCierre.setText(String.valueOf(mStockList.get(position).getCierre()) + " $");
         tvDescription.setText(mStockList.get(position).getDescription());
-        ivIcono.setImageResource(R.drawable.imagen_prueba);
+        mFavorito = mStockList.get(position).getFavorito();
+
+        if (mFavorito == 0) {
+            ivIcono.setImageResource(R.drawable.corazon_contorno);
+        } else {
+            ivIcono.setImageResource(R.drawable.corazon_rojo);
+        }
+
         ivIcono.hasOnClickListeners();
 
         ivIcono.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "El stock es " + mStockList.get(position).getStockName(), Toast.LENGTH_SHORT).show();
+
+                mStock = mStockList.get(position).getStockName();
+
+                if (mStockList.get(position).getFavorito() == 1) {
+                    mMetodo = "DeleteRemoteFavouriteStock";
+                    ThreadCreation threadCreation = new ThreadCreation();
+                    threadCreation.execute().toString();
+                    ivIcono.setImageResource(R.drawable.corazon_contorno);
+                    mStockList.get(position).setFavorito(0);
+                } else {
+                    mMetodo = "InsertRemoteFavouriteStock";
+                    ThreadCreation threadCreation = new ThreadCreation();
+                    threadCreation.execute().toString();
+                    mStockList.get(position).setFavorito(1);
+                    ivIcono.setImageResource(R.drawable.corazon_rojo);
+
+                }
+
+
+
+                notifyDataSetChanged();
+
             }
         });
 
@@ -72,4 +120,60 @@ public class StockListAdapter extends BaseAdapter {
 
         return v;
     }
+
+
+    public class ThreadCreation extends AsyncTask<Void, Integer, Void> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            List<GraphicData> stockDataList = new ArrayList<GraphicData>();
+            java.lang.reflect.Method method = null;
+
+            try {
+
+                method = RemoteFavouriteStocks.class.getMethod(mMetodo);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+            String userName = "Alvaro1";
+            RemoteFavouriteStocks remoteFavouriteStocks = new RemoteFavouriteStocks(userName, mStock);
+
+
+            try{
+                comandoOk = (Boolean) method.invoke(remoteFavouriteStocks);
+
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            //Toast.makeText(getBaseContext(), "Tarea pesada cancelada", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onPostExecute(Void voids) {
+            super.onPostExecute(voids);
+
+        }
+
+    }
+
+
+
+
+
 }
