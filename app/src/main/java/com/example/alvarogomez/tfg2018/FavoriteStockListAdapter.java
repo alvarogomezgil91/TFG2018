@@ -1,28 +1,26 @@
 package com.example.alvarogomez.tfg2018;
 
-/**
- * Created by Alvaro Gomez on 18/06/2018.
- */
-
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.alvarogomez.remoteDB.RemoteFavouriteStocks;
-import com.example.alvarogomez.remoteDB.RemoteFavouriteStocksData;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
-public class StockListAdapter extends BaseAdapter {
+/**
+ * Created by Alvaro Gomez on 15/08/2018.
+ */
+
+public class FavoriteStockListAdapter extends BaseAdapter {
+
+
 
     private Context mContext;
     private List<Stock> mStockList;
@@ -36,7 +34,7 @@ public class StockListAdapter extends BaseAdapter {
 
     //Constructor
 
-    public StockListAdapter(Context mContext, List<Stock> mStockList) {
+    public FavoriteStockListAdapter(Context mContext, List<Stock> mStockList) {
         this.mContext = mContext;
         this.mStockList = mStockList;
     }
@@ -44,6 +42,13 @@ public class StockListAdapter extends BaseAdapter {
     public void addListItemToAdapter(List<Stock> list) {
         mStockList.addAll(list);
         this.notifyDataSetChanged();;
+    }
+    public void removeListItemToAdapter(List<Stock> list, int position) {
+        mStockList.clear();
+        mStockList.addAll(list);
+        mStockList.remove(position);
+        this.notifyDataSetChanged();;
+        this.notifyDataSetInvalidated();
     }
 
     @Override
@@ -94,23 +99,14 @@ public class StockListAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 mStock = mStockList.get(position).getStockName();
+
+                mMetodo = "DeleteRemoteFavouriteStock";
                 ThreadCreation threadCreation = new ThreadCreation();
+                threadCreation.execute().toString();
+                ivIcono.setImageResource(R.drawable.corazon_contorno);
+                mStockList.get(position).setFavorito(0);
 
-                if (mStockList.get(position).getFavorito() == 1) {
-                    mMetodo = "DeleteRemoteFavouriteStock";
-                    threadCreation.execute().toString();
-                    mStockList.get(position).setFavorito(0);
-                    ivIcono.setImageResource(R.drawable.corazon_contorno);
-                } else {
-                    mMetodo = "InsertRemoteFavouriteStock";
-                    threadCreation.execute().toString();
-                    mStockList.get(position).setFavorito(1);
-                    ivIcono.setImageResource(R.drawable.corazon_rojo);
-
-                }
-
-
-
+                mStockList.remove(position);
                 notifyDataSetChanged();
 
             }
@@ -177,3 +173,4 @@ public class StockListAdapter extends BaseAdapter {
 
 
 }
+

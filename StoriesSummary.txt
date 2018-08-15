@@ -4,6 +4,11 @@
 #	STRY00002 - PresentationActivity 1.0
 #	STRY00003 - GetLocalCredentials 1.0
 #	STRY00004 - GetRemoteCredentials 1.0
+#	STRY00005 - LoginActivity and LoginLayout 1.0
+#	STRY00006 - Bunch of files
+#	STRY00007 - CombinedChart, Feed and open browser
+#	STRY00008 - WebServices FavouritesStocks
+#	STRY00009 - Dynamic inflation listview by favourite stock
 #
 #
 #

@@ -200,13 +200,13 @@ public class RemoteFavouriteStocks {
                 if (resultCode == "1") {      // hay un alumno que mostrar
 
                     comandoOk = true;
-                    System.out.println("**********************   Insercion realizada con exito " + mUserName + " -> " + mStock + " **************");
+                    System.out.println("**********************    Borradp realizado con exito " + mUserName + " -> " + mStock + " **************");
 
                 } else if (resultCode == "2") {
 
                     comandoOk = false;
                     //Toast.makeText(v.getContext(), "No se ha podido añadir a favoritos", Toast.LENGTH_SHORT).show();
-                    System.out.println("!!!!!!!**********    Error al realizar la insercion    **********!!!!!!!");
+                    System.out.println("!!!!!!!**********    Error al realizar el borrado    **********!!!!!!!");
                     System.out.println("**********************  " + mUserName + " -> " + mStock + " **************");
 
                 }
@@ -217,7 +217,7 @@ public class RemoteFavouriteStocks {
             e.printStackTrace();
         }
 
-        System.out.println("********* Saliendo del comando GetRemoteFavouriteStocks **************");
+        System.out.println("********* Saliendo del comando DeleteRemoteFavouriteStock **************");
 
         return comandoOk;
 

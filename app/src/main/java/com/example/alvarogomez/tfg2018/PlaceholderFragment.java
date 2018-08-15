@@ -55,8 +55,6 @@ public class PlaceholderFragment extends Fragment {
         lvStock = (ListView)view.findViewById(R.id.listview_product);
         lvStock.setVerticalScrollBarEnabled(false);
 
-        mStockList = new ArrayList<>();
-
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
 
@@ -77,6 +75,17 @@ public class PlaceholderFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa         onResume          holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+        ThreadCreation threadCreation = new ThreadCreation();
+        threadCreation.execute().toString();
+
+    }
+
     public class ThreadCreation extends AsyncTask<Void, Integer, Void> {
 
         @Override
@@ -86,6 +95,8 @@ public class PlaceholderFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
+
+            mStockList = new ArrayList<>();
 
             List<Stock> stockDataList = new ArrayList<Stock>();
             java.lang.reflect.Method method = null;

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import com.example.alvarogomez.remoteDB.RemoteFavouriteStocksData;
 import java.lang.reflect.InvocationTargetException;
@@ -26,7 +27,7 @@ public class FavoriteholderFragment extends Fragment{
     private List<Stock> mStockList;
     private static final String ARG_SECTION_NUMBER = "section_number";
     View view;
-    StockListAdapter mAdapter;
+    FavoriteStockListAdapter mAdapter;
 
     public FavoriteholderFragment(){
     }
@@ -51,8 +52,7 @@ public class FavoriteholderFragment extends Fragment{
         lvStock = (ListView)view.findViewById(R.id.listview_product);
         lvStock.setVerticalScrollBarEnabled(false);
 
-        mStockList = new ArrayList<>();
-        mAdapter = new StockListAdapter(view.getContext(), mStockList);
+        mAdapter = new FavoriteStockListAdapter(view.getContext(), mStockList);
 
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
@@ -94,10 +94,8 @@ public class FavoriteholderFragment extends Fragment{
 
         System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa         onResume");
 
-        if (mStockList != null) {
-            mAdapter.updateList(mStockList);
-            mAdapter.notifyDataSetChanged();
-        }
+        ThreadCreation threadCreation = new ThreadCreation();
+        threadCreation.execute().toString();
 
     }
 
@@ -115,6 +113,8 @@ public class FavoriteholderFragment extends Fragment{
 
             List<GraphicData> stockDataList = new ArrayList<GraphicData>();
             java.lang.reflect.Method method = null;
+
+            mStockList = new ArrayList<>();
 
             try {
                 String mMetodo = "GetRemoteFavouriteStocksData";
@@ -164,7 +164,7 @@ public class FavoriteholderFragment extends Fragment{
         protected void onPostExecute(Void voids) {
             super.onPostExecute(voids);
 
-            mAdapter = new StockListAdapter(view.getContext(), mStockList);
+            mAdapter = new FavoriteStockListAdapter(getContext(), mStockList);
             lvStock.setAdapter(mAdapter);
 
         }

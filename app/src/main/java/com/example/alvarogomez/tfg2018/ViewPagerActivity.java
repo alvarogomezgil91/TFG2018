@@ -1,6 +1,8 @@
 package com.example.alvarogomez.tfg2018;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
@@ -12,7 +14,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewPagerActivity extends AppCompatActivity {
 
@@ -43,8 +49,14 @@ public class ViewPagerActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
             @Override
             public void onPageSelected(int position) {
-                FavoriteholderFragment fa = new FavoriteholderFragment();
-                fa.onResume();
+
+                Fragment fragment = ((SectionsPagerAdapter) mViewPager.getAdapter()).getFragment(position);
+
+                if (fragment != null)
+                {
+                    fragment.onResume();
+                }
+
                 System.out.println("++++++++++++++++++++++++++++++++++++++++++++            " + position + "              +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             }
         });
@@ -85,8 +97,14 @@ public class ViewPagerActivity extends AppCompatActivity {
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private Map<Integer, String> mFragmentTags;
+        private FragmentManager mFragmentManager;
+        private Context mContext;
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFragmentManager = fm;
+            mFragmentTags = new HashMap<Integer, String>();
         }
 
         @Override
@@ -116,6 +134,25 @@ public class ViewPagerActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return 4;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Object obj = super.instantiateItem(container, position);
+            if (obj instanceof Fragment) {
+                Fragment f = (Fragment) obj;
+                String tag = f.getTag();
+                mFragmentTags.put(position, tag);
+            }
+            return obj;
+        }
+
+        public Fragment getFragment(int position) {
+            String tag = mFragmentTags.get(position);
+            if (tag == null){
+                return null;
+            }
+            return mFragmentManager.findFragmentByTag(tag);
         }
 
     }
