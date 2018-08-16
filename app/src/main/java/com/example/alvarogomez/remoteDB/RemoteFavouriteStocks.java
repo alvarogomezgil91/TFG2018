@@ -31,6 +31,7 @@ import java.util.List;
  */
 
 public class RemoteFavouriteStocks {
+
     String REMOTE_URL = "http://algomez.atwebpages.com/WebServicesPhp";
     String INSERT_FAVOURITE_STOCK = Constants.INSERT_FAVOURITE_STOCK;
     String DELETE_FAVOURITE_STOCK = Constants.DELETE_FAVOURITE_STOCK;
@@ -40,21 +41,14 @@ public class RemoteFavouriteStocks {
     View v;
     Boolean comandoOk = false;
 
-
-    public RemoteFavouriteStocks(String userName){
-        mUserName = userName;
-    }
     public RemoteFavouriteStocks(String userName, String stock){
         mUserName = userName;
         mStock = stock;
     }
 
-
-
     public Boolean InsertRemoteFavouriteStock(){
 
         System.out.println("********* Entrando al comando InsertRemoteFavouriteStock **************");
-
 
         try {
             HttpURLConnection urlConn;
@@ -86,20 +80,17 @@ public class RemoteFavouriteStocks {
 
             int respuesta = urlConn.getResponseCode();
 
-
             StringBuilder result = new StringBuilder();
 
             if (respuesta == HttpURLConnection.HTTP_OK) {
 
                 String line;
 
-
                 InputStream in = new BufferedInputStream(urlConn.getInputStream());  // preparo la cadena de entrada
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
                 while ((line=br.readLine()) != null) {
                     result.append(line);
-                    //response+=line;
                 }
 
                 //Creamos un objeto JSONObject para poder acceder a los atributos (campos) del objeto.
@@ -136,14 +127,12 @@ public class RemoteFavouriteStocks {
 
     }
 
-
     public Boolean DeleteRemoteFavouriteStock(){
 
         System.out.println("********* Entrando al comando DeleteRemoteFavouriteStock **************");
 
-
-
         try {
+
             HttpURLConnection urlConn;
 
             DataOutputStream printout;
@@ -158,8 +147,8 @@ public class RemoteFavouriteStocks {
             urlConn.setRequestProperty("Content-Type", "application/json");
             urlConn.setRequestProperty("Accept", "application/json");
             urlConn.connect();
-            // Envio los parámetros post.
 
+            // Envio los parámetros post.
             //Creo el Objeto JSON
             JSONObject jsonParam = new JSONObject();
             jsonParam.put("user_name", mUserName);
@@ -173,20 +162,17 @@ public class RemoteFavouriteStocks {
 
             int respuesta = urlConn.getResponseCode();
 
-
             StringBuilder result = new StringBuilder();
 
             if (respuesta == HttpURLConnection.HTTP_OK) {
 
                 String line;
 
-
                 InputStream in = new BufferedInputStream(urlConn.getInputStream());  // preparo la cadena de entrada
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
                 while ((line=br.readLine()) != null) {
                     result.append(line);
-                    //response+=line;
                 }
 
                 //Creamos un objeto JSONObject para poder acceder a los atributos (campos) del objeto.
@@ -221,12 +207,6 @@ public class RemoteFavouriteStocks {
 
         return comandoOk;
 
-    }
-
-
-    public String favouriteStockFromat(String cadena){
-        String resultado = "'" + cadena.replace(",","', '") + "'";
-        return resultado;
     }
 
 }

@@ -8,8 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,15 +16,13 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 /**
- * Created by Alvaro Gomez on 14/07/2018.
+ * Created by Alvaro Gomez on 15/08/2018.
  */
 
-public class ViewPagerTest2Activity extends AppCompatActivity {
+public class StockViewPagerActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     private ViewPager mViewPager;
-
     private int RED = Color.RED;
     private int BLUE = Color.BLUE;
     private int YELLOW = Color.YELLOW;
@@ -40,12 +36,11 @@ public class ViewPagerTest2Activity extends AppCompatActivity {
 
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
-        setContentView(R.layout.activity_test2_view_pager);
+        setContentView(R.layout.activity_stock_view_pager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSimbolo = getIntent().getStringExtra("simbolo");
-
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -55,16 +50,12 @@ public class ViewPagerTest2Activity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -73,6 +64,7 @@ public class ViewPagerTest2Activity extends AppCompatActivity {
         inflater.inflate(R.menu.main_menu, menu);
 
         return true;
+
     }
 
     @Override
@@ -89,9 +81,11 @@ public class ViewPagerTest2Activity extends AppCompatActivity {
             case R.id.item3:
                 Toast.makeText(this, "Item 3", Toast.LENGTH_LONG).show();
                 return true;
+
         }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     /**
@@ -101,6 +95,7 @@ public class ViewPagerTest2Activity extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -113,15 +108,15 @@ public class ViewPagerTest2Activity extends AppCompatActivity {
             switch (position){
 
                 case 0:
-                    return Test2holderFragment.newInstance(position + 1, mSimbolo);
+                    return MainGraphicholderFragment.newInstance(position + 1, mSimbolo);
                 case 1:
-                    return Test2holderFragment2.newInstance(position + 1, BLUE, mSimbolo);
+                    return MainGraphicholderFragment.newInstance(position + 1, mSimbolo);
                 case 2:
                     return FeedholderFragment.newInstance(position + 1, mSimbolo);
 
             }
 
-            return Test2holderFragment2.newInstance(position, Color.BLACK, mSimbolo);
+            return MainGraphicholderFragment.newInstance(position + 1, mSimbolo);
 
         }
 
@@ -132,6 +127,5 @@ public class ViewPagerTest2Activity extends AppCompatActivity {
         }
 
     }
-
 
 }

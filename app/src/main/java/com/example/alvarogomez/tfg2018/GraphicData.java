@@ -64,4 +64,5 @@ public class GraphicData {
     public float getVolume() {
         return volume;
     }
+
 }

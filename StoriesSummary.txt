@@ -9,6 +9,7 @@
 #	STRY00007 - CombinedChart, Feed and open browser
 #	STRY00008 - WebServices FavouritesStocks
 #	STRY00009 - Dynamic inflation listview by favourite stock
+#	STRY00010 - Represent ups and downs with colors and code cleaning
 #
 #
 #

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.alvarogomez.tfg2018.Constants;
 import com.example.alvarogomez.tfg2018.GraphicData;
+import com.example.alvarogomez.tfg2018.Stock;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,12 +36,12 @@ public class RemoteFavouriteStocksData {
         mUserName = userName;
     }
 
-    public List<GraphicData> GetRemoteFavouriteStocksData(){
+    public List<Stock> GetRemoteFavouriteStocksData(){
 
 
         System.out.println("********* Entrando al comando GetRemoteFavouriteStocksData **************");
 
-        List<GraphicData> stockDataList = new ArrayList<GraphicData>();
+        List<Stock> stockDataList = new ArrayList<Stock>();
         int listSize;
 
         try {
@@ -104,17 +105,15 @@ public class RemoteFavouriteStocksData {
 
                     for (int i = 0; i < arrayJSON.length(); i++){
 
-                        GraphicData stockData = new GraphicData();
+                        Stock stockData = new Stock();
 
                         JSONObject jsonStockData = new JSONObject(arrayJSON.getString(i));
 
-                        stockData.setSimbolo(jsonStockData.getString("simbolo"));
+                        stockData.setStockName(jsonStockData.getString("simbolo"));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));
+                        stockData.setTendencia(Integer.valueOf(jsonStockData.getString("tendencia")));
 
                         stockDataList.add(stockData);
-
-                        //System.out.println("*********** Elemento " + i + " de la lista: ");
-                        //System.out.println("*********** " + arrayJSON.getString(i) + "*************");
 
                     }
 

@@ -16,7 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,7 +64,6 @@ public class ViewPagerActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
 
@@ -93,7 +91,6 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

@@ -36,11 +36,8 @@ public class FeedholderFragment extends Fragment {
 
     private ListView lvStock;
     private List<Feed> mFeedList;
-    public static String mMetodo;
-    public static String mURL;
     private static final String ARG_SECTION_NUMBER = "section_number";
     View view;
-
     public static String urlConexion;
 
     public FeedholderFragment() {
@@ -149,6 +146,7 @@ public class FeedholderFragment extends Fragment {
                     }
 
                     eventType = xpp.next(); //move to next element
+
                 }
 
             } catch (MalformedURLException e) {
@@ -163,11 +161,13 @@ public class FeedholderFragment extends Fragment {
         }
 
         public InputStream getInputStream(URL url) {
+
             try {
                 return url.openConnection().getInputStream();
             } catch (IOException e) {
                 return null;
             }
+
         }
 
         @Override
@@ -186,6 +186,7 @@ public class FeedholderFragment extends Fragment {
 
             FeedListAdapter mAdapter = new FeedListAdapter(view.getContext(), mFeedList);
             lvStock.setAdapter(mAdapter);
+
         }
 
         @Override

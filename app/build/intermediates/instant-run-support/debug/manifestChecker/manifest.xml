@@ -31,10 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.alvarogomez.tfg2018.TestActivity"
-            android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name="com.example.alvarogomez.localDB.RSSPullService"
@@ -44,17 +40,12 @@
             android:name="com.example.alvarogomez.tfg2018.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name="com.example.alvarogomez.tfg2018.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name="com.example.alvarogomez.tfg2018.ViewPagerActivity"
             android:label="@string/title_activity_view_pager"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.example.alvarogomez.tfg2018.Test2Activity" />
         <activity
-            android:name="com.example.alvarogomez.tfg2018.ViewPagerTest2Activity"
+            android:name="com.example.alvarogomez.tfg2018.StockViewPagerActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_view_pager"
             android:theme="@style/AppTheme.NoActionBar" />

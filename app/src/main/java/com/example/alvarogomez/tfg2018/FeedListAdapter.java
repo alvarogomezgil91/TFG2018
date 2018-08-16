@@ -1,6 +1,7 @@
 package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,20 +20,12 @@ public class FeedListAdapter extends BaseAdapter {
     private Context mContext;
     private List<Feed> mFeedList;
 
-
-
     public FeedListAdapter (Context mContext, List<Feed> mFeedList){
 
         this.mContext = mContext;
         this.mFeedList = mFeedList;
 
     }
-
-    public void addListItemToAdapter(List<Feed> list) {
-        mFeedList.addAll(list);
-        this.notifyDataSetChanged();;
-    }
-
 
     @Override
     public int getCount() {
@@ -51,6 +44,8 @@ public class FeedListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
+        Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
         View v = View.inflate(mContext, R.layout.item_feed_list, null);
         TextView tvFeed = (TextView)v.findViewById(R.id.tv_feed);
@@ -71,5 +66,7 @@ public class FeedListAdapter extends BaseAdapter {
         v.setTag(mFeedList.get(position).getId());
 
         return v;
+
     }
+
 }

@@ -10,17 +10,19 @@ public class Stock {
     private float cierre;
     private String description;
     private int favorito;
+    private int tendencia;
 
     public Stock(){}
 
     //Constructor
 
-    public Stock(int id, String stockName, float cierre, String description, int favorito) {
+    public Stock(int id, String stockName, float cierre, String description, int favorito, int tendencia) {
         this.id = id;
         this.stockName = stockName;
         this.cierre = cierre;
         this.description = description;
         this.favorito = favorito;
+        this.tendencia = tendencia;
     }
 
     //Setter, getter
@@ -63,6 +65,13 @@ public class Stock {
 
     public void setFavorito(int favorito) {
         this.favorito = favorito;
+    }
+    public int getTendencia(){
+        return tendencia;
+    }
+
+    public void setTendencia(int tendencia) {
+        this.tendencia = tendencia;
     }
 }
 

@@ -88,10 +88,6 @@
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\drawable-hdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png"
     },
     {
-        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_test.xml.flat",
-        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\layout\\activity_test.xml"
-    },
-    {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_star_black_48dp.png.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\drawable-xxhdpi-v4\\abc_ic_star_black_48dp.png"
     },
@@ -318,6 +314,10 @@
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21_notification_template_icon_group.xml.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\63ea358296ce5f772beda2eab32df241\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_main_graphic.xml.flat",
+        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\layout\\fragment_main_graphic.xml"
     },
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ab_share_pack_mtrl_alpha.9.png.flat",
@@ -708,6 +708,10 @@
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\anim\\abc_fade_out.xml"
     },
     {
+        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_stock_view_pager.xml.flat",
+        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\layout\\activity_stock_view_pager.xml"
+    },
+    {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_menu_item_layout.xml.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\layout\\abc_action_menu_item_layout.xml"
     },
@@ -770,10 +774,6 @@
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\drawable-mdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
-    },
-    {
-        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_test2_view_pager.xml.flat",
-        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\layout\\activity_test2_view_pager.xml"
     },
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
@@ -882,10 +882,6 @@
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable_navigation_empty_icon.xml.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\d3baec28ffc766aa8ae4d08b2927b4f2\\res\\drawable\\navigation_empty_icon.xml"
-    },
-    {
-        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_test2.xml.flat",
-        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\layout\\activity_test2.xml"
     },
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_text_select_handle_right_mtrl_dark.png.flat",

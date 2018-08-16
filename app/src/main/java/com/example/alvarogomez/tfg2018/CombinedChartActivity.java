@@ -32,17 +32,12 @@ import java.util.ListIterator;
 
 public class CombinedChartActivity extends AppCompatActivity {
 
-
     String mMetodo = "GetRemoteGraphicData";
     String mSimbolo;
     List<GraphicData> graphicDataList;
-
     CombinedChart combinedChart;
     CombinedData combinedData;
-
     private LineData lineData;
-
-    CandleStickChart candleStickChart;
     CandleDataSet cds;
 
     @Override
@@ -50,35 +45,19 @@ public class CombinedChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
-
-        //requestWindowFeature((Window.FEATURE_NO_TITLE));
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
         setContentView(R.layout.activity_combined_chart);
 
-
-
         combinedChart = (CombinedChart) findViewById(R.id.combined_chart);
-
-
-
-
         mSimbolo = getIntent().getStringExtra("simbolo");
-
 
         CombinedChartActivity.ThreadCreation threadCreation = new CombinedChartActivity.ThreadCreation();
         threadCreation.execute().toString();
-
-
 
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
-
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
             System.out.println("Nos ponemos de lao");
@@ -89,12 +68,9 @@ public class CombinedChartActivity extends AppCompatActivity {
 
     }
 
-
-
-    private class ThreadCreation extends AsyncTask<Void, Integer, Boolean> {
+    private class ThreadCreation extends AsyncTask<Void, Integer, Void> {
 
         String[] xValues;
-
 
         @Override
         protected void onPreExecute() {
@@ -102,13 +78,9 @@ public class CombinedChartActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Boolean doInBackground(Void... voids) {
-
+        protected Void doInBackground(Void... voids) {
 
             Boolean credentialsOK = false;
-
-
-
             java.lang.reflect.Method method = null;
 
             try {
@@ -126,15 +98,11 @@ public class CombinedChartActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
             ArrayList<CandleEntry> ceList = new ArrayList<>();
-
-
             ArrayList<Entry> yValues = new ArrayList<>();
             List<String> xList = new ArrayList<String>();
-
-
             GraphicData graphicData;
+
             float yAxis = 0;
             float shadowH = 0;
             float shadowL = 0;
@@ -151,18 +119,13 @@ public class CombinedChartActivity extends AppCompatActivity {
                 shadowH = graphicData.getMaximo();
                 shadowL = graphicData.getMinimo();
 
-
                 ceList.add(new CandleEntry(cont, shadowH, shadowL, open, close));
                 xList.add(graphicData.getFecha().substring(5, 10));
 
                 yAxis = Float.valueOf(graphicData.getMaximo());
-
                 yValues.add(new Entry(cont, yAxis));
 
-
-
                 cont++;
-
 
             }
 
@@ -175,12 +138,7 @@ public class CombinedChartActivity extends AppCompatActivity {
             dataSets.add(set1);
 
             lineData = new LineData(dataSets);
-
-
-
-
             xValues = xList.toArray(new String[xList.size()]);
-
 
             cds = new CandleDataSet(ceList, "Entries");
             cds.setColor(Color.WHITE);
@@ -192,21 +150,12 @@ public class CombinedChartActivity extends AppCompatActivity {
             cds.setIncreasingPaintStyle(Paint.Style.FILL);
             cds.setNeutralColor(Color.BLUE);
 
+            return null;
 
-            credentialsOK = true;
-
-
-            return credentialsOK;
         }
-
-
-        protected void onProgressUpdate(Integer values){
-            super.onProgressUpdate(values);
-        }
-
 
         @Override
-        protected void onPostExecute(Boolean credentialsOK) {
+        protected void onPostExecute(Void aVoid) {
 
             combinedData = new CombinedData();
 
@@ -214,7 +163,6 @@ public class CombinedChartActivity extends AppCompatActivity {
             xAxis.setValueFormatter(new MyXAxisValueFormatter(xValues));
 
             xAxis.setGranularity(1f);
-
 
             CandleData cd = new CandleData(cds);
             cd.setValueTextSize(0f);
@@ -227,6 +175,7 @@ public class CombinedChartActivity extends AppCompatActivity {
             combinedChart.setAutoScaleMinMaxEnabled(true);
             combinedChart.notifyDataSetChanged();
             combinedChart.invalidate();
+
         }
 
         @Override
@@ -235,10 +184,6 @@ public class CombinedChartActivity extends AppCompatActivity {
 
         }
 
-
     }
-
-
-
 
 }

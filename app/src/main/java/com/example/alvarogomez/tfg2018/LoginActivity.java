@@ -55,7 +55,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final int REQUEST_READ_CONTACTS = 0;
     private static boolean loginLoaded = false;
 
-
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -75,20 +74,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
-
-
         if (loginLoaded){
-            Intent intent = new Intent(LoginActivity.this, TestActivity.class);
+
+            Intent intent = new Intent(LoginActivity.this, ViewPagerActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
             finish();
+
         }
 
         loginLoaded = true;
 
         setContentView(R.layout.activity_login);
-
         mRememberMe = findViewById(R.id.remember_me_box);
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -97,11 +96,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                     attemptLogin();
                     return true;
                 }
+
                 return false;
+
             }
         });
 
@@ -123,10 +125,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-
-
         mLoginFormView = findViewById(R.id.email_login_form);
         mProgressView = findViewById(R.id.login_progress);
+
     }
 
     private void populateAutoComplete() {
@@ -138,12 +139,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean mayRequestContacts() {
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
+
         if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
+
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
@@ -156,7 +160,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }
+
         return false;
+
     }
 
     /**
@@ -170,6 +176,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 populateAutoComplete();
             }
         }
+
     }
 
 
@@ -179,6 +186,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
+
         if (mAuthTask != null) {
             return;
         }
@@ -223,6 +231,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask();
             mAuthTask.execute((Void) null);
         }
+
     }
 
     private boolean isEmailValid(String email) {
@@ -337,10 +346,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String password = mPasswordView.getText().toString();
         Boolean rememberMe = mRememberMe.isChecked();
 
-
-
-
-
         @Override
         protected Boolean doInBackground(Void... params) {
 
@@ -383,7 +388,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 db.close();
 
-                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ViewPagerActivity.class);
 
                 startActivity(intent);
 
@@ -391,11 +396,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             } else {
 
-                //Toast.makeText(getBaseContext(), "Erroooooooor", Toast.LENGTH_SHORT).show();
-
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
-
 
             }
         }
@@ -405,6 +407,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+
     }
+
 }
 

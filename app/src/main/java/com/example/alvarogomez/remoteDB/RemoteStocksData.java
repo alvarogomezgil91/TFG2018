@@ -31,7 +31,6 @@ public class RemoteStocksData {
     String REMOTE_URL = "http://algomez.atwebpages.com/WebServicesPhp";
     String GET_INDEX_STOCKS_DATA_URL = Constants.GET_INDEX_STOCKS_DATA_URL;
 
-
     public List<Stock> GetRemoteStocksData(){
 
         System.out.println("********* Entrando al comando GetRemoteStocksData **************");
@@ -91,7 +90,6 @@ public class RemoteStocksData {
 
                     System.out.println("**********************   Recibimos una lista de " + listSize + " elementos **************");
 
-
                     for (int i = 0; i < arrayJSON.length(); i++){
 
                         Stock stockData = new Stock();
@@ -101,8 +99,7 @@ public class RemoteStocksData {
                         stockData.setStockName(jsonStockData.getString("simbolo"));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));
                         stockData.setFavorito(Integer.valueOf(jsonStockData.getString("favorito")));
-                        //stockData.setFavorito(true);
-
+                        stockData.setTendencia(Integer.valueOf(jsonStockData.getString("tendencia")));
                         stockDataList.add(stockData);
 
                     }

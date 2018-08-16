@@ -64,7 +64,7 @@ public class PlaceholderFragment extends Fragment {
 
                 Stock stock = mStockList.get(position);
 
-                Intent intent = new Intent(getActivity(), ViewPagerTest2Activity.class);
+                Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                 intent.putExtra("simbolo", stock.getStockName());
                 startActivity(intent);
 
@@ -127,9 +127,10 @@ public class PlaceholderFragment extends Fragment {
                 String simbolo = stockData.getStockName();
                 float cierre = stockData.getCierre();
                 int favorito = stockData.getFavorito();
+                int tendencia = stockData.getTendencia();
 
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", favorito));
+                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", favorito, tendencia));
                 cont++;
 
             }

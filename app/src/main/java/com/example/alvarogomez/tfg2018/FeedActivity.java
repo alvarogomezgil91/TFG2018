@@ -24,8 +24,7 @@ import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
 
-    String urlConexion = "https://finance.yahoo.com/rss/topstories";
-    //String urlConexion = "http://ep01.epimg.net/rss/elpais/portada.xml";
+    String RSS_YAHOO_FINANCE = Constants.RSS_YAHOO_FINANCE;
     TextView tView;
 
     @Override
@@ -50,14 +49,12 @@ public class FeedActivity extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
 
             String salida = "";
-            List<String> headlines = new ArrayList<>();
             List<String> links = new ArrayList<>();
 
             int i = 0, j = 0;
 
-
             try {
-                URL url = new URL(urlConexion);
+                URL url = new URL(RSS_YAHOO_FINANCE);
 
 
                 XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -93,55 +90,6 @@ public class FeedActivity extends AppCompatActivity {
                     eventType = xpp.next(); //move to next element
                 }
 
-
-                /*
-
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestProperty("User-Agent", "Mozilla/5.0" +
-                        " (Linux; Android 1.5; es-ES) Ejemplo HTTP");
-
-                int respuesta = connection.getResponseCode();
-
-                if (respuesta==HttpURLConnection.HTTP_OK){
-
-                    BufferedReader lector = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream())
-                    );
-                    String linea = lector.readLine();
-
-                    while (linea != null) {
-
-                        if (linea.indexOf("<title>") >= 0) {
-
-                            System.out.println("----------------------");
-                            System.out.println(linea);
-
-
-                            i = linea.indexOf("<title>") + 7;
-                            j = linea.indexOf("</title>") - 8;
-                            salida += linea.substring(i, j);
-                            salida += "\n--------------\n";
-
-                        }
-
-                        linea = lector.readLine();
-
-                    }
-
-                    lector.close();;
-
-                } else {
-
-                    salida = "No encontrado";
-
-                }
-
-                connection.disconnect();;
-                */
-
-
-
-
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -150,19 +98,18 @@ public class FeedActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
-
-
-
             return salida;
+
         }
 
         public InputStream getInputStream(URL url) {
+
             try {
                 return url.openConnection().getInputStream();
             } catch (IOException e) {
                 return null;
             }
+
         }
 
         @Override
@@ -177,15 +124,14 @@ public class FeedActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String salida){
-
             tView.append(salida);
-
-            //super.onPostExecute(salida);
         }
 
         @Override
         protected void onProgressUpdate(Integer... values){
             super.onProgressUpdate();
         }
+
     }
+
 }

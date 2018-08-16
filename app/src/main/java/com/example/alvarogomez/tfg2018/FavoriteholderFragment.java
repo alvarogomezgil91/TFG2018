@@ -63,7 +63,7 @@ public class FavoriteholderFragment extends Fragment{
 
                 Stock stock = mStockList.get(position);
 
-                Intent intent = new Intent(getActivity(), ViewPagerTest2Activity.class);
+                Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                 intent.putExtra("simbolo", stock.getStockName());
                 startActivity(intent);
 
@@ -111,7 +111,7 @@ public class FavoriteholderFragment extends Fragment{
         @Override
         protected Void doInBackground(Void... voids) {
 
-            List<GraphicData> stockDataList = new ArrayList<GraphicData>();
+            List<Stock> stockDataList = new ArrayList<Stock>();
             java.lang.reflect.Method method = null;
 
             mStockList = new ArrayList<>();
@@ -127,7 +127,7 @@ public class FavoriteholderFragment extends Fragment{
 
 
             try{
-                stockDataList = (List<GraphicData>) method.invoke(remoteStocksData);
+                stockDataList = (List<Stock>) method.invoke(remoteStocksData);
 
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -135,24 +135,24 @@ public class FavoriteholderFragment extends Fragment{
 
             int cont = 0;
 
-            for (ListIterator<GraphicData> iter = stockDataList.listIterator(); iter.hasNext(); ){
+            for (ListIterator<Stock> iter = stockDataList.listIterator(); iter.hasNext(); ){
 
-                GraphicData stockData;
+                Stock stockData;
 
                 stockData = stockDataList.get(cont);
 
                 stockData = iter.next();
-                String simbolo = stockData.getSimbolo();
+                String simbolo = stockData.getStockName();
                 float cierre = stockData.getCierre();
+                int tendencia = stockData.getTendencia();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1));
+                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1, tendencia));
                 cont++;
 
             }
 
             return null;
         }
-
 
         @Override
         protected void onCancelled() {

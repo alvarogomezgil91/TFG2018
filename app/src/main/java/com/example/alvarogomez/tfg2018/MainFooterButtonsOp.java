@@ -49,8 +49,8 @@ public class MainFooterButtonsOp extends AppCompatActivity {
         mStockList = new ArrayList<>();
         String metodo = "GetRemoteStocksData";
 
-        MainActivity.ThreadCreation threadCreation = new MainActivity().new ThreadCreation();
-        threadCreation.execute().toString();
+        //MainActivity.ThreadCreation threadCreation = new MainActivity().new ThreadCreation();
+        //threadCreation.execute().toString();
         StockListAdapter mAdapter = new StockListAdapter(this,mStockList);
         lvStock.setAdapter(mAdapter);
 
@@ -89,7 +89,7 @@ public class MainFooterButtonsOp extends AppCompatActivity {
     }
     public void prediccionesButtonOp (){
 
-        Context context = new MainActivity().getApplicationContext();
+        //Context context = new MainActivity().getApplicationContext();
 
         buttonIdActive = "a"; //getCheckedSetting(context);
 
@@ -102,7 +102,7 @@ public class MainFooterButtonsOp extends AppCompatActivity {
     }
     public void favoritosButtonOp (){
 
-        Context context = new MainActivity().getApplicationContext();
+        //Context context = new MainActivity().getApplicationContext();
 
         buttonIdActive = "a"; //getCheckedSetting(context);
 
@@ -114,7 +114,7 @@ public class MainFooterButtonsOp extends AppCompatActivity {
     }
     public void noticiasButtonOp (){
 
-        Context context = new MainActivity().getApplicationContext();
+        //Context context = new MainActivity().getApplicationContext();
 
         buttonIdActive = "a"; //getCheckedSetting(context);
 
@@ -159,7 +159,7 @@ public class MainFooterButtonsOp extends AppCompatActivity {
                 String simbolo = stockData.getStockName();
                 float cierre = stockData.getCierre();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1));
+                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1, 1001));
                 cont++;
 
             }

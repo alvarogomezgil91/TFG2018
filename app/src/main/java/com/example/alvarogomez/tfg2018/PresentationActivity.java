@@ -13,7 +13,6 @@ public class PresentationActivity extends AppCompatActivity {
 
     private static boolean splashLoaded = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

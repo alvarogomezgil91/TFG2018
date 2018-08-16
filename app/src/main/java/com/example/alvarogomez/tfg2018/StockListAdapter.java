@@ -5,45 +5,38 @@ package com.example.alvarogomez.tfg2018;
  */
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.alvarogomez.remoteDB.RemoteFavouriteStocks;
-import com.example.alvarogomez.remoteDB.RemoteFavouriteStocksData;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.Locale;
 
 public class StockListAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Stock> mStockList;
+    private String mStockName;
+    private String mCierre;
+    private String mDescripcion;
     private int mFavorito = 0;
+    private int mTendencia;
     private String mStock;
     Boolean comandoOk = false;
     String mMetodo;
-
-
-
 
     //Constructor
 
     public StockListAdapter(Context mContext, List<Stock> mStockList) {
         this.mContext = mContext;
         this.mStockList = mStockList;
-    }
-
-    public void addListItemToAdapter(List<Stock> list) {
-        mStockList.addAll(list);
-        this.notifyDataSetChanged();;
     }
 
     @Override
@@ -61,13 +54,10 @@ public class StockListAdapter extends BaseAdapter {
         return position;
     }
 
-    public void updateList(List<Stock> list) {
-        this.mStockList.clear();
-        this.mStockList.addAll(list);
-    }
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
+        Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
         View v = View.inflate(mContext, R.layout.item_stock_list, null);
         TextView tvStock = (TextView)v.findViewById(R.id.tv_stock_name);
@@ -75,9 +65,13 @@ public class StockListAdapter extends BaseAdapter {
         TextView tvDescription = (TextView)v.findViewById(R.id.tv_description);
         final ImageView ivIcono = (ImageView)v.findViewById(R.id.imageView2);
 
-        tvStock.setText(mStockList.get(position).getStockName());
-        tvCierre.setText(String.valueOf(mStockList.get(position).getCierre()) + " $");
-        tvDescription.setText(mStockList.get(position).getDescription());
+        mStockName = mStockList.get(position).getStockName();
+        mCierre = String.format(Locale.US, "%.3f", mStockList.get(position).getCierre());
+        mDescripcion = mStockList.get(position).getDescription();
+
+        tvStock.setText(mStockName);
+        tvCierre.setText(mCierre);
+        tvDescription.setText(mDescripcion);
         mFavorito = mStockList.get(position).getFavorito();
 
         if (mFavorito == 0) {
@@ -109,27 +103,35 @@ public class StockListAdapter extends BaseAdapter {
 
                 }
 
-
-
                 notifyDataSetChanged();
 
             }
         });
 
+        mTendencia = mStockList.get(position).getTendencia();
+
+        if ( mTendencia == 1001 ){
+            tvCierre.setTextColor(Color.RED);
+        } else if ( mTendencia == 1002 ){
+            tvCierre.setTextColor(Color.GREEN);
+        } else if ( mTendencia == 1003 ){
+            tvCierre.setTextColor(Color.BLUE);
+        } else {
+            tvCierre.setTextColor(Color.BLUE);
+        }
+
         v.setTag(mStockList.get(position).getId());
 
         return v;
+
     }
 
-
     public class ThreadCreation extends AsyncTask<Void, Integer, Void> {
-
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
-
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -146,7 +148,6 @@ public class StockListAdapter extends BaseAdapter {
             String userName = "Alvaro1";
             RemoteFavouriteStocks remoteFavouriteStocks = new RemoteFavouriteStocks(userName, mStock);
 
-
             try{
                 comandoOk = (Boolean) method.invoke(remoteFavouriteStocks);
 
@@ -155,8 +156,8 @@ public class StockListAdapter extends BaseAdapter {
             }
 
             return null;
-        }
 
+        }
 
         @Override
         protected void onCancelled() {
@@ -171,9 +172,5 @@ public class StockListAdapter extends BaseAdapter {
         }
 
     }
-
-
-
-
 
 }

@@ -24,10 +24,10 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * Created by Alvaro Gomez on 14/07/2018.
+ * Created by Alvaro Gomez on 15/08/2018.
  */
 
-public class Test2holderFragment extends Fragment {
+public class MainGraphicholderFragment extends Fragment {
 
     public static String mSimbolo;
     private static int mLineColor = R.color.cyan;
@@ -44,12 +44,12 @@ public class Test2holderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number2";
 
-    public Test2holderFragment() {
+    public MainGraphicholderFragment() {
     }
 
-    public static Test2holderFragment newInstance(int sectionNumber, String simbolo) {
+    public static MainGraphicholderFragment newInstance(int sectionNumber, String simbolo) {
 
-        Test2holderFragment fragment = new Test2holderFragment();
+        MainGraphicholderFragment fragment = new MainGraphicholderFragment();
 
         mSimbolo = simbolo;
         mMetodo = "GetRemoteGraphicData";
@@ -143,7 +143,6 @@ public class Test2holderFragment extends Fragment {
                 e.printStackTrace();
             }
 
-
             ArrayList<Entry> yValues = new ArrayList<>();
             List<String> xList = new ArrayList<String>();
             String[] xValues;
@@ -197,6 +196,7 @@ public class Test2holderFragment extends Fragment {
             data2 = new LineData(dataSets2);
 
             return null;
+
         }
 
         @Override
