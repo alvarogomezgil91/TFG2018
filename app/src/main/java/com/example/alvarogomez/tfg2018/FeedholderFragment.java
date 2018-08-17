@@ -67,7 +67,7 @@ public class FeedholderFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_view_pager, container, false);
 
-        lvStock = (ListView)view.findViewById(R.id.listview_product);
+        lvStock = (ListView)view.findViewById(android.R.id.list);
         lvStock.setVerticalScrollBarEnabled(false);
 
         mFeedList = new ArrayList<>();

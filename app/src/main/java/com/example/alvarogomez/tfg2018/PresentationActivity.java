@@ -12,6 +12,7 @@ import static java.lang.Thread.sleep;
 public class PresentationActivity extends AppCompatActivity {
 
     private static boolean splashLoaded = false;
+    private static boolean credentialsOK = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +32,16 @@ public class PresentationActivity extends AppCompatActivity {
 
             splashLoaded = true;
 
-        } else {
+        } else if (splashLoaded && credentialsOK){
 
             //Evitamos que la pantalla de inicio se muestre varias veces
+
+            Intent intent = new Intent(PresentationActivity.this, ViewPagerActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+            finish();
+
+        } else {
 
             Intent intent = new Intent(PresentationActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -133,8 +141,6 @@ public class PresentationActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... voids) {
 
-
-            Boolean credentialsOK = false;
             try {
                 credentialsOK = presentationActivity();
             } catch (InterruptedException e) {
@@ -159,15 +165,14 @@ public class PresentationActivity extends AppCompatActivity {
             if (credentialsOK){
 
                 Intent intent = new Intent(getApplicationContext(), ViewPagerActivity.class);
-                //Intent intent = new Intent(getApplicationContext(), CombinedChartActivity.class);
                 startActivity(intent);
                 finish();
 
             } else {
 
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                finish();
                 startActivity(intent);
+                finish();
 
             }
 

@@ -47,7 +47,7 @@ public class PredictionholderFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_view_pager, container, false);
 
-        lvStock = (ListView)view.findViewById(R.id.listview_product);
+        lvStock = (ListView)view.findViewById(android.R.id.list);
         lvStock.setVerticalScrollBarEnabled(false);
 
         mStockList = new ArrayList<>();
@@ -55,7 +55,7 @@ public class PredictionholderFragment extends Fragment {
         PredictionholderFragment.ThreadCreation threadCreation = new PredictionholderFragment.ThreadCreation();
         threadCreation.execute().toString();
 
-        lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvStock.setOnItemClickListener( new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

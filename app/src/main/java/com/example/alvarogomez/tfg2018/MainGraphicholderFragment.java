@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.alvarogomez.ChartFormatter.MyXAxisValueFormatter;
 import com.example.alvarogomez.remoteDB.RemoteGraphicData;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -60,7 +61,6 @@ public class MainGraphicholderFragment extends Fragment {
         return fragment;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,6 +71,7 @@ public class MainGraphicholderFragment extends Fragment {
 
         mChart = (LineChart) view.findViewById(R.id.linechart);
         mChart.setDragEnabled(true);
+        mChart.setAutoScaleMinMaxEnabled(true);
         mChart.setScaleEnabled(true);
         mChart.setPinchZoom(true);
         Legend legend = mChart.getLegend();
@@ -78,8 +79,12 @@ public class MainGraphicholderFragment extends Fragment {
 
         mChart1 = (LineChart) view.findViewById(R.id.linechart2);
         mChart1.setDragEnabled(true);
+        mChart1.setAutoScaleMinMaxEnabled(true);
         mChart1.setScaleEnabled(true);
         mChart1.setPinchZoom(true);
+
+        mChart.setOnChartGestureListener(new CoupleChartGestureListener(mChart, new Chart[] { mChart1}));
+        mChart1.setOnChartGestureListener(new CoupleChartGestureListener(mChart, new Chart[] { mChart}));
 
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
@@ -90,8 +95,6 @@ public class MainGraphicholderFragment extends Fragment {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
-
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
             System.out.println("Nos ponemos de lao");
@@ -116,7 +119,6 @@ public class MainGraphicholderFragment extends Fragment {
 
 
     private class ThreadCreation extends AsyncTask<Void, Integer, Void> {
-
 
         @Override
         protected void onPreExecute() {

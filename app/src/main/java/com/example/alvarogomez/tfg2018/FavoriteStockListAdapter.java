@@ -103,8 +103,6 @@ public class FavoriteStockListAdapter extends BaseAdapter {
 
         mTendencia = mStockList.get(position).getTendencia();
 
-        System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLLLL     " + mStockList.get(position).getStockName() + " LLLLLLLLLLLLLL " + mTendencia);
-
         if ( mTendencia == 1001 ){
             tvCierre.setTextColor(Color.RED);
         } else if ( mTendencia == 1002 ){
@@ -118,6 +116,7 @@ public class FavoriteStockListAdapter extends BaseAdapter {
         v.setTag(mStockList.get(position).getId());
 
         return v;
+
     }
 
 

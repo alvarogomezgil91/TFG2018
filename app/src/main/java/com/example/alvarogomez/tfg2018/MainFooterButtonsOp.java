@@ -19,7 +19,7 @@ import java.util.ListIterator;
 
 public class MainFooterButtonsOp extends AppCompatActivity {
 
-    ListView lvStock = (ListView) findViewById(R.id.listview_product);
+    ListView lvStock = (ListView) findViewById(android.R.id.list);
     StockListAdapter adapter;
     List<Stock> mStockList;
     String buttonIdActive;

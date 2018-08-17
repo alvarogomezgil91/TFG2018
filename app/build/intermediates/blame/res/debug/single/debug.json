@@ -152,6 +152,10 @@
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
     },
     {
+        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_search.png.flat",
+        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_search.png"
+    },
+    {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_list_pressed_holo_light.9.png.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\drawable-hdpi-v4\\abc_list_pressed_holo_light.9.png"
     },
@@ -178,6 +182,10 @@
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_design_layout_snackbar.xml.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\d3baec28ffc766aa8ae4d08b2927b4f2\\res\\layout\\design_layout_snackbar.xml"
+    },
+    {
+        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_search.png.flat",
+        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_search.png"
     },
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_text_select_handle_right_mtrl_dark.png.flat",
@@ -1276,6 +1284,10 @@
         "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\layout\\activity_presentation.xml"
     },
     {
+        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_search.png.flat",
+        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\drawable-mdpi\\ic_action_search.png"
+    },
+    {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
@@ -1290,6 +1302,10 @@
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\drawable-xxhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_search.png.flat",
+        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\drawable-hdpi\\ic_action_search.png"
     },
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_text_select_handle_middle_mtrl_light.png.flat",
@@ -1410,10 +1426,6 @@
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_star_half_black_16dp.png.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\drawable-mdpi-v4\\abc_ic_star_half_black_16dp.png"
-    },
-    {
-        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_my_text_view.xml.flat",
-        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\layout\\my_text_view.xml"
     },
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable_notification_bg.xml.flat",
@@ -1702,10 +1714,6 @@
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_lines_media.xml.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\f148a6243025d771538a4b7d9d7a628b\\res\\layout\\notification_template_lines_media.xml"
-    },
-    {
-        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_main_stock_list.xml.flat",
-        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\layout\\main_stock_list.xml"
     },
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",

@@ -2,7 +2,6 @@ package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
@@ -11,11 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,34 +57,6 @@ public class ViewPagerActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-
-        switch (item.getItemId()){
-
-            case R.id.item1:
-                Toast.makeText(this, "Item 1", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.item2:
-                Toast.makeText(this, "Item 2", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.item3:
-                Toast.makeText(this, "Item 3", Toast.LENGTH_LONG).show();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
