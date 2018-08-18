@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.SearchView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -82,9 +86,21 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
     }
 
+    private void setIconInMenu(Menu menu, int menuItemId, int labelId, int iconId) {
+
+        MenuItem item = menu.findItem(menuItemId);
+        SpannableStringBuilder builder = new SpannableStringBuilder("   " + getResources().getString(labelId));
+        builder.setSpan(new ImageSpan(mContext, iconId), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(builder);
+
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
+
+        setIconInMenu(menu, R.id.item_log_out, R.string.log_in, R.drawable.ic_action_log_out);
+
         MenuItem searchItem = menu.findItem(R.id.item_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
@@ -104,7 +120,12 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
                 return true;
             case R.id.item2:
                 return true;
-            case R.id.item3:
+            case R.id.item_log_out:
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.putExtra("logOut", "1");
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                getActivity().finish();
                 return true;
         }
 

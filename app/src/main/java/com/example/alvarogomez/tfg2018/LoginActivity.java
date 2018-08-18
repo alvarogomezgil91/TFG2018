@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
     private CheckBox mRememberMe;
     Context context = this;
+    private String mLogOut = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
-        if (loginLoaded){
+        mLogOut = getIntent().getStringExtra("logOut");
+        Intent presenActivityIntent = new Intent(this, PresentationActivity.class);
+        presenActivityIntent.putExtra("logOut", mLogOut);
+
+        if (loginLoaded && mLogOut.equals("0")){
 
             Intent intent = new Intent(LoginActivity.this, ViewPagerActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -128,6 +133,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.email_login_form);
         mProgressView = findViewById(R.id.login_progress);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
     private void populateAutoComplete() {
@@ -389,9 +399,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 db.close();
 
                 Intent intent = new Intent(getApplicationContext(), ViewPagerActivity.class);
-
                 startActivity(intent);
-
                 finish();
 
             } else {

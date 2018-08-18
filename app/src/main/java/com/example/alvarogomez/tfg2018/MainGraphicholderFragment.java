@@ -67,7 +67,7 @@ public class MainGraphicholderFragment extends Fragment {
 
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
-        view = inflater.inflate(R.layout.fragment_view_test2, container, false);
+        view = inflater.inflate(R.layout.fragment_main_graphic, container, false);
 
         mChart = (LineChart) view.findViewById(R.id.linechart);
         mChart.setDragEnabled(true);

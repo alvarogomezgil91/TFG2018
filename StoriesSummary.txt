@@ -11,6 +11,7 @@
 #	STRY00009 - Dynamic inflation listview by favourite stock
 #	STRY00010 - Represent ups and downs with colors and code cleaning
 #	STRY00011 - SearchView menu, sync LineCharts and improving Splash
+#	STRY00012 - LogOut, fix LoginActivity loop with ViewPager
 #
 #
 #

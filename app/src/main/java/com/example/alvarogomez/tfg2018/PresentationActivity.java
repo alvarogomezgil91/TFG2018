@@ -13,6 +13,7 @@ public class PresentationActivity extends AppCompatActivity {
 
     private static boolean splashLoaded = false;
     private static boolean credentialsOK = false;
+    private static String mLogOut = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,23 +5,31 @@
     build-mode="COLD"
     density="ldpi"
     format="10"
+    ir-eligibility="METHOD_ADDED"
     plugin-version="3.0.1"
-    timestamp="1534545908387"
+    timestamp="1534555280582"
     token="-3666024524393916868"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="334" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="20" />
     <task
         name="verifier"
-        duration="0" />
+        duration="7" />
+
+    <artifact
+        location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\workspaceGIT\TFG2018\app\build\outputs\apk\debug\app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
@@ -67,7 +75,16 @@
     <build
         build-mode="COLD"
         ir-eligibility="R_CLASS_CHANGE"
-        timestamp="1534531773863"
+        timestamp="1534546966825"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="R_CLASS_CHANGE"
+        timestamp="1534548533873"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
@@ -84,14 +101,20 @@
         <artifact
             location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
             type="SPLIT" />
-        <artifact
-            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
-            type="SPLIT" />
     </build>
     <build
         build-mode="COLD"
-        ir-eligibility="FIELD_TYPE_CHANGE"
-        timestamp="1534545710746"
+        ir-eligibility="COMPATIBLE"
+        timestamp="1534555198366"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\workspaceGIT\TFG2018\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="METHOD_ADDED"
+        timestamp="1534555280582"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
@@ -100,9 +123,5 @@
             location="C:\workspaceGIT\TFG2018\app\build\outputs\apk\debug\app-debug.apk"
             type="SPLIT_MAIN" />
     </build>
-    <build
-        build-mode="COLD"
-        timestamp="1534545908387"
-        verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

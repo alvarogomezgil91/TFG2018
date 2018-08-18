@@ -1,6 +1,7 @@
 package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -56,7 +57,11 @@ public class ViewPagerActivity extends AppCompatActivity {
         });
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
