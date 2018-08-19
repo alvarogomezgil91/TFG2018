@@ -8,7 +8,7 @@
     android:paddingRight="10dp"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
-    android:background="#ffffffff"
+    android:background="@drawable/bg_calen"
     android:orientation="horizontal">
 
     <LinearLayout

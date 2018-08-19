@@ -105,7 +105,8 @@ public class PresentationActivity extends AppCompatActivity {
 
             //Nos metemos en la LoginActivity
             //Intent intent = new Intent(PresentationActivity.this, LoginActivity.class);
-            mensaje = "primera ejecucion";
+
+            System.out.println("************* El mensaje es -> " + mensaje + "************");
 
         }
 

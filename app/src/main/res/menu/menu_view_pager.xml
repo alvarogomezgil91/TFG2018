@@ -1,10 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.alvarogomez.tfg2018.ViewPagerActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/item_search"
+        android:icon="@drawable/ic_action_search"
+        android:title="Search"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/item3"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="item3" />
+    <item
+        android:id="@+id/item2"
+        android:title="item2"
+        android:orderInCategory="101" />
+
+    <item
+        android:id="@+id/item_log_out"
+        android:icon="@drawable/ic_action_log_out"
+        android:title="LogOut"
+        app:showAsAction="never"
+        android:orderInCategory="101" />
+
 </menu>

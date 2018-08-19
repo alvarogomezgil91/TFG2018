@@ -84,11 +84,11 @@ public class RemoteUserDB {
                 //Accedemos al vector de resultados
                 String resultJSON = respuestaJSON.getString("estado");   // estado es el nombre del campo en el JSON
 
-                if (resultJSON == "1") {      // hay un alumno que mostrar
+                if (resultJSON.equals("1")) {      // hay un alumno que mostrar
                     credentialsOk = true;
                     devuelve = "Credenciales correctas";
 
-                } else if (resultJSON == "2") {
+                } else if (resultJSON.equals("2")) {
                     credentialsOk = false;
                     devuelve = "Credenciales erroneas";
                 }

@@ -28,9 +28,6 @@
         android:layout_height="154dp"
         app:srcCompat="@drawable/presentation_image" />
 
-
-
-
         <LinearLayout
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"

@@ -7,6 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.widget.SearchView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,6 +37,7 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
     private static final String ARG_SECTION_NUMBER = "section_number";
     View view;
     FavoriteStockListAdapter mAdapter;
+    private static String mMetodo;
 
     private List<Stock> filteredStockValues;
     private Context mContext;
@@ -44,6 +48,7 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
 
     public static FavoriteholderFragment newInstance(int sectionNumber) {
 
+        mMetodo = Constants.GET_REMOTE_FAVOURITE_STOCKS_DATA;
         FavoriteholderFragment fragment = new FavoriteholderFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -87,38 +92,32 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
     }
 
     @Override
-    public void onViewStateRestored(Bundle savedInstanceState){
-        super.onViewStateRestored(savedInstanceState);
-        System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa         onViewStateRestored");
-
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa         onStart");
-
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-
-        System.out.println("holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa         onResume");
 
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
 
     }
 
+    private void setIconInMenu(Menu menu, int menuItemId, int labelId, int iconId) {
+
+        MenuItem item = menu.findItem(menuItemId);
+        SpannableStringBuilder builder = new SpannableStringBuilder("   " + getResources().getString(labelId));
+        builder.setSpan(new ImageSpan(mContext, iconId), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(builder);
+
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
+        setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
+
         MenuItem searchItem = menu.findItem(R.id.item_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("Search");
+        searchView.setQueryHint(Constants.SEARCH);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -134,7 +133,11 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                 return true;
             case R.id.item2:
                 return true;
-            case R.id.item3:
+            case R.id.item_log_out:
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.putExtra("logOut", "1");
+                startActivity(intent);
+                getActivity().finish();
                 return true;
         }
 
@@ -156,11 +159,8 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
 
         filteredStockValues = new ArrayList<>();
 
-        List<String> filteredValues = new ArrayList<String>(mStockListNames);
         int position = 0;
         for (String value : mStockListNames) {
-
-            System.out.println("ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ position -> "+ position + " value -> " + value + "ññññññññññññññññññññññ");
 
             if (value.toLowerCase().contains(newText.toLowerCase())) {
                 filteredStockValues.add(mStockList.get(position));
@@ -212,7 +212,6 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
             mStockListNames = new ArrayList<>();
 
             try {
-                String mMetodo = "GetRemoteFavouriteStocksData";
                 method = RemoteFavouriteStocksData.class.getMethod(mMetodo);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
@@ -251,12 +250,6 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
         }
 
         @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            //Toast.makeText(getBaseContext(), "Tarea pesada cancelada", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
         protected void onPostExecute(Void voids) {
             super.onPostExecute(voids);
 
@@ -275,6 +268,12 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                 }
             });
 
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            //Toast.makeText(getBaseContext(), "Tarea pesada cancelada", Toast.LENGTH_SHORT).show();
         }
 
     }

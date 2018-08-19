@@ -95,7 +95,7 @@ public class RemoteFavouriteStocksData {
                 //Accedemos al vector de resultados
                 String resultCode = respuestaJSON.getString("estado");   // estado es el nombre del campo en el JSON
 
-                if (resultCode == "1") {      // hay un alumno que mostrar
+                if (resultCode.equals("1")) {      // hay un alumno que mostrar
 
                     JSONArray arrayJSON = new JSONArray(respuestaJSON.getString("mensaje"));
 
@@ -118,7 +118,7 @@ public class RemoteFavouriteStocksData {
                     }
 
 
-                } else if (resultCode == "2") {
+                } else if (resultCode.equals("2")) {
 
                     System.out.println("!!!!!!!**********    Error al recuperar los datos de los stocks favoritos    **********!!!!!!!");
 

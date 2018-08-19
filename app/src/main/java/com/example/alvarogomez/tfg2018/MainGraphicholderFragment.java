@@ -53,7 +53,7 @@ public class MainGraphicholderFragment extends Fragment {
         MainGraphicholderFragment fragment = new MainGraphicholderFragment();
 
         mSimbolo = simbolo;
-        mMetodo = "GetRemoteGraphicData";
+        mMetodo = Constants.GET_REMOTE_GRAPHIC_DATA;
 
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -70,6 +70,8 @@ public class MainGraphicholderFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_main_graphic, container, false);
 
         mChart = (LineChart) view.findViewById(R.id.linechart);
+        mChart.setDrawBorders(true);
+        mChart.setBorderWidth((float) 2.0);
         mChart.setDragEnabled(true);
         mChart.setAutoScaleMinMaxEnabled(true);
         mChart.setScaleEnabled(true);
@@ -78,6 +80,8 @@ public class MainGraphicholderFragment extends Fragment {
         legend.setEnabled(false);
 
         mChart1 = (LineChart) view.findViewById(R.id.linechart2);
+        mChart1.setDrawBorders(true);
+        mChart1.setBorderWidth((float) 2.0);
         mChart1.setDragEnabled(true);
         mChart1.setAutoScaleMinMaxEnabled(true);
         mChart1.setScaleEnabled(true);
@@ -97,7 +101,6 @@ public class MainGraphicholderFragment extends Fragment {
         super.onConfigurationChanged(newConfig);
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-            System.out.println("Nos ponemos de lao");
 
             Intent intent = new Intent(view.getContext(), CombinedChartActivity.class);
 
@@ -105,18 +108,10 @@ public class MainGraphicholderFragment extends Fragment {
             startActivity(intent);
 
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            System.out.println("Nos ponemos de normal");
+
         }
 
     }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        System.out.println("Me estoy parando" );
-    }
-
 
     private class ThreadCreation extends AsyncTask<Void, Integer, Void> {
 
@@ -167,8 +162,8 @@ public class MainGraphicholderFragment extends Fragment {
 
             xValues = xList.toArray(new String[xList.size()]);
 
-            LineDataSet set1 = new LineDataSet(yValues, "Data Set 1");
-            LineDataSet set2 = new LineDataSet(yValues, "Data Set 2");
+            LineDataSet set1 = new LineDataSet(yValues, Constants.DATA_SET_1);
+            LineDataSet set2 = new LineDataSet(yValues, Constants.DATA_SET_2);
 
             set1.setDrawCircles(false);
             set2.setDrawCircles(false);

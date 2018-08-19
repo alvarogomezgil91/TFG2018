@@ -32,7 +32,7 @@ public class LocalUserDB extends SQLiteOpenHelper {
             + "(SELECT MAX(last_sucessfull_login) FROM local_user_credentials)";
 
     String sqlInsert = "INSERT INTO local_user_credentials (user_name, email, password, remember_me, last_sucessfull_login) "
-                        + "VALUES ('alvaro', 'alvaro@correo.com', 'pass', 1, '2018-02-06')";
+                        + "VALUES ('Alvaro1', 'alvaro@correo.com', 'PassA', 1, '2018-08-06')";
 
 
 

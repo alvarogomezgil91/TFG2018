@@ -1,5 +1,6 @@
 package com.example.alvarogomez.tfg2018;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,6 +10,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,11 +61,21 @@ public class StockViewPagerActivity extends AppCompatActivity {
 
     }
 
+    private void setIconInMenu(Menu menu, int menuItemId, int labelId, int iconId) {
+
+        MenuItem item = menu.findItem(menuItemId);
+        SpannableStringBuilder builder = new SpannableStringBuilder("   " + getResources().getString(labelId));
+        builder.setSpan(new ImageSpan(this, iconId), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(builder);
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
 
         return true;
 
@@ -72,29 +86,23 @@ public class StockViewPagerActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
 
+            case R.id.item_search:
+                return true;
             case R.id.item1:
-                Toast.makeText(this, "Item 1", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.item2:
-                Toast.makeText(this, "Item 2", Toast.LENGTH_LONG).show();
                 return true;
-            case R.id.item3:
-                Toast.makeText(this, "Item 3", Toast.LENGTH_LONG).show();
+            case R.id.item_log_out:
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.putExtra("logOut", "1");
+                startActivity(intent);
+                finish();
                 return true;
-
         }
 
         return super.onOptionsItemSelected(item);
 
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -110,7 +118,7 @@ public class StockViewPagerActivity extends AppCompatActivity {
                 case 0:
                     return MainGraphicholderFragment.newInstance(position + 1, mSimbolo);
                 case 1:
-                    return MainGraphicholderFragment.newInstance(position + 1, mSimbolo);
+                    return StockPredictionholderFragment.newInstance(position + 1, mSimbolo);
                 case 2:
                     return FeedholderFragment.newInstance(position + 1, mSimbolo);
 
@@ -122,7 +130,6 @@ public class StockViewPagerActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 4 total pages.
             return 3;
         }
 

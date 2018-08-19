@@ -72,7 +72,7 @@ public class FeedholderFragment extends Fragment {
 
         mFeedList = new ArrayList<>();
 
-        FeedholderFragment.ThreadCreation threadCreation = new FeedholderFragment.ThreadCreation();
+        ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
 
         lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -121,17 +121,17 @@ public class FeedholderFragment extends Fragment {
                 while (eventType != XmlPullParser.END_DOCUMENT) {
                     if (eventType == XmlPullParser.START_TAG) {
 
-                        if (xpp.getName().equalsIgnoreCase("item")) {
+                        if (xpp.getName().equalsIgnoreCase(Constants.ITEM)) {
                             insideItem = true;
-                        } else if (xpp.getName().equalsIgnoreCase("title")) {
+                        } else if (xpp.getName().equalsIgnoreCase(Constants.TITLE)) {
                             if (insideItem) {
-                                mTitle = xpp.nextText().replace("&apos;","'");
+                                mTitle = xpp.nextText().replace(Constants.JSON_APOSTROFE,Constants.APOSTROFE);
                             }
-                        } else if (xpp.getName().equalsIgnoreCase("link")) {
+                        } else if (xpp.getName().equalsIgnoreCase(Constants.LINK)) {
                             if (insideItem)
                                 mHyperlink = xpp.nextText(); //extract the link of article
                         }
-                    }else if(eventType==XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase("item")){
+                    }else if(eventType==XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase(Constants.ITEM)){
                         insideItem=false;
                     }
 

@@ -12,6 +12,7 @@
 #	STRY00010 - Represent ups and downs with colors and code cleaning
 #	STRY00011 - SearchView menu, sync LineCharts and improving Splash
 #	STRY00012 - LogOut, fix LoginActivity loop with ViewPager
+#	STRY00013 - Change version SDK 27 and Prediction Calendar
 #
 #
 #

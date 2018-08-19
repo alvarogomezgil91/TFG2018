@@ -101,12 +101,12 @@ public class RemoteFavouriteStocks {
                 //Accedemos al vector de resultados
                 String resultCode = respuestaJSON.getString("estado");   // estado es el nombre del campo en el JSON
 
-                if (resultCode == "1") {      // hay un alumno que mostrar
+                if (resultCode.equals("1")) {      // hay un alumno que mostrar
 
                     comandoOk = true;
                     System.out.println("**********************   Insercion realizada con exito " + mUserName + " -> " + mStock + " **************");
 
-                } else if (resultCode == "2") {
+                } else if (resultCode.equals("2")) {
 
                     comandoOk = false;
                     //Toast.makeText(v.getContext(), "No se ha podido añadir a favoritos", Toast.LENGTH_SHORT).show();
@@ -183,12 +183,12 @@ public class RemoteFavouriteStocks {
                 //Accedemos al vector de resultados
                 String resultCode = respuestaJSON.getString("estado");   // estado es el nombre del campo en el JSON
 
-                if (resultCode == "1") {      // hay un alumno que mostrar
+                if (resultCode.equals("1")) {      // hay un alumno que mostrar
 
                     comandoOk = true;
                     System.out.println("**********************    Borradp realizado con exito " + mUserName + " -> " + mStock + " **************");
 
-                } else if (resultCode == "2") {
+                } else if (resultCode.equals("2")) {
 
                     comandoOk = false;
                     //Toast.makeText(v.getContext(), "No se ha podido añadir a favoritos", Toast.LENGTH_SHORT).show();

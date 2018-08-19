@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.SearchView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -49,7 +48,7 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
         PlaceholderFragment fragment = new PlaceholderFragment();
 
-        mMetodo = "GetRemoteStocksData";
+        mMetodo = Constants.GET_REMOTE_STOCKS_DATA;
         mURL = Constants.GET_INDEX_STOCKS_DATA_URL;
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -98,13 +97,12 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
-
-        setIconInMenu(menu, R.id.item_log_out, R.string.log_in, R.drawable.ic_action_log_out);
+        setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
 
         MenuItem searchItem = menu.findItem(R.id.item_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("Search");
+        searchView.setQueryHint(Constants.SEARCH);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -123,7 +121,6 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
             case R.id.item_log_out:
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.putExtra("logOut", "1");
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 getActivity().finish();
                 return true;
@@ -147,11 +144,8 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
         filteredStockValues = new ArrayList<>();
 
-        List<String> filteredValues = new ArrayList<String>(mStockListNames);
         int position = 0;
         for (String value : mStockListNames) {
-
-            System.out.println("ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ position -> "+ position + " value -> " + value + "ññññññññññññññññññññññ");
 
             if (value.toLowerCase().contains(newText.toLowerCase())) {
                 filteredStockValues.add(mStockList.get(position));
@@ -244,6 +238,7 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
             StockListAdapter mAdapter = new StockListAdapter(view.getContext(), mStockList);
             lvStock.setAdapter(mAdapter);
+            lvStock.invalidate();
             lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -258,7 +253,6 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
             });
 
         }
-
 
         @Override
         protected void onCancelled() {
