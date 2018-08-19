@@ -1,7 +1,9 @@
 package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,8 +12,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import java.util.Calendar;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.ListIterator;
+
+import com.example.alvarogomez.remoteDB.RemoteStocksData;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -27,8 +37,12 @@ public class StockPredictionholderFragment extends Fragment {
 
     private MaterialCalendarView mMCalendarView;
     private Context mContext;
-    View view;
-
+    private View view;
+    private ListView lvStock;
+    private List<Stock> mStockList;
+    public static String mMetodo;
+    public static String mURL;
+    private List<String> mStockListNames;
     private static final String ARG_SECTION_NUMBER = "section_number2";
 
     public StockPredictionholderFragment() {
@@ -67,7 +81,6 @@ public class StockPredictionholderFragment extends Fragment {
 
         final CalendarDay currentDay = CalendarDay.from(2018, 0, 4);
 
-
         mMCalendarView.addDecorators(new DayViewDecorator() {
             @Override
             public boolean shouldDecorate(CalendarDay day) {
@@ -83,9 +96,6 @@ public class StockPredictionholderFragment extends Fragment {
             }
         });
 
-
-
-
         mMCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
@@ -93,36 +103,85 @@ public class StockPredictionholderFragment extends Fragment {
             }
         });
 
-
-
-        //cvPrediction = (CalendarView) view.findViewById(R.id.calendarview_prediction_stock);
-
         //ThreadCreation threadCreation = new ThreadCreation();
         //threadCreation.execute().toString();
 
         return view;
     }
 
-    public class CurrentDayDecorator implements DayViewDecorator {
+    public class ThreadCreation extends AsyncTask<Void, Integer, Void> {
 
-        private Drawable drawable;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
 
-        CalendarDay currentDay = CalendarDay.from(2018,8,17);
+        @Override
+        protected Void doInBackground(Void... voids) {
 
-        public CurrentDayDecorator(Context context) {
-            drawable = ContextCompat.getDrawable(context, R.drawable.red_circle);
+            mStockList = new ArrayList<>();
+            mStockListNames = new ArrayList<>();
+
+            List<Stock> stockDataList = new ArrayList<Stock>();
+            java.lang.reflect.Method method = null;
+
+            try {
+                method = RemoteStocksData.class.getMethod(mMetodo);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+            RemoteStocksData remoteStocksData = new RemoteStocksData();
+
+            try{
+                stockDataList = (List<Stock>) method.invoke(remoteStocksData);
+
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+            int cont = 0;
+
+            for (ListIterator<Stock> iter = stockDataList.listIterator(); iter.hasNext(); ){
+
+                Stock stockData;
+
+                stockData = stockDataList.get(cont);
+
+                stockData = iter.next();
+                String simbolo = stockData.getSimbolo();
+                float cierre = stockData.getCierre();
+                int favorito = stockData.getFavorito();
+                int tendencia = stockData.getTendencia();
+                int esMercado = stockData.getEsMercado();
+
+
+                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", favorito, tendencia, esMercado));
+                mStockListNames.add(simbolo);
+                cont++;
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void voids) {
+            super.onPostExecute(voids);
+
+
+
+
+
 
         }
 
         @Override
-        public boolean shouldDecorate(CalendarDay day) {
-            return day.equals(currentDay);
+        protected void onCancelled() {
+            super.onCancelled();
+            //Toast.makeText(getBaseContext(), "Tarea pesada cancelada", Toast.LENGTH_SHORT).show();
         }
 
-        @Override
-        public void decorate(DayViewFacade view) {
-            view.setSelectionDrawable(drawable);
-        }
+
     }
 
 

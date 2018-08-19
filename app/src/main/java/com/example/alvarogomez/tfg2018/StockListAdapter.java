@@ -65,7 +65,7 @@ public class StockListAdapter extends BaseAdapter {
         TextView tvDescription = (TextView)v.findViewById(R.id.tv_description);
         final ImageView ivIcono = (ImageView)v.findViewById(R.id.imageView2);
 
-        mStockName = mStockList.get(position).getStockName();
+        mStockName = mStockList.get(position).getDescription();
         mCierre = String.format(Locale.US, "%.3f", mStockList.get(position).getCierre());
         mDescripcion = mStockList.get(position).getDescription();
 
@@ -87,7 +87,7 @@ public class StockListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                mStock = mStockList.get(position).getStockName();
+                mStock = mStockList.get(position).getSimbolo();
                 ThreadCreation threadCreation = new ThreadCreation();
 
                 if (mStockList.get(position).getFavorito() == 1) {

@@ -10,6 +10,8 @@ public final class Constants {
 
     // WebServices URLs
     public static final String REMOTE_URL = "http://algomez.atwebpages.com/WebServicesPhp";
+    public static final String GET_MARKETS_DATA_URL = "/GetMarketsData.php";
+    public static final String GET_MARKET_STOCKS_DATA_URL = "/GetMarketStocksData.php";
     public static final String GET_INDEX_STOCKS_DATA_URL = "/GetIndexStocksData.php";
     public static final String INSERT_FAVOURITE_STOCK = "/InsertFavouriteStock.php";
     public static final String DELETE_FAVOURITE_STOCK = "/DeleteFavouriteStock.php";

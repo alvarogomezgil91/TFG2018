@@ -29,11 +29,15 @@ import java.util.List;
 public class RemoteStocksData {
 
     String REMOTE_URL = "http://algomez.atwebpages.com/WebServicesPhp";
-    String GET_INDEX_STOCKS_DATA_URL = Constants.GET_INDEX_STOCKS_DATA_URL;
+    String mURL;
+    String mSimbolo;
 
-    public List<Stock> GetRemoteStocksData(){
+    public List<Stock> GetRemoteStocksData(String inputUrl, String imputSimbolo){
 
         System.out.println("********* Entrando al comando GetRemoteStocksData **************");
+
+        mURL = inputUrl;
+        mSimbolo = imputSimbolo;
 
         List<Stock> stockDataList = new ArrayList<Stock>();
         int listSize;
@@ -41,7 +45,7 @@ public class RemoteStocksData {
         try {
             HttpURLConnection urlConn;
 
-            URL url = new URL(REMOTE_URL + GET_INDEX_STOCKS_DATA_URL);
+            URL url = new URL(REMOTE_URL + mURL);
             urlConn = (HttpURLConnection) url.openConnection();
             urlConn.setRequestProperty("User-Agent", "Mozilla/5.0" +
                     " (Linux; Android 1.5; es-ES) Ejemplo HTTP");
@@ -52,10 +56,16 @@ public class RemoteStocksData {
             urlConn.setRequestProperty("Accept", "application/json");
             urlConn.connect();
 
+
+            //Creo el Objeto JSON
+            JSONObject jsonParam = new JSONObject();
+            jsonParam.put("simbolo", mSimbolo);
             // Envio los parámetros post.
             OutputStream os = urlConn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
+
+            writer.write(jsonParam.toString());
             writer.flush();
             writer.close();
 
@@ -96,10 +106,13 @@ public class RemoteStocksData {
 
                         JSONObject jsonStockData = new JSONObject(arrayJSON.getString(i));
 
-                        stockData.setStockName(jsonStockData.getString("simbolo"));
+                        stockData.setSimbolo(jsonStockData.getString("simbolo"));
+                        stockData.setDescription(jsonStockData.getString("nombre_stock"));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));
                         stockData.setFavorito(Integer.valueOf(jsonStockData.getString("favorito")));
                         stockData.setTendencia(Integer.valueOf(jsonStockData.getString("tendencia")));
+                        stockData.setEsMercado(Integer.valueOf(jsonStockData.getString("es_mercado")));
+
                         stockDataList.add(stockData);
 
                     }

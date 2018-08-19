@@ -18,10 +18,78 @@ class StocksData
      * @param $idAlumno Identificador del registro
      * @return array Datos del registro
      */
+	 
+	 public static function getMarketsData()
+    {
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia, (
+    									select count(*)
+    									from stocks_favoritos f
+    									where f.user_name='Alvaro1' and f.stock=a.simbolo
+										) as favorito, 
+										c.es_mercado 
+					FROM stocks a, cod_stocks c
+					WHERE a.fecha in (select max(a.fecha) from stocks)
+						AND c.es_mercado = 1001
+						AND a.simbolo=c.simbolo
+					GROUP BY a.simbolo
+					ORDER BY a.cierre desc";
+							
+        try {
+            // Preparar sentencia
+            $comando = Database::getInstance()->getDb()->prepare($consulta);
+            // Ejecutar sentencia preparada
+            $comando->execute();
+
+            return $comando->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            return false;
+        }
+		
+    }
+	
+	
+	public static function getMarketStocksData(
+	$simbolo
+	)
+    {
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia, (
+    									select count(*)
+    									from stocks_favoritos f
+    									where f.user_name='Alvaro1' and f.stock=a.simbolo
+										) as favorito, 
+										c.es_mercado 
+					FROM stocks a, cod_stocks c
+					WHERE a.fecha in (select max(a.fecha) from stocks)
+						AND a.simbolo=c.simbolo
+                        AND a.simbolo in (select simbolo from relacion_stocks where simbolo_mercado = ? )
+					GROUP BY a.simbolo
+					ORDER BY a.cierre desc";
+							
+        try {
+            // Preparar sentencia
+            $comando = Database::getInstance()->getDb()->prepare($consulta);
+            // Ejecutar sentencia preparada
+            $comando->execute(
+				array(
+					$simbolo
+					)
+				);
+
+            return $comando->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            return false;
+        }
+		
+    }
+	
+	 
+	 
 	
 	public static function getIndexStocksData()
     {
-        $consulta = "SELECT a.simbolo, a.cierre, a.tendencia, (
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia, (
     									select count(*)
     									from stocks_favoritos f
     									where f.user_name='Alvaro1' and f.stock=a.simbolo

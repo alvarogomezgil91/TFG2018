@@ -34,6 +34,7 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
     private List<Stock> mStockList;
     public static String mMetodo;
     public static String mURL;
+    public static String mSimbolo;
     private static final String ARG_SECTION_NUMBER = "section_number";
     View view;
 
@@ -44,12 +45,13 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
     public PlaceholderFragment() {
     }
 
-    public static PlaceholderFragment newInstance(int sectionNumber) {
+    public static PlaceholderFragment newInstance(int sectionNumber, String metodo, String url, String simbolo) {
 
         PlaceholderFragment fragment = new PlaceholderFragment();
 
-        mMetodo = Constants.GET_REMOTE_STOCKS_DATA;
-        mURL = Constants.GET_INDEX_STOCKS_DATA_URL;
+        mMetodo = metodo;
+        mURL = url;
+        mSimbolo = simbolo;
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -67,7 +69,8 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
         setHasOptionsMenu(true);
 
         lvStock = (ListView)view.findViewById(android.R.id.list);
-        lvStock.setVerticalScrollBarEnabled(false);
+        lvStock.setVerticalScrollBarEnabled(true);
+        lvStock.setScrollbarFadingEnabled(true);
 
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
@@ -195,14 +198,14 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
             java.lang.reflect.Method method = null;
 
             try {
-                method = RemoteStocksData.class.getMethod(mMetodo);
+                method = RemoteStocksData.class.getMethod(mMetodo, String.class, String.class);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
             RemoteStocksData remoteStocksData = new RemoteStocksData();
 
             try{
-                stockDataList = (List<Stock>) method.invoke(remoteStocksData);
+                stockDataList = (List<Stock>) method.invoke(remoteStocksData, mURL, mSimbolo);
 
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -217,13 +220,15 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
                 stockData = stockDataList.get(cont);
 
                 stockData = iter.next();
-                String simbolo = stockData.getStockName();
+                String simbolo = stockData.getSimbolo();
+                String descripcion = stockData.getDescription();
                 float cierre = stockData.getCierre();
                 int favorito = stockData.getFavorito();
                 int tendencia = stockData.getTendencia();
+                int esMercado = stockData.getEsMercado();
 
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", favorito, tendencia));
+                mStockList.add(new Stock(cont, simbolo, cierre, descripcion, favorito, tendencia, esMercado));
                 mStockListNames.add(simbolo);
                 cont++;
 
@@ -245,9 +250,15 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
                     Stock stock = mStockList.get(position);
 
-                    Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
-                    intent.putExtra("simbolo", stock.getStockName());
-                    startActivity(intent);
+                    if (stock.getEsMercado() == 1000) {
+                        Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
+                        intent.putExtra("simbolo", stock.getSimbolo());
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
+                        intent.putExtra("simbolo", stock.getSimbolo());
+                        startActivity(intent);
+                    }
 
                 }
             });

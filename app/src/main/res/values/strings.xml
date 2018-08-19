@@ -33,6 +33,8 @@
     <string name="tab_text_favoritos">Favoritos</string>
     <string name="tab_text_predicciones">Predicciones</string>
     <string name="tab_text_noticias">Noticias</string>
+    <string name="tab_text_grafico">Gráfico</string>
+    <string name="tab_text_componentes">Componentes</string>
 
     <string name="log_out">LogOut</string>
 

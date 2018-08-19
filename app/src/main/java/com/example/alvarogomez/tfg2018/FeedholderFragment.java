@@ -1,12 +1,20 @@
 package com.example.alvarogomez.tfg2018;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -34,6 +42,7 @@ import java.util.ListIterator;
 
 public class FeedholderFragment extends Fragment {
 
+    private Context mContext;
     private ListView lvStock;
     private List<Feed> mFeedList;
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -64,11 +73,15 @@ public class FeedholderFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName() + " Req " + urlConexion);
+        mContext = getActivity();
 
         view = inflater.inflate(R.layout.fragment_view_pager, container, false);
+        mContext = getActivity();
+        setHasOptionsMenu(true);
 
         lvStock = (ListView)view.findViewById(android.R.id.list);
-        lvStock.setVerticalScrollBarEnabled(false);
+        lvStock.setVerticalScrollBarEnabled(true);
+        lvStock.setScrollbarFadingEnabled(true);
 
         mFeedList = new ArrayList<>();
 
@@ -91,6 +104,45 @@ public class FeedholderFragment extends Fragment {
 
         return view;
 
+    }
+
+    private void setIconInMenu(Menu menu, int menuItemId, int labelId, int iconId) {
+
+        MenuItem item = menu.findItem(menuItemId);
+        SpannableStringBuilder builder = new SpannableStringBuilder("   " + getResources().getString(labelId));
+        builder.setSpan(new ImageSpan(mContext, iconId), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(builder);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+        setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId()){
+
+            case R.id.item_search:
+                return true;
+            case R.id.item1:
+                return true;
+            case R.id.item2:
+                return true;
+            case R.id.item_log_out:
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.putExtra("logOut", "1");
+                startActivity(intent);
+                getActivity().finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public class ThreadCreation extends AsyncTask<Void, Integer, Void> {

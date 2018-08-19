@@ -41,6 +41,11 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_view_pager"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MarketViewPagerActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_view_pager"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FeedActivity" />
         <activity
             android:name=".CombinedChartActivity"

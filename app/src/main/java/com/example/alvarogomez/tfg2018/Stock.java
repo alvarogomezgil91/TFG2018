@@ -6,23 +6,25 @@ package com.example.alvarogomez.tfg2018;
 public class Stock {
 
     private int id;
-    private String stockName;
+    private String simbolo;
     private float cierre;
     private String description;
     private int favorito;
     private int tendencia;
+    private int esMercado;
 
     public Stock(){}
 
     //Constructor
 
-    public Stock(int id, String stockName, float cierre, String description, int favorito, int tendencia) {
+    public Stock(int id, String simbolo, float cierre, String description, int favorito, int tendencia, int esMercado) {
         this.id = id;
-        this.stockName = stockName;
+        this.simbolo = simbolo;
         this.cierre = cierre;
         this.description = description;
         this.favorito = favorito;
         this.tendencia = tendencia;
+        this.esMercado = esMercado;
     }
 
     //Setter, getter
@@ -30,23 +32,20 @@ public class Stock {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getStockName() {
-        return stockName;
+    public String getSimbolo() {
+        return simbolo;
     }
-
-    public void setStockName(String stockName) {
-        this.stockName = stockName;
+    public void setSimbolo(String simbolo) {
+        this.simbolo = simbolo;
     }
 
     public float getCierre() {
         return cierre;
     }
-
     public void setCierre(float cierre) {
         this.cierre = cierre;
     }
@@ -54,7 +53,6 @@ public class Stock {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -62,16 +60,21 @@ public class Stock {
     public int getFavorito(){
         return favorito;
     }
-
     public void setFavorito(int favorito) {
         this.favorito = favorito;
     }
+
     public int getTendencia(){
         return tendencia;
     }
-
     public void setTendencia(int tendencia) {
         this.tendencia = tendencia;
+    }
+    public int getEsMercado(){
+        return esMercado;
+    }
+    public void setEsMercado(int esMercado) {
+        this.esMercado = esMercado;
     }
 }
 

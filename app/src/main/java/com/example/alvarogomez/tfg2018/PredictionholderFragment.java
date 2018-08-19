@@ -62,7 +62,7 @@ public class PredictionholderFragment extends Fragment {
                 Stock stock = mStockList.get(position);
 
                 Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
-                intent.putExtra("simbolo", stock.getStockName());
+                intent.putExtra("simbolo", stock.getSimbolo());
                 startActivity(intent);
 
             }
@@ -116,7 +116,7 @@ public class PredictionholderFragment extends Fragment {
                 String simbolo = stockData.getSimbolo();
                 float cierre = stockData.getCierre();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1, 1001));
+                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1, 1001, 1000));
                 cont++;
 
             }

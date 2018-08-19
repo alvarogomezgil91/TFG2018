@@ -49,6 +49,11 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_view_pager"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.example.alvarogomez.tfg2018.MarketViewPagerActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_view_pager"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.example.alvarogomez.tfg2018.FeedActivity" />
         <activity
             android:name="com.example.alvarogomez.tfg2018.CombinedChartActivity"

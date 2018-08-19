@@ -1,6 +1,8 @@
 package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,11 +12,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.example.alvarogomez.tfg2018.MainGraphicholderFragment.mSimbolo;
 
 public class ViewPagerActivity extends AppCompatActivity {
 
@@ -41,6 +46,20 @@ public class ViewPagerActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setSelectedTabIndicatorColor(Color.WHITE);
+        tabLayout.setSelectedTabIndicatorHeight(10);
+
+        View root = tabLayout.getChildAt(0);
+
+        if (root instanceof LinearLayout) {
+            ((LinearLayout) root).setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+            GradientDrawable drawable = new GradientDrawable();
+            drawable.setColor(Color.DKGRAY);
+            drawable.setSize(8, 1);
+            ((LinearLayout) root).setDividerPadding(10);
+            ((LinearLayout) root).setDividerDrawable(drawable);
+        }
+
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout){
             @Override
@@ -68,7 +87,6 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         private Map<Integer, String> mFragmentTags;
         private FragmentManager mFragmentManager;
-        private Context mContext;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -84,7 +102,7 @@ public class ViewPagerActivity extends AppCompatActivity {
             switch (position){
 
                 case 0:
-                    return PlaceholderFragment.newInstance(position + 1);
+                    return PlaceholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_MARKETS_DATA_URL, "");
                 case 1:
                     return FavoriteholderFragment.newInstance(position + 1);
                 case 2:
@@ -94,7 +112,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
             }
 
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_MARKETS_DATA_URL, "");
 
         }
 

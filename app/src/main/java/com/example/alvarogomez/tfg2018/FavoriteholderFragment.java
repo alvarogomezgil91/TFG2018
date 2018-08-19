@@ -67,7 +67,8 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
         setHasOptionsMenu(true);
 
         lvStock = (ListView)view.findViewById(android.R.id.list);
-        lvStock.setVerticalScrollBarEnabled(false);
+        lvStock.setVerticalScrollBarEnabled(true);
+        lvStock.setScrollbarFadingEnabled(true);
 
         mAdapter = new FavoriteStockListAdapter(view.getContext(), mStockList);
 
@@ -81,7 +82,7 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                 Stock stock = mStockList.get(position);
 
                 Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
-                intent.putExtra("simbolo", stock.getStockName());
+                intent.putExtra("simbolo", stock.getSimbolo());
                 startActivity(intent);
 
             }
@@ -236,11 +237,12 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                 stockData = stockDataList.get(cont);
 
                 stockData = iter.next();
-                String simbolo = stockData.getStockName();
+                String simbolo = stockData.getSimbolo();
                 float cierre = stockData.getCierre();
                 int tendencia = stockData.getTendencia();
+                int esMercado = stockData.getEsMercado();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1, tendencia));
+                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1, tendencia, esMercado));
                 mStockListNames.add(simbolo);
                 cont++;
 
@@ -261,9 +263,16 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
 
                     Stock stock = mStockList.get(position);
 
-                    Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
-                    intent.putExtra("simbolo", stock.getStockName());
-                    startActivity(intent);
+                    if (stock.getEsMercado() == 1000) {
+                        Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
+                        intent.putExtra("simbolo", stock.getSimbolo());
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
+                        intent.putExtra("simbolo", stock.getSimbolo());
+                        startActivity(intent);
+                    }
+
 
                 }
             });

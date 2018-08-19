@@ -109,7 +109,7 @@ public class RemoteFavouriteStocksData {
 
                         JSONObject jsonStockData = new JSONObject(arrayJSON.getString(i));
 
-                        stockData.setStockName(jsonStockData.getString("simbolo"));
+                        stockData.setSimbolo(jsonStockData.getString("simbolo"));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));
                         stockData.setTendencia(Integer.valueOf(jsonStockData.getString("tendencia")));
 
