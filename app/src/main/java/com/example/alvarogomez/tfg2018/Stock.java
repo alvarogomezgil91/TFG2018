@@ -7,6 +7,8 @@ public class Stock {
 
     private int id;
     private String simbolo;
+    private String fecha;
+    private float apertura;
     private float cierre;
     private String description;
     private int favorito;
@@ -17,15 +19,38 @@ public class Stock {
 
     //Constructor
 
-    public Stock(int id, String simbolo, float cierre, String description, int favorito, int tendencia, int esMercado) {
+    public Stock(int id, String simbolo, float apertura, float cierre, String description, int favorito, int tendencia, int esMercado) {
         this.id = id;
         this.simbolo = simbolo;
+        this.apertura = apertura;
         this.cierre = cierre;
         this.description = description;
         this.favorito = favorito;
         this.tendencia = tendencia;
         this.esMercado = esMercado;
     }
+
+    public Stock(int id, String simbolo, float apertura, float cierre, String description, int esMercado) {
+        this.id = id;
+        this.simbolo = simbolo;
+        this.apertura = apertura;
+        this.cierre = cierre;
+        this.description = description;
+        this.esMercado = esMercado;
+    }
+
+    public Stock(int id, String simbolo, float cierre, String description, int tendencia, int esMercado) {
+        this.id = id;
+        this.simbolo = simbolo;
+        this.cierre = cierre;
+        this.description = description;
+        this.tendencia = tendencia;
+        this.esMercado = esMercado;
+    }
+
+
+
+
 
     //Setter, getter
 
@@ -41,6 +66,13 @@ public class Stock {
     }
     public void setSimbolo(String simbolo) {
         this.simbolo = simbolo;
+    }
+
+    public float getApertura() {
+        return apertura;
+    }
+    public void setApertura(float apertura) {
+        this.apertura = apertura;
     }
 
     public float getCierre() {

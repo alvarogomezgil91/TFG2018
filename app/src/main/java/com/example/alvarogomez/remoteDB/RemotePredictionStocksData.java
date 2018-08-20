@@ -3,6 +3,8 @@ package com.example.alvarogomez.remoteDB;
 import android.util.Log;
 import com.example.alvarogomez.tfg2018.Constants;
 import com.example.alvarogomez.tfg2018.GraphicData;
+import com.example.alvarogomez.tfg2018.Stock;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,16 +29,18 @@ import java.util.List;
 
 public class RemotePredictionStocksData {
     private String mUserName;
+    private String mFecha;
 
-    public RemotePredictionStocksData(String userName){
+    public RemotePredictionStocksData(String userName, String fecha){
         mUserName = userName;
+        mFecha = fecha;
     }
 
-    public List<GraphicData> GetRemotePredictionStocksData(){
+    public List<Stock> GetRemotePredictionStocksData(){
 
         System.out.println("********* Entrando al comando GetRemotePredictionStocksData **************");
 
-        List<GraphicData> stockDataList = new ArrayList<GraphicData>();
+        List<Stock> stockDataList = new ArrayList<Stock>();
         int listSize;
 
         try {
@@ -44,7 +48,7 @@ public class RemotePredictionStocksData {
 
             DataOutputStream printout;
             DataInputStream input;
-            String GET_FAVOURITE_STOCKS_DATA = Constants.GET_FAVOURITE_STOCKS_DATA;
+            String GET_FAVOURITE_STOCKS_DATA = Constants.GET_PREDICTIONS_DATA;
             String REMOTE_URL = "http://algomez.atwebpages.com/WebServicesPhp";
             URL url = new URL(REMOTE_URL + GET_FAVOURITE_STOCKS_DATA);
             urlConn = (HttpURLConnection) url.openConnection();
@@ -59,6 +63,7 @@ public class RemotePredictionStocksData {
             // Envio los parámetros post.
             JSONObject jsonParam = new JSONObject();
             jsonParam.put("user_name", mUserName);
+            jsonParam.put("fecha", mFecha);
             System.out.println("******************************************************************" + jsonParam.toString());
             OutputStream os = urlConn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
@@ -100,12 +105,15 @@ public class RemotePredictionStocksData {
 
                     for (int i = 0; i < arrayJSON.length(); i++){
 
-                        GraphicData stockData = new GraphicData();
+                        Stock stockData = new Stock();
 
                         JSONObject jsonStockData = new JSONObject(arrayJSON.getString(i));
 
                         stockData.setSimbolo(jsonStockData.getString("simbolo"));
+                        stockData.setDescription(jsonStockData.getString("nombre_stock"));
+                        stockData.setApertura(Float.valueOf(jsonStockData.getString("cierre")));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));
+                        stockData.setEsMercado(Integer.valueOf(jsonStockData.getString("es_mercado")));
 
                         stockDataList.add(stockData);
 

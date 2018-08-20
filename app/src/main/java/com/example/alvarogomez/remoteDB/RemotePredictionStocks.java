@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.alvarogomez.tfg2018.Constants;
 import com.example.alvarogomez.tfg2018.GraphicData;
+import com.example.alvarogomez.tfg2018.Stock;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,31 +30,30 @@ import java.util.List;
  */
 
 public class RemotePredictionStocks {
-    String REMOTE_URL = "http://algomez.atwebpages.com/WebServicesPhp";
-    String GET_FAVOURITE_STOCKS = Constants.GET_FAVOURITE_STOCKS;
-    String mUserName;
-    String mPredictionStocks;
 
+    private String REMOTE_URL = Constants.REMOTE_URL;
+    String GET_FAVOURITE_STOCKS_DATA = Constants.GET_PREDICTIONS_DATA;
+    private String mUserName;
+    private String mFecha;
 
-    public RemotePredictionStocks(String userName){
+    public RemotePredictionStocks(String userName, String fecha){
         mUserName = userName;
+        mFecha = fecha;
     }
 
+    public List<Stock> GetRemotePredictionStocks(){
 
+        System.out.println("********* Entrando al comando GetRemotePredictionStocksData **************");
 
-    public String GetRemotePredictionStocksData(){
-
-        System.out.println("********* Entrando al comando GetRemotePredictionStocks **************");
-
-
-        List<GraphicData> stockDataList = new ArrayList<GraphicData>();
+        List<Stock> stockDataList = new ArrayList<Stock>();
+        int listSize;
 
         try {
             HttpURLConnection urlConn;
 
             DataOutputStream printout;
             DataInputStream input;
-            URL url = new URL(REMOTE_URL + GET_FAVOURITE_STOCKS);
+            URL url = new URL(REMOTE_URL + GET_FAVOURITE_STOCKS_DATA);
             urlConn = (HttpURLConnection) url.openConnection();
             urlConn.setRequestProperty("User-Agent", "Mozilla/5.0" +
                     " (Linux; Android 1.5; es-ES) Ejemplo HTTP");
@@ -64,10 +64,10 @@ public class RemotePredictionStocks {
             urlConn.setRequestProperty("Accept", "application/json");
             urlConn.connect();
             // Envio los parámetros post.
-
-            //Creo el Objeto JSON
             JSONObject jsonParam = new JSONObject();
             jsonParam.put("user_name", mUserName);
+            jsonParam.put("fecha", mFecha);
+            System.out.println("******************************************************************" + jsonParam.toString());
             OutputStream os = urlConn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
@@ -77,20 +77,17 @@ public class RemotePredictionStocks {
 
             int respuesta = urlConn.getResponseCode();
 
-
             StringBuilder result = new StringBuilder();
 
             if (respuesta == HttpURLConnection.HTTP_OK) {
 
                 String line;
 
-
                 InputStream in = new BufferedInputStream(urlConn.getInputStream());  // preparo la cadena de entrada
                 BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
                 while ((line=br.readLine()) != null) {
                     result.append(line);
-                    //response+=line;
                 }
 
                 //Creamos un objeto JSONObject para poder acceder a los atributos (campos) del objeto.
@@ -104,11 +101,30 @@ public class RemotePredictionStocks {
                 if (resultCode.equals("1")) {      // hay un alumno que mostrar
 
                     JSONArray arrayJSON = new JSONArray(respuestaJSON.getString("mensaje"));
-                    JSONObject jsonStockData = new JSONObject(arrayJSON.getString(0));
 
-                    mPredictionStocks = predictionStockFromat(jsonStockData.getString("simbolo"));
+                    listSize = arrayJSON.length();
 
-                    System.out.println("**********************   Recibimos una lista de stocks predecidos: " + mPredictionStocks + " elementos **************");
+                    System.out.println("**********************   Recibimos una lista de stocks predecidos" + listSize + " elementos **************");
+
+                    for (int i = 0; i < arrayJSON.length(); i++){
+
+                        Stock stockData = new Stock();
+
+                        JSONObject jsonStockData = new JSONObject(arrayJSON.getString(i));
+
+                        stockData.setSimbolo(jsonStockData.getString("simbolo"));
+                        stockData.setDescription(jsonStockData.getString("nombre_stock"));
+                        stockData.setApertura(Float.valueOf(jsonStockData.getString("apertura")));
+                        stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre_predecido")));
+                        stockData.setEsMercado(Integer.valueOf(jsonStockData.getString("es_mercado")));
+
+                        stockDataList.add(stockData);
+
+                        //System.out.println("*********** Elemento " + i + " de la lista: ");
+                        //System.out.println("*********** " + arrayJSON.getString(i) + "*************");
+
+                    }
+
 
                 } else if (resultCode.equals("2")) {
 
@@ -122,15 +138,9 @@ public class RemotePredictionStocks {
             e.printStackTrace();
         }
 
-        System.out.println("********* Saliendo del comando GetRemotePredictionStocks **************");
+        System.out.println("********* Saliendo del comando GetRemotePredictionStocksData **************");
 
-        return mPredictionStocks;
+        return stockDataList;
 
     }
-
-    public String predictionStockFromat(String cadena){
-        String resultado = "'" + cadena.replace(",","', '") + "'";
-        return resultado;
-    }
-
 }

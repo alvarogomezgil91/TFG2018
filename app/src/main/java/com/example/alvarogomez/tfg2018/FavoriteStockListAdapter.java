@@ -72,13 +72,8 @@ public class FavoriteStockListAdapter extends BaseAdapter {
         tvStock.setText(mStockName);
         tvCierre.setText(mCierre);
         tvDescription.setText(mDescripcion);
-        mFavorito = mStockList.get(position).getFavorito();
+        ivIcono.setImageResource(R.drawable.corazon_rojo);
 
-        if (mFavorito == 0) {
-            ivIcono.setImageResource(R.drawable.corazon_contorno);
-        } else {
-            ivIcono.setImageResource(R.drawable.corazon_rojo);
-        }
 
         ivIcono.hasOnClickListeners();
 

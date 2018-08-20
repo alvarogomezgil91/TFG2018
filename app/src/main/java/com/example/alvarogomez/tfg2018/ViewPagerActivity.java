@@ -1,6 +1,5 @@
 package com.example.alvarogomez.tfg2018;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.TabLayout;
@@ -15,11 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.alvarogomez.tfg2018.MainGraphicholderFragment.mSimbolo;
 
 public class ViewPagerActivity extends AppCompatActivity {
 
@@ -102,7 +99,7 @@ public class ViewPagerActivity extends AppCompatActivity {
             switch (position){
 
                 case 0:
-                    return PlaceholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_MARKETS_DATA_URL, "");
+                    return MarketsholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_INDEX_STOCKS_DATA_URL, "");
                 case 1:
                     return FavoriteholderFragment.newInstance(position + 1);
                 case 2:
@@ -112,7 +109,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
             }
 
-            return PlaceholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_MARKETS_DATA_URL, "");
+            return PlaceholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_INDEX_STOCKS_DATA_URL, "");
 
         }
 

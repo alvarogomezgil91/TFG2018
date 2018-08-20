@@ -1,18 +1,29 @@
 package com.example.alvarogomez.tfg2018;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import com.example.alvarogomez.remoteDB.RemotePredictionStocksData;
+import com.example.alvarogomez.remoteDB.RemotePredictionStocks;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -20,12 +31,17 @@ import java.util.ListIterator;
  * Created by Alvaro Gomez on 24/07/2018.
  */
 
-public class PredictionholderFragment extends Fragment {
+public class PredictionholderFragment extends Fragment implements SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener{
 
     private ListView lvStock;
     private List<Stock> mStockList;
     private static final String ARG_SECTION_NUMBER = "section_number";
     View view;
+    private PredictionListAdapter mAdapter;
+
+    private List<Stock> filteredStockValues;
+    private Context mContext;
+    List<String> mStockListNames;
 
     public PredictionholderFragment(){
     }
@@ -46,13 +62,13 @@ public class PredictionholderFragment extends Fragment {
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
         view = inflater.inflate(R.layout.fragment_view_pager, container, false);
+        mContext = getActivity();
+        setHasOptionsMenu(true);
 
         lvStock = (ListView)view.findViewById(android.R.id.list);
         lvStock.setVerticalScrollBarEnabled(false);
 
-        mStockList = new ArrayList<>();
-
-        PredictionholderFragment.ThreadCreation threadCreation = new PredictionholderFragment.ThreadCreation();
+        ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
 
         lvStock.setOnItemClickListener( new AdapterView.OnItemClickListener() {
@@ -72,6 +88,137 @@ public class PredictionholderFragment extends Fragment {
 
     }
 
+    private void setIconInMenu(Menu menu, int menuItemId, int labelId, int iconId) {
+
+        MenuItem item = menu.findItem(menuItemId);
+        SpannableStringBuilder builder = new SpannableStringBuilder("   " + getResources().getString(labelId));
+        builder.setSpan(new ImageSpan(mContext, iconId), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(builder);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+        setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
+
+        MenuItem searchItem = menu.findItem(R.id.item_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint(Constants.SEARCH);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId()){
+
+            case R.id.item_search:
+                return true;
+            case R.id.item1:
+                return true;
+            case R.id.item2:
+                return true;
+            case R.id.item_log_out:
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.putExtra("logOut", "1");
+                startActivity(intent);
+                getActivity().finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        if (newText == null || newText.trim().isEmpty()) {
+            resetSearch();
+            return false;
+        }
+
+        filteredStockValues = new ArrayList<>();
+
+        int position = 0;
+        for (String value : mStockListNames) {
+
+            if (value.toLowerCase().contains(newText.toLowerCase())) {
+                filteredStockValues.add(mStockList.get(position));
+            }
+            position++;
+        }
+
+        PredictionListAdapter mAdapter = new PredictionListAdapter(mContext, filteredStockValues);
+        lvStock.setAdapter(mAdapter);
+        lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Stock stock = mStockList.get(position);
+
+                if (stock.getEsMercado() == 1000) {
+                    Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                }
+
+
+            }
+        });
+        lvStock.invalidate();
+
+        return false;
+    }
+
+    public void resetSearch() {
+
+        PredictionListAdapter mAdapter = new PredictionListAdapter(mContext, mStockList);
+        lvStock.setAdapter(mAdapter);
+        lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Stock stock = mStockList.get(position);
+
+                if (stock.getEsMercado() == 1000) {
+                    Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                }
+
+
+            }
+        });
+        lvStock.invalidate();
+
+    }
+
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem item) {
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        return true;
+    }
+
     public class ThreadCreation extends AsyncTask<Void, Integer, Void> {
 
 
@@ -84,21 +231,28 @@ public class PredictionholderFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            List<GraphicData> stockDataList = new ArrayList<GraphicData>();
+            List<Stock> stockDataList = new ArrayList<Stock>();
             java.lang.reflect.Method method = null;
 
+            mStockList = new ArrayList<>();
+            mStockListNames = new ArrayList<>();
+
+
             try {
-                String mMetodo = "GetRemotePredictionStocksData";
-                method = RemotePredictionStocksData.class.getMethod(mMetodo);
+                String mMetodo = "GetRemotePredictionStocks";
+                method = RemotePredictionStocks.class.getMethod(mMetodo);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
             String userName = "Alvaro1";
-            RemotePredictionStocksData remoteStocksData = new RemotePredictionStocksData(userName);
+            Date sysdate = Calendar.getInstance().getTime();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String currentDate = dateFormat.format(sysdate);
+            RemotePredictionStocks remoteStocksData = new RemotePredictionStocks(userName, currentDate);
 
 
             try{
-                stockDataList = (List<GraphicData>) method.invoke(remoteStocksData);
+                stockDataList = (List<Stock>) method.invoke(remoteStocksData);
 
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -106,17 +260,30 @@ public class PredictionholderFragment extends Fragment {
 
             int cont = 0;
 
-            for (ListIterator<GraphicData> iter = stockDataList.listIterator(); iter.hasNext(); ){
+            for (ListIterator<Stock> iter = stockDataList.listIterator(); iter.hasNext(); ){
 
-                GraphicData stockData;
+                Stock stockData;
 
                 stockData = stockDataList.get(cont);
 
                 stockData = iter.next();
                 String simbolo = stockData.getSimbolo();
-                float cierre = stockData.getCierre();
+                String nombreStock = stockData.getDescription();
+                float apertura = stockData.getApertura();
+                float cierrePredecido = stockData.getCierre();
+                int esMercado = stockData.getEsMercado();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1, 1001, 1000));
+                Stock stockAux = new Stock();
+
+                stockAux.setSimbolo(simbolo);
+                stockAux.setDescription(nombreStock);
+                stockAux.setApertura(apertura);
+                stockAux.setCierre(cierrePredecido);
+                stockAux.setEsMercado(esMercado);
+
+
+                mStockList.add(stockAux);
+                mStockListNames.add(simbolo);
                 cont++;
 
             }
@@ -135,8 +302,27 @@ public class PredictionholderFragment extends Fragment {
         protected void onPostExecute(Void voids) {
             super.onPostExecute(voids);
 
-            StockListAdapter mAdapter = new StockListAdapter(view.getContext(), mStockList);
+            mAdapter = new PredictionListAdapter(view.getContext(), mStockList);
             lvStock.setAdapter(mAdapter);
+            lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    Stock stock = mStockList.get(position);
+
+                    if (stock.getEsMercado() == 1000) {
+                        Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
+                        intent.putExtra("simbolo", stock.getSimbolo());
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
+                        intent.putExtra("simbolo", stock.getSimbolo());
+                        startActivity(intent);
+                    }
+
+
+                }
+            });
 
         }
 

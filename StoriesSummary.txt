@@ -14,6 +14,7 @@
 #	STRY00012 - LogOut, fix LoginActivity loop with ViewPager
 #	STRY00013 - Change version SDK 27 and Prediction Calendar
 #	STRY00014 - Spliting markets from stocks in another ViewPager
+#	STRY00015 - Spliting fragments and creating prediction fragment
 #
 #
 #

@@ -89,13 +89,14 @@ class StocksData
 	
 	public static function getIndexStocksData()
     {
-        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia, (
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia, c.es_mercado, (
     									select count(*)
     									from stocks_favoritos f
     									where f.user_name='Alvaro1' and f.stock=a.simbolo
 										) as favorito
-					FROM stocks a
+					FROM stocks a, cod_stocks c
 					WHERE a.fecha in (select max(a.fecha) from stocks)
+                    	AND a.simbolo=c.simbolo
 					GROUP BY a.simbolo
 					ORDER BY a.cierre desc";
 							
@@ -116,6 +117,36 @@ class StocksData
         }
 		
     }
+	
+	public static function getPredictionsData(
+	$fecha
+	)
+    {
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.apertura, a.cierre_predecido, c.es_mercado
+					FROM stocks_prediccion a, cod_stocks c
+					WHERE a.fecha > ?
+                    	AND a.simbolo=c.simbolo
+					GROUP BY a.simbolo
+					ORDER BY a.cierre_predecido desc";
+							
+        try {
+            // Preparar sentencia
+            $comando = Database::getInstance()->getDb()->prepare($consulta);
+            // Ejecutar sentencia preparada
+            $comando->execute(
+				array(
+					$fecha
+					)
+				);
+
+            return $comando->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            return false;
+        }
+		
+    }
+	
 	
 	public static function getPredictionStocksData()
     {
@@ -200,11 +231,12 @@ class StocksData
 	$user_name
 	)
     {
-        $consulta = "SELECT a.simbolo, a.cierre, a.tendencia 
-					FROM stocks a, stocks_favoritos f
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia 
+					FROM stocks a, stocks_favoritos f, cod_stocks c
 					WHERE a.fecha in (select max(a.fecha) from stocks)
 						AND a.simbolo=f.stock
-						AND f.user_name = ?
+                        AND a.simbolo=c.simbolo
+						AND f.user_name = 'Alvaro1'
 					ORDER BY a.cierre desc";
 							
         try {

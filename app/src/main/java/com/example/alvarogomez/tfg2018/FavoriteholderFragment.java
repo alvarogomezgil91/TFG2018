@@ -169,8 +169,27 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
             position++;
         }
 
-        StockListAdapter mAdapter = new StockListAdapter(mContext, filteredStockValues);
+        FavoriteStockListAdapter mAdapter = new FavoriteStockListAdapter(mContext, filteredStockValues);
         lvStock.setAdapter(mAdapter);
+        lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Stock stock = mStockList.get(position);
+
+                if (stock.getEsMercado() == 1000) {
+                    Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                }
+
+
+            }
+        });
         lvStock.invalidate();
 
         return false;
@@ -178,8 +197,27 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
 
     public void resetSearch() {
 
-        StockListAdapter mAdapter = new StockListAdapter(mContext, mStockList);
+        FavoriteStockListAdapter mAdapter = new FavoriteStockListAdapter(mContext, mStockList);
         lvStock.setAdapter(mAdapter);
+        lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Stock stock = mStockList.get(position);
+
+                if (stock.getEsMercado() == 1000) {
+                    Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                }
+
+
+            }
+        });
         lvStock.invalidate();
 
     }
@@ -238,11 +276,22 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
 
                 stockData = iter.next();
                 String simbolo = stockData.getSimbolo();
+                String descripcion = stockData.getDescription();
                 float cierre = stockData.getCierre();
                 int tendencia = stockData.getTendencia();
                 int esMercado = stockData.getEsMercado();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", 1, tendencia, esMercado));
+                Stock stockAux = new Stock();
+
+                stockAux.setSimbolo(simbolo);
+                stockAux.setDescription(descripcion);
+                stockAux.setCierre(cierre);
+                //stockAux.setFavorito(favorito);
+                stockAux.setTendencia(tendencia);
+                stockAux.setEsMercado(esMercado);
+
+
+                mStockList.add(stockAux);
                 mStockListNames.add(simbolo);
                 cont++;
 

@@ -154,8 +154,16 @@ public class StockPredictionholderFragment extends Fragment {
                 int tendencia = stockData.getTendencia();
                 int esMercado = stockData.getEsMercado();
 
+                Stock stockAux = new Stock();
 
-                mStockList.add(new Stock(cont, simbolo, cierre, simbolo + " desc", favorito, tendencia, esMercado));
+                stockAux.setSimbolo(simbolo);
+                stockAux.setCierre(cierre);
+                stockAux.setFavorito(favorito);
+                stockAux.setTendencia(tendencia);
+                stockAux.setEsMercado(esMercado);
+
+
+                mStockList.add(stockAux);
                 mStockListNames.add(simbolo);
                 cont++;
 
@@ -167,12 +175,6 @@ public class StockPredictionholderFragment extends Fragment {
         @Override
         protected void onPostExecute(Void voids) {
             super.onPostExecute(voids);
-
-
-
-
-
-
         }
 
         @Override

@@ -228,7 +228,17 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
                 int esMercado = stockData.getEsMercado();
 
 
-                mStockList.add(new Stock(cont, simbolo, cierre, descripcion, favorito, tendencia, esMercado));
+                Stock stockAux = new Stock();
+
+                stockAux.setSimbolo(simbolo);
+                stockAux.setDescription(descripcion);
+                stockAux.setCierre(cierre);
+                stockAux.setFavorito(favorito);
+                stockAux.setTendencia(tendencia);
+                stockAux.setEsMercado(esMercado);
+
+
+                mStockList.add(stockAux);
                 mStockListNames.add(simbolo);
                 cont++;
 
