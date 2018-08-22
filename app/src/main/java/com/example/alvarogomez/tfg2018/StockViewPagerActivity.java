@@ -42,8 +42,8 @@ public class StockViewPagerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_stock_view_pager);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         mSimbolo = getIntent().getStringExtra("simbolo");
 
         // Create the adapter that will return a fragment for each of the three

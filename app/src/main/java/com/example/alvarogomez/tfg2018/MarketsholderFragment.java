@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -160,6 +161,24 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
 
         StockListAdapter mAdapter = new StockListAdapter(mContext, filteredStockValues);
         lvStock.setAdapter(mAdapter);
+        lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Stock stock = filteredStockValues.get(position);
+
+                if (stock.getEsMercado() == 1000) {
+                    Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                }
+
+            }
+        });
         lvStock.invalidate();
 
         return false;
@@ -169,6 +188,24 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
 
         StockListAdapter mAdapter = new StockListAdapter(mContext, mStockList);
         lvStock.setAdapter(mAdapter);
+        lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Stock stock = mStockList.get(position);
+
+                if (stock.getEsMercado() == 1000) {
+                    Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
+                    intent.putExtra("simbolo", stock.getSimbolo());
+                    startActivity(intent);
+                }
+
+            }
+        });
         lvStock.invalidate();
 
     }
@@ -254,7 +291,6 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
 
             StockListAdapter mAdapter = new StockListAdapter(view.getContext(), mStockList);
             lvStock.setAdapter(mAdapter);
-            lvStock.invalidate();
             lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -273,6 +309,7 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
 
                 }
             });
+            lvStock.invalidate();
 
         }
 

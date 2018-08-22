@@ -266,7 +266,7 @@ class StocksData
 	$user_name
 	)
     {
-        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia 
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia, c.es_mercado
 					FROM stocks a, stocks_favoritos f, cod_stocks c
 					WHERE a.fecha in (select max(a.fecha) from stocks)
 						AND a.simbolo=f.stock

@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.SearchView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -19,9 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import com.example.alvarogomez.remoteDB.RemoteStocksData;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -29,12 +25,10 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by Alvaro Gomez on 25/07/2018.
@@ -119,6 +113,7 @@ public class FeedholderFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
         setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
+        menu.removeItem(R.id.item_search);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -128,8 +123,6 @@ public class FeedholderFragment extends Fragment {
 
         switch (item.getItemId()){
 
-            case R.id.item_search:
-                return true;
             case R.id.item1:
                 return true;
             case R.id.item2:
@@ -180,8 +173,14 @@ public class FeedholderFragment extends Fragment {
                                 mTitle = xpp.nextText().replace(Constants.JSON_APOSTROFE,Constants.APOSTROFE);
                             }
                         } else if (xpp.getName().equalsIgnoreCase(Constants.LINK)) {
-                            if (insideItem)
+                            if (insideItem) {
                                 mHyperlink = xpp.nextText(); //extract the link of article
+                            }
+                        } else if (xpp.getName().equalsIgnoreCase(Constants.DESCRIPTION)) {
+                            if (insideItem) {
+                                mImageLink = xpp.nextText(); //extract the link of article
+                                mImageLink = getImageLink(mImageLink);
+                            }
                         }
                     }else if(eventType==XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase(Constants.ITEM)){
                         insideItem=false;
@@ -238,6 +237,7 @@ public class FeedholderFragment extends Fragment {
 
             FeedListAdapter mAdapter = new FeedListAdapter(view.getContext(), mFeedList);
             lvStock.setAdapter(mAdapter);
+            lvStock.invalidate();
 
         }
 
@@ -245,6 +245,33 @@ public class FeedholderFragment extends Fragment {
         protected void onProgressUpdate(Integer... values){
             super.onProgressUpdate();
         }
+
+    }
+
+    public String getImageLink (String description) {
+
+        String imageLink = "";
+        String aux;
+        String imgSrc = "<img src=";
+
+        if (description.contains(imgSrc)){
+            String[] stringAux1 = description.split( imgSrc,2);
+
+            if (stringAux1[1].contains("http:")) {
+                String[] stringAux2 = stringAux1[1].split("http:",3);
+
+                if (stringAux2[2].contains("width")) {
+                    String[] stringAux3 = stringAux2[2].split("width",2);
+                    imageLink = "http://" + stringAux3[0].replace("\"","");
+                }
+            }
+        }
+
+
+        System.out.println(">>>>>>>>>>>>>>>>>>>   link de imagenes " + imageLink);
+
+
+        return imageLink;
 
     }
 

@@ -113,6 +113,7 @@ public class RemoteFavouriteStocksData {
                         stockData.setDescription(jsonStockData.getString("nombre_stock"));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));
                         stockData.setTendencia(Integer.valueOf(jsonStockData.getString("tendencia")));
+                        stockData.setEsMercado(Integer.valueOf(jsonStockData.getString("es_mercado")));
 
                         stockDataList.add(stockData);
 

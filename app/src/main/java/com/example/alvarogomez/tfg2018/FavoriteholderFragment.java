@@ -175,7 +175,7 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Stock stock = mStockList.get(position);
+                Stock stock = filteredStockValues.get(position);
 
                 if (stock.getEsMercado() == 1000) {
                     Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
@@ -286,7 +286,6 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                 stockAux.setSimbolo(simbolo);
                 stockAux.setDescription(descripcion);
                 stockAux.setCierre(cierre);
-                //stockAux.setFavorito(favorito);
                 stockAux.setTendencia(tendencia);
                 stockAux.setEsMercado(esMercado);
 
@@ -325,6 +324,7 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
 
                 }
             });
+            lvStock.invalidate();
 
         }
 

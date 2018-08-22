@@ -19,7 +19,7 @@ public final class Constants {
     public static final String GET_FAVOURITE_STOCKS_DATA = "/GetFavouriteStocksData.php";
     public static final String GET_PREDICTIONS_DATA = "/GetPredictionsData.php";
     public static final String GET_PREDICTION_STOCKS_DATA = "/GetPredictionStocksData.php";
-    public static final String RSS_YAHOO_FINANCE = "https://finance.yahoo.com/rss/topstories";
+    public static final String RSS_YAHOO_FINANCE = "https://es.finance.yahoo.com/rss/topstories";
     public static final String RSS_YAHOO_FINANCE_BY_TICKER_START = "https://feeds.finance.yahoo.com/rss/2.0/headline?s=";
     public static final String RSS_YAHOO_FINANCE_BY_TICKER_END = "&region=US&lang=en-US";
 
@@ -32,9 +32,11 @@ public final class Constants {
     // Etiquetas XML para formateo
     public static final String ITEM = "item";
     public static final String TITLE = "title";
+    public static final String LINK = "link";
+    public static final String DESCRIPTION = "description";
     public static final String JSON_APOSTROFE = "&apos;";
     public static final String APOSTROFE = "'";
-    public static final String LINK = "link";
+
 
     // Constantes
     public static final String SEARCH = "Search";
