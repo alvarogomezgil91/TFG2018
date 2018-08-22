@@ -28,11 +28,13 @@ import java.util.List;
  */
 
 public class RemotePredictionStocksData {
-    private String mUserName;
+    private String mSimbolo;
     private String mFecha;
+    String GET_FAVOURITE_STOCKS_DATA = Constants.GET_PREDICTION_STOCKS_DATA;
+    String REMOTE_URL = Constants.REMOTE_URL;
 
-    public RemotePredictionStocksData(String userName, String fecha){
-        mUserName = userName;
+    public RemotePredictionStocksData(String simbolo, String fecha){
+        mSimbolo = simbolo;
         mFecha = fecha;
     }
 
@@ -45,11 +47,8 @@ public class RemotePredictionStocksData {
 
         try {
             HttpURLConnection urlConn;
-
             DataOutputStream printout;
             DataInputStream input;
-            String GET_FAVOURITE_STOCKS_DATA = Constants.GET_PREDICTIONS_DATA;
-            String REMOTE_URL = "http://algomez.atwebpages.com/WebServicesPhp";
             URL url = new URL(REMOTE_URL + GET_FAVOURITE_STOCKS_DATA);
             urlConn = (HttpURLConnection) url.openConnection();
             urlConn.setRequestProperty("User-Agent", "Mozilla/5.0" +
@@ -62,7 +61,7 @@ public class RemotePredictionStocksData {
             urlConn.connect();
             // Envio los parámetros post.
             JSONObject jsonParam = new JSONObject();
-            jsonParam.put("user_name", mUserName);
+            jsonParam.put("simbolo", mSimbolo);
             jsonParam.put("fecha", mFecha);
             System.out.println("******************************************************************" + jsonParam.toString());
             OutputStream os = urlConn.getOutputStream();
@@ -97,28 +96,44 @@ public class RemotePredictionStocksData {
 
                 if (resultCode.equals("1")) {      // hay un alumno que mostrar
 
-                    JSONArray arrayJSON = new JSONArray(respuestaJSON.getString("mensaje"));
+                    JSONArray arrayPrevioJSON = new JSONArray(respuestaJSON.getString("previos"));
+                    JSONArray arrayPrediiccionJSON = new JSONArray(respuestaJSON.getString("prediccion"));
 
-                    listSize = arrayJSON.length();
+                    listSize = arrayPrevioJSON.length();
 
                     System.out.println("**********************   Recibimos una lista de stocks predecidos" + listSize + " elementos **************");
 
-                    for (int i = 0; i < arrayJSON.length(); i++){
+                    for (int i = 0; i < arrayPrevioJSON.length(); i++){
 
                         Stock stockData = new Stock();
 
-                        JSONObject jsonStockData = new JSONObject(arrayJSON.getString(i));
+                        JSONObject jsonStockData = new JSONObject(arrayPrevioJSON.getString(i));
 
                         stockData.setSimbolo(jsonStockData.getString("simbolo"));
-                        stockData.setDescription(jsonStockData.getString("nombre_stock"));
-                        stockData.setApertura(Float.valueOf(jsonStockData.getString("cierre")));
+                        stockData.setFecha(jsonStockData.getString("fecha"));
+                        stockData.setApertura(Float.valueOf(jsonStockData.getString("apertura")));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));
-                        stockData.setEsMercado(Integer.valueOf(jsonStockData.getString("es_mercado")));
 
                         stockDataList.add(stockData);
 
-                        //System.out.println("*********** Elemento " + i + " de la lista: ");
-                        //System.out.println("*********** " + arrayJSON.getString(i) + "*************");
+                    }
+
+                    listSize = arrayPrediiccionJSON.length();
+
+                    System.out.println("**********************   Recibimos una lista de stocks predecidos" + listSize + " elementos **************");
+
+                    for (int j = 0; j < arrayPrediiccionJSON.length(); j++){
+
+                        Stock stockData = new Stock();
+
+                        JSONObject jsonStockData = new JSONObject(arrayPrediiccionJSON.getString(j));
+
+                        stockData.setSimbolo(jsonStockData.getString("simbolo"));
+                        stockData.setFecha(jsonStockData.getString("fecha"));
+                        stockData.setApertura(Float.valueOf(jsonStockData.getString("apertura")));
+                        stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre_predecido")));
+
+                        stockDataList.add(stockData);
 
                     }
 

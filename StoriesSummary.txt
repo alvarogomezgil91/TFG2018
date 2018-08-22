@@ -15,6 +15,8 @@
 #	STRY00013 - Change version SDK 27 and Prediction Calendar
 #	STRY00014 - Spliting markets from stocks in another ViewPager
 #	STRY00015 - Spliting fragments and creating prediction fragment
+#	STRY00016 - Creation of predictions by stock with MaterialCalendarView
+#	STRY00017 - Stock prediction command and prediction layout
 #
 #
 #

@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -10,17 +9,132 @@
 
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-         android:id="@+id/prediction_calendar"
-         android:background="@drawable/bg_calen"
-         android:layout_width="match_parent"
-         android:layout_height="0dp"
-         android:layout_weight="2"
-         app:mcv_showOtherDates="none"
-         app:mcv_selectionColor="#00F"/>
+        android:id="@+id/prediction_calendar"
+        android:background="@drawable/bg_calen"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        app:mcv_tileHeight="match_parent"
+        app:mcv_tileSize="match_parent"
+        app:mcv_tileWidth="match_parent"
+        app:mcv_showOtherDates="none"
+        app:mcv_selectionColor="#00F"/>
 
-    <TextView
-         android:layout_width="wrap_content"
-         android:layout_height="0dp"
-         android:layout_weight="1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_calen"
+        android:layout_marginTop="10dp"
+        android:id="@+id/prediction_info">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/bg_calen"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:text="Apertura"
+                android:textAlignment="center"
+                android:textColor="#00a7f5"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/tv_apertura"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:text="Name"
+                android:textAlignment="center"
+                android:textColor="#00a7f5"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:text="Cierre"
+                android:textAlignment="center"
+                android:textColor="#00a7f5"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/tv_cierre"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:text="9999,99"
+                android:textAlignment="center"
+                android:textColor="#f92a3f"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/bg_calen"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:text="Porcentaje"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/tv_porcentaje"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="top|center_vertical"
+                android:text="descripcion"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="24dp" />
+
+        </LinearLayout>
+
+
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            app:srcCompat="@drawable/flecha_alza"/>
+
+    </LinearLayout>
+
+
+
+
 
 </LinearLayout>

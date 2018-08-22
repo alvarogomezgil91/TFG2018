@@ -68,6 +68,13 @@ public class Stock {
         this.simbolo = simbolo;
     }
 
+    public String getFecha() {
+        return fecha;
+    }
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
     public float getApertura() {
         return apertura;
     }
