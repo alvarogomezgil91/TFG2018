@@ -14,8 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$body['fecha']
 		);
 		
-
-
     
 	if ($retorno) {
 		header('Content-Type: application/json');

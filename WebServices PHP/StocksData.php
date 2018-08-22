@@ -147,13 +147,16 @@ class StocksData
 		
     }
 	
-	
-	public static function getPredictionStocksData()
+	public static function getPreviousStocksData(
+	$simbolo,
+	$fecha
+	)
     {
-        $consulta = "SELECT simbolo, cierre
+        $consulta = "SELECT simbolo, fecha, apertura, cierre
 							FROM stocks
-							WHERE fecha in (select max(fecha) from stocks)
-							ORDER BY cierre desc";
+							WHERE simbolo = ?
+                            	AND fecha < ?
+							ORDER BY fecha asc";
 							
         try {
             // Preparar sentencia
@@ -161,7 +164,39 @@ class StocksData
             // Ejecutar sentencia preparada
             $comando->execute(
 				array(
-					$simbolo
+					$simbolo,
+					$fecha
+					)
+				);
+
+            return $comando->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            return false;
+        }
+		
+    }
+	
+	
+	public static function getPredictionStocksData(
+	$simbolo,
+	$fecha
+	)
+    {
+        $consulta = "SELECT simbolo, fecha, apertura, cierre_predecido
+							FROM stocks_prediccion
+							WHERE simbolo = ?
+                            	AND NOT fecha < ?
+							ORDER BY fecha asc";
+							
+        try {
+            // Preparar sentencia
+            $comando = Database::getInstance()->getDb()->prepare($consulta);
+            // Ejecutar sentencia preparada
+            $comando->execute(
+				array(
+					$simbolo,
+					$fecha
 					)
 				);
 

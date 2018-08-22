@@ -10,18 +10,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Decodificando formato Json
 	$body = json_decode(file_get_contents("php://input"), true);
 
-    $retorno = StocksData::getPredictionStocksData(
-		$body['simbolo']
+    $retorno1 = StocksData::getPreviousStocksData(
+		$body['simbolo'],
+		$body['fecha']
 		);
-		
-
-
+	
+	$retorno2 = StocksData::getPredictionStocksData(
+		$body['simbolo'],
+		$body['fecha']
+		);	
     
-	if ($retorno) {
+	if ($retorno1) {
 		header('Content-Type: application/json');
 
         $datos["estado"] = 1;
-		$datos["mensaje"] = $retorno;
+		$datos["previos"] = $retorno1;
+		$datos["prediccion"] = $retorno2;
 
         print json_encode($datos);
     } else {
