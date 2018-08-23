@@ -66,13 +66,12 @@ public class PredictionListAdapter extends BaseAdapter {
         View v = View.inflate(mContext, R.layout.item_stock_list, null);
         TextView tvStock = (TextView)v.findViewById(R.id.tv_stock_name);
         TextView tvCierrePredecido = (TextView)v.findViewById(R.id.tv_cierre);
-        TextView tvDescription = (TextView)v.findViewById(R.id.tv_description);
+        //TextView tvDescription = (TextView)v.findViewById(R.id.tv_description);
         final ImageView ivIcono = (ImageView)v.findViewById(R.id.imageView2);
 
         mStockName = mStockList.get(position).getDescription();
         mApertura = mStockList.get(position).getApertura();
         mCierrePredecido = mStockList.get(position).getCierre();
-        //mCierrePredecido = String.format(Locale.US, "%.3f", mStockList.get(position).getCierre());
         mDescripcion = mStockList.get(position).getDescription();
 
         tvStock.setText(mDescripcion);
@@ -83,7 +82,7 @@ public class PredictionListAdapter extends BaseAdapter {
         porcentaje = ( mApertura - mCierrePredecido) / 100;
         mPorcentaje = String.format(Locale.US, "%.2f", porcentaje) + " %";
 
-        tvDescription.setText(mPorcentaje);
+        //tvDescription.setText(mPorcentaje);
 
         if ( mApertura > mCierrePredecido){
             tvCierrePredecido.setTextColor(Color.RED);

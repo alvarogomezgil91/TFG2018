@@ -1049,7 +1049,7 @@ int id transition_transform 0x7f0800de
 int id tuesday 0x7f0800df
 int id tv_apertura 0x7f0800e0
 int id tv_cierre 0x7f0800e1
-int id tv_description 0x7f0800e2
+int id tv_fecha 0x7f0800e2
 int id tv_feed 0x7f0800e3
 int id tv_porcentaje 0x7f0800e4
 int id tv_stock_name 0x7f0800e5

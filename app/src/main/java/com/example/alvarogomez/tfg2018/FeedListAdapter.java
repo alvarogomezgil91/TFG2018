@@ -24,6 +24,7 @@ public class FeedListAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Feed> mFeedList;
+    private String mImageUrl;
 
     public FeedListAdapter (Context mContext, List<Feed> mFeedList){
 
@@ -58,10 +59,16 @@ public class FeedListAdapter extends BaseAdapter {
 
         tvFeed.setText(mFeedList.get(position).getTitle());
 
-        new DownloadImageTask((ImageView) v.findViewById(R.id.imageView2))
-                .execute(mFeedList.get(position).getImageLink());
+        mImageUrl = mFeedList.get(position).getImageLink();
 
-        ivIcono.setImageResource(R.drawable.imagen_prueba);
+        if (!mImageUrl.equals("")) {
+            new DownloadImageTask((ImageView) v.findViewById(R.id.imageView2))
+                    .execute(mImageUrl);
+
+        } else {
+            ivIcono.setImageResource(R.drawable.presentation_image);
+        }
+
         ivIcono.hasOnClickListeners();
 
         ivIcono.setOnClickListener(new View.OnClickListener() {

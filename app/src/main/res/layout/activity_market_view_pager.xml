@@ -54,6 +54,7 @@
         android:layout_gravity="center_horizontal"
         app:tabBackground="@drawable/bg_tabs"
         app:tabIndicatorColor="@color/gold"
+        app:tabMinWidth="160dp"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/white"
         app:tabTextAppearance="@style/MyTabLayoutTextAppearance"

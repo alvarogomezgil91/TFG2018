@@ -258,7 +258,6 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
             String userName = "Alvaro1";
             RemoteFavouriteStocksData remoteStocksData = new RemoteFavouriteStocksData(userName);
 
-
             try{
                 stockDataList = (List<Stock>) method.invoke(remoteStocksData);
 
@@ -277,7 +276,10 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                 stockData = iter.next();
                 String simbolo = stockData.getSimbolo();
                 String descripcion = stockData.getDescription();
+                String fecha = stockData.getFecha();
+                float apertura = stockData.getApertura();
                 float cierre = stockData.getCierre();
+                int favorito = stockData.getFavorito();
                 int tendencia = stockData.getTendencia();
                 int esMercado = stockData.getEsMercado();
 
@@ -285,10 +287,12 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
 
                 stockAux.setSimbolo(simbolo);
                 stockAux.setDescription(descripcion);
+                stockAux.setFecha(fecha);
+                stockAux.setApertura(apertura);
                 stockAux.setCierre(cierre);
+                stockAux.setFavorito(favorito);
                 stockAux.setTendencia(tendencia);
                 stockAux.setEsMercado(esMercado);
-
 
                 mStockList.add(stockAux);
                 mStockListNames.add(simbolo);

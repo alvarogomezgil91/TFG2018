@@ -3908,7 +3908,7 @@ public final class R {
     public static final int tuesday=0x7f0800df;
     public static final int tv_apertura=0x7f0800e0;
     public static final int tv_cierre=0x7f0800e1;
-    public static final int tv_description=0x7f0800e2;
+    public static final int tv_fecha=0x7f0800e2;
     public static final int tv_feed=0x7f0800e3;
     public static final int tv_porcentaje=0x7f0800e4;
     public static final int tv_stock_name=0x7f0800e5;

@@ -53,7 +53,7 @@ class StocksData
 	$simbolo
 	)
     {
-        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia, (
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.fecha, a.apertura, a.cierre, a.tendencia, (
     									select count(*)
     									from stocks_favoritos f
     									where f.user_name='Alvaro1' and f.stock=a.simbolo
@@ -89,7 +89,7 @@ class StocksData
 	
 	public static function getIndexStocksData()
     {
-        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia, c.es_mercado, (
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.fecha, a.apertura, a.cierre, a.tendencia, c.es_mercado, (
     									select count(*)
     									from stocks_favoritos f
     									where f.user_name='Alvaro1' and f.stock=a.simbolo
@@ -266,12 +266,13 @@ class StocksData
 	$user_name
 	)
     {
-        $consulta = "SELECT a.simbolo, c.nombre_stock, a.cierre, a.tendencia, c.es_mercado
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.fecha, a.apertura, a.cierre, a.tendencia, c.es_mercado
 					FROM stocks a, stocks_favoritos f, cod_stocks c
 					WHERE a.fecha in (select max(a.fecha) from stocks)
 						AND a.simbolo=f.stock
                         AND a.simbolo=c.simbolo
 						AND f.user_name = 'Alvaro1'
+                    GROUP BY a.simbolo
 					ORDER BY a.cierre desc";
 							
         try {

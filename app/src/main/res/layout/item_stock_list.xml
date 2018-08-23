@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="10dp"
@@ -15,29 +16,73 @@
         android:layout_width="0dp"
         android:layout_weight="4"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/bg_calen"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_stock_name"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:autoSizeTextType="uniform"
+            android:textStyle="bold"
+            android:gravity="bottom"
+            android:text="Name"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/tv_fecha"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:gravity="top"
+            android:text="dd/mm/yyyy"
+            android:textAlignment="center"
+            android:textColor="@color/black_greyish"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/imageView2"
+        android:layout_weight="2"
+        android:background="@drawable/bg_calen"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_stock_name"
-            android:text="Name"
-            android:textSize="18dp"
-            android:textColor="#00a7f5"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/tv_cierre"
-            android:text="9999,99"
-            android:textSize="16dp"
-            android:textColor="#f92a3f"/>
-        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_description"
-            android:text="descripcion"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="9999,99"
+            android:autoSizeTextType="uniform"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_porcentaje"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:text="+99,99(+99,99%)"
+            android:textAlignment="center"
+            android:textColor="#000"
             android:textSize="14dp"
-            android:textColor="#000"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

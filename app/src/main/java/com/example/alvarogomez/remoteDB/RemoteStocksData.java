@@ -108,6 +108,8 @@ public class RemoteStocksData {
 
                         stockData.setSimbolo(jsonStockData.getString("simbolo"));
                         stockData.setDescription(jsonStockData.getString("nombre_stock"));
+                        stockData.setFecha(jsonStockData.getString("fecha"));
+                        stockData.setApertura(Float.valueOf(jsonStockData.getString("apertura")));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));
                         stockData.setFavorito(Integer.valueOf(jsonStockData.getString("favorito")));
                         stockData.setTendencia(Integer.valueOf(jsonStockData.getString("tendencia")));

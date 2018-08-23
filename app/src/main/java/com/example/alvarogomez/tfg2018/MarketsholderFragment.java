@@ -261,6 +261,8 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
                 stockData = iter.next();
                 String simbolo = stockData.getSimbolo();
                 String descripcion = stockData.getDescription();
+                String fecha = stockData.getFecha();
+                float apertura = stockData.getApertura();
                 float cierre = stockData.getCierre();
                 int favorito = stockData.getFavorito();
                 int tendencia = stockData.getTendencia();
@@ -270,6 +272,8 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
 
                 stockAux.setSimbolo(simbolo);
                 stockAux.setDescription(descripcion);
+                stockAux.setFecha(fecha);
+                stockAux.setApertura(apertura);
                 stockAux.setCierre(cierre);
                 stockAux.setFavorito(favorito);
                 stockAux.setTendencia(tendencia);

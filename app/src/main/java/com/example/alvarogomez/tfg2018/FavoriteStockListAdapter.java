@@ -24,11 +24,17 @@ public class FavoriteStockListAdapter extends BaseAdapter {
     private Context mContext;
     private List<Stock> mStockList;
     private String mStockName;
+    private String mFecha;
     private String mCierre;
+    private String mPorcentaje;
     private String mDescripcion;
     private int mFavorito = 0;
     private int mTendencia;
     private String mStock;
+    private float apertura;
+    private float cierre;
+    private float diferencia;
+    private float porcentaje;
     Boolean comandoOk = false;
     String mMetodo;
 
@@ -62,18 +68,24 @@ public class FavoriteStockListAdapter extends BaseAdapter {
         View v = View.inflate(mContext, R.layout.item_stock_list, null);
         TextView tvStock = (TextView)v.findViewById(R.id.tv_stock_name);
         TextView tvCierre = (TextView)v.findViewById(R.id.tv_cierre);
-        TextView tvDescription = (TextView)v.findViewById(R.id.tv_description);
+        TextView tvFecha = (TextView)v.findViewById(R.id.tv_fecha);
+        TextView tvPorcentaje = (TextView)v.findViewById(R.id.tv_porcentaje);
         final ImageView ivIcono = (ImageView)v.findViewById(R.id.imageView2);
 
         mStockName = mStockList.get(position).getDescription();
-        mCierre = String.format(Locale.US, "%.3f", mStockList.get(position).getCierre());
-        mDescripcion = mStockList.get(position).getDescription();
+        mFecha = mStockList.get(position).getFecha();
+
+        cierre = mStockList.get(position).getCierre();
+        apertura = mStockList.get(position).getApertura();
+        diferencia = cierre - apertura;
+        porcentaje = diferencia / 100;
+
+        mCierre = String.format(Locale.US, "%.3f", cierre);
 
         tvStock.setText(mStockName);
         tvCierre.setText(mCierre);
-        tvDescription.setText(mDescripcion);
+        tvFecha.setText(mFecha);
         ivIcono.setImageResource(R.drawable.corazon_rojo);
-
 
         ivIcono.hasOnClickListeners();
 
@@ -99,11 +111,17 @@ public class FavoriteStockListAdapter extends BaseAdapter {
         mTendencia = mStockList.get(position).getTendencia();
 
         if ( mTendencia == 1001 ){
-            tvCierre.setTextColor(Color.RED);
+            tvPorcentaje.setTextColor(Color.RED);
+            mPorcentaje = String.format(Locale.US, "%.2f", diferencia) + " (" + String.format(Locale.US, "%.2f", porcentaje) + "%)";
+            tvPorcentaje.setText(mPorcentaje);
         } else if ( mTendencia == 1002 ){
-            tvCierre.setTextColor(Color.GREEN);
+            tvPorcentaje.setTextColor(Color.GREEN);
+            mPorcentaje = "+" + String.format(Locale.US, "%.2f", diferencia) + " (+" + String.format(Locale.US, "%.2f", porcentaje) + "%)";
+            tvPorcentaje.setText(mPorcentaje);
         } else if ( mTendencia == 1003 ){
-            tvCierre.setTextColor(Color.BLUE);
+            tvPorcentaje.setTextColor(Color.BLUE);
+            mPorcentaje = "~" + String.format(Locale.US, "%.2f", diferencia) + " ~(" + String.format(Locale.US, "%.2f", porcentaje) + "%)";
+            tvPorcentaje.setText(mPorcentaje);
         } else {
             tvCierre.setTextColor(Color.BLUE);
         }
