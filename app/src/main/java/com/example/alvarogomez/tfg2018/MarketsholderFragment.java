@@ -75,6 +75,7 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
         lvStock = (ListView)view.findViewById(android.R.id.list);
         lvStock.setVerticalScrollBarEnabled(true);
         lvStock.setScrollbarFadingEnabled(true);
+        lvStock.setClipToPadding(false);
 
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
@@ -179,10 +180,12 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
                 if (stock.getEsMercado() == 1000) {
                     Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
+                    intent.putExtra("descripcion", stock.getDescription());
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
+                    intent.putExtra("descripcion", stock.getDescription());
                     startActivity(intent);
                 }
 
@@ -271,6 +274,7 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
 
                 stockData = iter.next();
                 String simbolo = stockData.getSimbolo();
+                String nombreStock = stockData.getNombreStock();
                 String descripcion = stockData.getDescription();
                 String fecha = stockData.getFecha();
                 float apertura = stockData.getApertura();
@@ -282,6 +286,7 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
                 Stock stockAux = new Stock();
 
                 stockAux.setSimbolo(simbolo);
+                stockAux.setNombreStock(nombreStock);
                 stockAux.setDescription(descripcion);
                 stockAux.setFecha(fecha);
                 stockAux.setApertura(apertura);

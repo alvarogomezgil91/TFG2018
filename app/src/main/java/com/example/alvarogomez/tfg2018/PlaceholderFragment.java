@@ -72,6 +72,7 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
         lvStock = (ListView)view.findViewById(android.R.id.list);
         lvStock.setVerticalScrollBarEnabled(true);
         lvStock.setScrollbarFadingEnabled(true);
+        lvStock.setClipToPadding(false);
 
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
@@ -80,7 +81,8 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
     }
 
-    @Override public void onPause() {
+    @Override
+    public void onPause() {
         super.onPause();
         //set rotation to sensor dependent
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
@@ -230,7 +232,9 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
                 stockData = iter.next();
                 String simbolo = stockData.getSimbolo();
+                String nombreStock = stockData.getNombreStock();
                 String descripcion = stockData.getDescription();
+                String fecha = stockData.getFecha();
                 float cierre = stockData.getCierre();
                 int favorito = stockData.getFavorito();
                 int tendencia = stockData.getTendencia();
@@ -240,7 +244,9 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
                 Stock stockAux = new Stock();
 
                 stockAux.setSimbolo(simbolo);
+                stockAux.setNombreStock(nombreStock);
                 stockAux.setDescription(descripcion);
+                stockAux.setFecha(fecha);
                 stockAux.setCierre(cierre);
                 stockAux.setFavorito(favorito);
                 stockAux.setTendencia(tendencia);
@@ -262,7 +268,6 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
             StockListAdapter mAdapter = new StockListAdapter(view.getContext(), mStockList);
             lvStock.setAdapter(mAdapter);
-            lvStock.invalidate();
             lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -283,6 +288,7 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
                 }
             });
+            lvStock.invalidate();
 
         }
 

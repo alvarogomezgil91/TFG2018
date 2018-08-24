@@ -20,6 +20,8 @@
 #	STRY00018 - Show URL images from Yahoo in FeedholderFragment
 #	STRY00019 - Fix XML format stocks lists
 #	STRY00020 - PredictionStockList creation and format improvments
+#       STRY00021 - PredictionStockList creation and format improvments
+#       STRY00022 - Visual improvements
 #
 #
 #

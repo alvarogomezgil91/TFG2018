@@ -124,11 +124,13 @@ public class StockPredictionholderFragment extends Fragment {
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
 
+        final CalendarDay cd = CalendarDay.from(new Date());
+
 
         mMCalendarView.addDecorators(new DayViewDecorator() {
             @Override
             public boolean shouldDecorate(CalendarDay day) {
-                return day.equals(mMCalendarView.getCurrentDate());
+                return day.equals(cd);
             }
 
             @Override
@@ -136,7 +138,7 @@ public class StockPredictionholderFragment extends Fragment {
                 //view.addSpan(new ForegroundColorSpan(Color.RED));
                 //view.addSpan(new BackgroundColorSpan(Color.GREEN));
 
-                Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.red_circle);
+                Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.current_day_calendar);
                 view.setBackgroundDrawable(drawable);
             }
         });
@@ -158,7 +160,6 @@ public class StockPredictionholderFragment extends Fragment {
                     mApertura = mStockList.get(position).getApertura();
                     mCierre = mStockList.get(position).getCierre();
                     mPorcentaje = (mCierre - mApertura) / 100;
-
 
                     tvFecha.setText(mFecha);
                     tvApertura.setText(String.format(Locale.US, "%.2f", mApertura));
@@ -187,53 +188,6 @@ public class StockPredictionholderFragment extends Fragment {
 
     }
 
-    public static String previousBussinessDateString(String dateString, List<String> mStockListFechas) throws ParseException {
-
-        String result = dateString;
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        String firstDateString = mStockListFechas.get(0);
-        Date firstDate = dateFormat.parse(firstDateString);
-
-
-
-        if (firstDate.after(new Date())){
-
-            return "";
-
-        }
-
-
-        while (!mStockListFechas.contains(result)) {
-
-            result = previousDateString(result);
-        }
-
-        return result;
-
-    }
-
-    public static String previousDateString(String dateString)
-            throws ParseException {
-        // Create a date formatter using your format string
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        // Parse the given date string into a Date object.
-        // Note: This can throw a ParseException.
-        Date myDate = dateFormat.parse(dateString);
-
-        // Use the Calendar class to subtract one day
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(myDate);
-        calendar.add(Calendar.DATE, -1);
-
-        // Use the date formatter to produce a formatted date string
-        Date previousDate = calendar.getTime();
-        String result = dateFormat.format(previousDate);
-
-        return result;
-    }
 
     @Override
     public void onResume() {
@@ -374,6 +328,55 @@ public class StockPredictionholderFragment extends Fragment {
             //Toast.makeText(getBaseContext(), "Tarea pesada cancelada", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+
+    public static String previousBussinessDateString(String dateString, List<String> mStockListFechas) throws ParseException {
+
+        String result = dateString;
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        if (mStockListFechas.size() != 0) {
+
+            String firstDateString = mStockListFechas.get(0);
+            Date firstDate = dateFormat.parse(firstDateString);
+
+            if (firstDate.after(new Date())) {
+
+                return "";
+
+            }
+
+            while (!mStockListFechas.contains(result)) {
+
+                result = previousDateString(result);
+            }
+        }
+
+        return result;
+
+    }
+
+    public static String previousDateString(String dateString)
+            throws ParseException {
+        // Create a date formatter using your format string
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Parse the given date string into a Date object.
+        // Note: This can throw a ParseException.
+        Date myDate = dateFormat.parse(dateString);
+
+        // Use the Calendar class to subtract one day
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(myDate);
+        calendar.add(Calendar.DATE, -1);
+
+        // Use the date formatter to produce a formatted date string
+        Date previousDate = calendar.getTime();
+        String result = dateFormat.format(previousDate);
+
+        return result;
     }
 
 }

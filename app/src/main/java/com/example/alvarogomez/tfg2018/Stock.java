@@ -7,10 +7,11 @@ public class Stock {
 
     private int id;
     private String simbolo;
+    private String nombreStock;
+    private String description;
     private String fecha;
     private float apertura;
     private float cierre;
-    private String description;
     private int favorito;
     private int tendencia;
     private int esMercado;
@@ -66,6 +67,13 @@ public class Stock {
     }
     public void setSimbolo(String simbolo) {
         this.simbolo = simbolo;
+    }
+
+    public String getNombreStock() {
+        return nombreStock;
+    }
+    public void setNombreStock(String nombreStock) {
+        this.nombreStock = nombreStock;
     }
 
     public String getFecha() {

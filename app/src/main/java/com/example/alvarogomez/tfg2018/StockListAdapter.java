@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.example.alvarogomez.remoteDB.RemoteFavouriteStocks;
 import java.lang.reflect.InvocationTargetException;
@@ -23,11 +25,11 @@ public class StockListAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Stock> mStockList;
-    private String mStockName;
+    private String mNombreStock;
+    private String mDescripcion;
     private String mFecha;
     private String mCierre;
     private String mPorcentaje;
-    private String mDescripcion;
     private int mFavorito = 0;
     private int mTendencia;
     private String mStock;
@@ -72,9 +74,7 @@ public class StockListAdapter extends BaseAdapter {
         TextView tvPorcentaje = (TextView)v.findViewById(R.id.tv_porcentaje);
         final ImageView ivIcono = (ImageView)v.findViewById(R.id.imageView2);
 
-
-
-        mStockName = mStockList.get(position).getDescription();
+        mNombreStock = mStockList.get(position).getNombreStock();
         mFecha = mStockList.get(position).getFecha();
 
         cierre = mStockList.get(position).getCierre();
@@ -84,7 +84,7 @@ public class StockListAdapter extends BaseAdapter {
 
         mCierre = String.format(Locale.US, "%.3f", cierre);
 
-        tvStock.setText(mStockName);
+        tvStock.setText(mNombreStock);
         tvCierre.setText(mCierre);
         tvFecha.setText(mFecha);
         mFavorito = mStockList.get(position).getFavorito();

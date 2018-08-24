@@ -183,7 +183,9 @@ public class FeedholderFragment extends Fragment {
                             insideItem = true;
                         } else if (xpp.getName().equalsIgnoreCase(Constants.TITLE)) {
                             if (insideItem) {
-                                mTitle = xpp.nextText().replace(Constants.JSON_APOSTROFE,Constants.APOSTROFE);
+                                mTitle = xpp.nextText();
+                                mTitle = mTitle.replace(Constants.JSON_APOSTROFE,Constants.APOSTROFE);
+                                mTitle = mTitle.replace(Constants.JSON_QUOTES,Constants.QUOTES);
                             }
                         } else if (xpp.getName().equalsIgnoreCase(Constants.LINK)) {
                             if (insideItem) {

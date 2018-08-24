@@ -37,7 +37,9 @@ public final class Constants {
     public static final String LINK = "link";
     public static final String DESCRIPTION = "description";
     public static final String JSON_APOSTROFE = "&apos;";
+    public static final String JSON_QUOTES = "&quot;";
     public static final String APOSTROFE = "'";
+    public static final String QUOTES = "\"";
 
 
     // Constantes
@@ -46,6 +48,7 @@ public final class Constants {
     // DataSets y Valores de graficas
     public static final String DATA_SET_1 = "Data Set 1";
     public static final String DATA_SET_2 = "Data Set 2";
+    public static final String NO_DATA_SET = "Cargando...";
 
 
 

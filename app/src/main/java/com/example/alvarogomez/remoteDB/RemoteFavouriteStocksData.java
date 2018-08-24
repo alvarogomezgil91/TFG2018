@@ -110,7 +110,8 @@ public class RemoteFavouriteStocksData {
                         JSONObject jsonStockData = new JSONObject(arrayJSON.getString(i));
 
                         stockData.setSimbolo(jsonStockData.getString("simbolo"));
-                        stockData.setDescription(jsonStockData.getString("nombre_stock"));
+                        stockData.setNombreStock(jsonStockData.getString("nombre_stock"));
+                        stockData.setDescription(jsonStockData.getString("descripcion_stock"));
                         stockData.setFecha(jsonStockData.getString("fecha"));
                         stockData.setApertura(Float.valueOf(jsonStockData.getString("apertura")));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));
@@ -120,7 +121,6 @@ public class RemoteFavouriteStocksData {
                         stockDataList.add(stockData);
 
                     }
-
 
                 } else if (resultCode.equals("2")) {
 

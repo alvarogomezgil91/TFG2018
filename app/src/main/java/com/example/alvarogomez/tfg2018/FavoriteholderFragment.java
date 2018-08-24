@@ -288,6 +288,7 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
 
                 stockData = iter.next();
                 String simbolo = stockData.getSimbolo();
+                String nombreStock = stockData.getNombreStock();
                 String descripcion = stockData.getDescription();
                 String fecha = stockData.getFecha();
                 float apertura = stockData.getApertura();
@@ -299,6 +300,7 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                 Stock stockAux = new Stock();
 
                 stockAux.setSimbolo(simbolo);
+                stockAux.setNombreStock(nombreStock);
                 stockAux.setDescription(descripcion);
                 stockAux.setFecha(fecha);
                 stockAux.setApertura(apertura);

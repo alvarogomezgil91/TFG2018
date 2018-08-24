@@ -60,6 +60,7 @@
     <!--         Strings related to MainGraphicholderFragment -->
     <string name="data_set_1">Data Set 1</string>
     <string name="data_set_2">Data Set 2</string>
+    <string name="no_data_set">"Cargando..."</string>
 
 
     <!--         Strings related to PlaceholderFragment -->

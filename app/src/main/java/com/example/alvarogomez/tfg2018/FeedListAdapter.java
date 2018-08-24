@@ -69,16 +69,6 @@ public class FeedListAdapter extends BaseAdapter {
             ivIcono.setImageResource(R.drawable.presentation_image);
         }
 
-        ivIcono.hasOnClickListeners();
-
-        ivIcono.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "El stock es " + mFeedList.get(position).getHyperlink(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
         v.setTag(mFeedList.get(position).getId());
 
         return v;

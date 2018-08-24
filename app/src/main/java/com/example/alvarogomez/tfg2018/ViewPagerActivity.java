@@ -109,7 +109,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
             }
 
-            return PlaceholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_INDEX_STOCKS_DATA_URL, "");
+            return MarketsholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_INDEX_STOCKS_DATA_URL, "");
 
         }
 

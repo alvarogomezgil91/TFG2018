@@ -97,7 +97,6 @@ public class RemoteStocksData {
                     JSONArray arrayJSON = new JSONArray(respuestaJSON.getString("mensaje"));
 
                     listSize = arrayJSON.length();
-
                     System.out.println("**********************   Recibimos una lista de " + listSize + " elementos **************");
 
                     for (int i = 0; i < arrayJSON.length(); i++){
@@ -107,7 +106,8 @@ public class RemoteStocksData {
                         JSONObject jsonStockData = new JSONObject(arrayJSON.getString(i));
 
                         stockData.setSimbolo(jsonStockData.getString("simbolo"));
-                        stockData.setDescription(jsonStockData.getString("nombre_stock"));
+                        stockData.setNombreStock(jsonStockData.getString("nombre_stock"));
+                        stockData.setDescription(jsonStockData.getString("descripcion_stock"));
                         stockData.setFecha(jsonStockData.getString("fecha"));
                         stockData.setApertura(Float.valueOf(jsonStockData.getString("apertura")));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre")));

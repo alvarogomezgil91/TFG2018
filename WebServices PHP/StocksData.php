@@ -53,7 +53,7 @@ class StocksData
 	$simbolo
 	)
     {
-        $consulta = "SELECT a.simbolo, c.nombre_stock, a.fecha, a.apertura, a.cierre, a.tendencia, (
+        $consulta = "SELECT a.simbolo, c.nombre_stock, c.descripcion_stock, a.fecha, a.apertura, a.cierre, a.tendencia, (
     									select count(*)
     									from stocks_favoritos f
     									where f.user_name='Alvaro1' and f.stock=a.simbolo
@@ -89,7 +89,8 @@ class StocksData
 	
 	public static function getIndexStocksData()
     {
-        $consulta = "SELECT a.simbolo, c.nombre_stock, a.fecha, a.apertura, a.cierre, a.tendencia, c.es_mercado, (
+        $consulta = "SELECT a.simbolo, c.nombre_stock, c.descripcion_stock,
+							a.fecha, a.apertura, a.cierre, a.tendencia, c.es_mercado, (
     									select count(*)
     									from stocks_favoritos f
     									where f.user_name='Alvaro1' and f.stock=a.simbolo
@@ -122,7 +123,7 @@ class StocksData
 	$fecha
 	)
     {
-        $consulta = "SELECT a.simbolo, c.nombre_stock, a.fecha, a.apertura, a.cierre_predecido, c.es_mercado
+        $consulta = "SELECT a.simbolo, c.nombre_stock, c.descripcion_stock, a.fecha, a.apertura, a.cierre_predecido, c.es_mercado
 					FROM stocks_prediccion a, cod_stocks c
 					WHERE a.fecha in (select min(fecha) from stocks_prediccion where fecha > ? )
                     	AND a.simbolo=c.simbolo
@@ -266,7 +267,7 @@ class StocksData
 	$user_name
 	)
     {
-        $consulta = "SELECT a.simbolo, c.nombre_stock, a.fecha, a.apertura, a.cierre, a.tendencia, c.es_mercado
+        $consulta = "SELECT a.simbolo, c.nombre_stock, c.descripcion_stock, a.fecha, a.apertura, a.cierre, a.tendencia, c.es_mercado
 					FROM stocks a, stocks_favoritos f, cod_stocks c
 					WHERE a.fecha in (select max(a.fecha) from stocks)
 						AND a.simbolo=f.stock
