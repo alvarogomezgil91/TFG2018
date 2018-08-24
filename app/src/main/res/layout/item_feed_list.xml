@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffffff"
+    android:background="@drawable/bg_calen"
     android:orientation="horizontal"
     android:paddingBottom="5dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="5dp">
-
 
     <TextView
         android:id="@+id/tv_feed"

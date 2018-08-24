@@ -26,13 +26,17 @@ public class PredictionListAdapter extends BaseAdapter {
     private Context mContext;
     private List<Stock> mStockList;
     private String mStockName;
-    private float mApertura;
-    private float mCierrePredecido;
-    private String mDescripcion;
-    private int mEsMercado = 0;
-    private float porcentaje;
+    private String mFecha;
+    private String mCierre;
     private String mPorcentaje;
+    private String mDescripcion;
+    private int mFavorito = 0;
+    private int mTendencia;
     private String mStock;
+    private float apertura;
+    private float cierre;
+    private float diferencia;
+    private float porcentaje;
     Boolean comandoOk = false;
     String mMetodo;
 
@@ -65,33 +69,44 @@ public class PredictionListAdapter extends BaseAdapter {
 
         View v = View.inflate(mContext, R.layout.item_stock_list, null);
         TextView tvStock = (TextView)v.findViewById(R.id.tv_stock_name);
-        TextView tvCierrePredecido = (TextView)v.findViewById(R.id.tv_cierre);
-        //TextView tvDescription = (TextView)v.findViewById(R.id.tv_description);
+        TextView tvCierre = (TextView)v.findViewById(R.id.tv_cierre);
+        TextView tvFecha = (TextView)v.findViewById(R.id.tv_fecha);
+        TextView tvPorcentaje = (TextView)v.findViewById(R.id.tv_porcentaje);
         final ImageView ivIcono = (ImageView)v.findViewById(R.id.imageView2);
 
         mStockName = mStockList.get(position).getDescription();
-        mApertura = mStockList.get(position).getApertura();
-        mCierrePredecido = mStockList.get(position).getCierre();
-        mDescripcion = mStockList.get(position).getDescription();
+        mFecha = mStockList.get(position).getFecha();
 
-        tvStock.setText(mDescripcion);
-        tvCierrePredecido.setText(String.format(Locale.US, "%.3f", mStockList.get(position).getCierre()));
+        cierre = mStockList.get(position).getCierre();
+        apertura = mStockList.get(position).getApertura();
+        diferencia = cierre - apertura;
+        porcentaje = diferencia / 100;
 
-        mEsMercado = mStockList.get(position).getEsMercado();
+        mCierre = String.format(Locale.US, "%.3f", cierre);
 
-        porcentaje = ( mApertura - mCierrePredecido) / 100;
-        mPorcentaje = String.format(Locale.US, "%.2f", porcentaje) + " %";
+        tvStock.setText(mStockName);
+        tvCierre.setText(mCierre);
+        tvFecha.setText(mFecha);
 
-        //tvDescription.setText(mPorcentaje);
+        mTendencia = mStockList.get(position).getTendencia();
 
-        if ( mApertura > mCierrePredecido){
-            tvCierrePredecido.setTextColor(Color.RED);
+        if ( cierre < apertura ){
+            tvPorcentaje.setTextColor(Color.RED);
+            mPorcentaje = String.format(Locale.US, "%.2f", diferencia) + " (" + String.format(Locale.US, "%.2f", porcentaje) + "%)";
+            tvPorcentaje.setText(mPorcentaje);
             ivIcono.setImageResource(R.drawable.flecha_baja);
-        } else if ( mApertura < mCierrePredecido ){
-            tvCierrePredecido.setTextColor(Color.GREEN);
+        } else if ( cierre > apertura ){
+            tvPorcentaje.setTextColor(Color.GREEN);
+            mPorcentaje = "+" + String.format(Locale.US, "%.2f", diferencia) + " (+" + String.format(Locale.US, "%.2f", porcentaje) + "%)";
+            tvPorcentaje.setText(mPorcentaje);
             ivIcono.setImageResource(R.drawable.flecha_alza);
+        } else if ( cierre == apertura ){
+            tvPorcentaje.setTextColor(Color.BLUE);
+            mPorcentaje = "~" + String.format(Locale.US, "%.2f", diferencia) + " ~(" + String.format(Locale.US, "%.2f", porcentaje) + "%)";
+            tvPorcentaje.setText(mPorcentaje);
+            ivIcono.setImageResource(R.drawable.igual);
         } else {
-            tvCierrePredecido.setTextColor(Color.BLUE);
+            tvCierre.setTextColor(Color.BLUE);
             ivIcono.setImageResource(R.drawable.igual);
         }
 
@@ -131,7 +146,6 @@ public class PredictionListAdapter extends BaseAdapter {
             }
 
             return null;
-
         }
 
         @Override

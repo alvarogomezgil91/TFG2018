@@ -1,7 +1,9 @@
 package com.example.alvarogomez.tfg2018;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 /**
@@ -32,7 +36,8 @@ public class StockViewPagerActivity extends AppCompatActivity {
     private int YELLOW = Color.YELLOW;
     private int GREEN = Color.GREEN;
 
-    String mSimbolo;
+    private String mSimbolo;
+    private String mDescripcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,9 @@ public class StockViewPagerActivity extends AppCompatActivity {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mSimbolo = getIntent().getStringExtra("simbolo");
+        mDescripcion = getIntent().getStringExtra("descripcion");
+
+        mToolbar.setTitle(mDescripcion);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -55,6 +63,19 @@ public class StockViewPagerActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setSelectedTabIndicatorColor(Color.WHITE);
+        tabLayout.setSelectedTabIndicatorHeight(10);
+
+        View root = tabLayout.getChildAt(0);
+
+        if (root instanceof LinearLayout) {
+            ((LinearLayout) root).setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+            GradientDrawable drawable = new GradientDrawable();
+            drawable.setColor(Color.DKGRAY);
+            drawable.setSize(8, 1);
+            ((LinearLayout) root).setDividerPadding(10);
+            ((LinearLayout) root).setDividerDrawable(drawable);
+        }
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -75,6 +96,7 @@ public class StockViewPagerActivity extends AppCompatActivity {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        menu.removeItem(R.id.item_search);
         setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
 
         return true;
@@ -86,8 +108,6 @@ public class StockViewPagerActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
 
-            case R.id.item_search:
-                return true;
             case R.id.item1:
                 return true;
             case R.id.item2:
@@ -120,7 +140,7 @@ public class StockViewPagerActivity extends AppCompatActivity {
                 case 1:
                     return StockPredictionholderFragment.newInstance(position + 1, mSimbolo);
                 case 2:
-                    return FeedholderFragment.newInstance(position + 1, mSimbolo);
+                    return StockFeedholderFragment.newInstance(position + 1, mSimbolo);
 
             }
 

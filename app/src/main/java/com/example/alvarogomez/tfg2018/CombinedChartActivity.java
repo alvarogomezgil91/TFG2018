@@ -60,12 +60,15 @@ public class CombinedChartActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-            System.out.println("Nos ponemos de lao");
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            System.out.println("Nos ponemos de normal");
             finish();
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
     private class ThreadCreation extends AsyncTask<Void, Integer, Void> {

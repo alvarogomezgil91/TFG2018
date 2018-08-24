@@ -6,34 +6,31 @@
     density="xxhdpi"
     format="10"
     plugin-version="3.0.1"
-    timestamp="1535052360547"
+    timestamp="1535077697163"
     token="-3666024524393916868"
     verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="585" />
     <task
         name="instant-run-dex"
-        duration="0" />
+        duration="22" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="25" />
     <task
         name="verifier"
-        duration="0" />
+        duration="7" />
 
     <artifact
-        location="C:\workspaceGIT\TFG2018\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
-        type="RESOURCES" />
+        location="C:\workspaceGIT\TFG2018\app\build\intermediates\reload-dex\debug\classes.dex"
+        type="RELOAD_DEX" />
 
     <build
         build-mode="FULL"
-        timestamp="1535048013176"
+        timestamp="1535066953373"
         verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
-            type="SPLIT" />
         <artifact
             location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
@@ -45,6 +42,9 @@
             type="SPLIT" />
         <artifact
             location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
             location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
@@ -70,39 +70,76 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1535050047906"
+        ir-eligibility="R_CLASS_CHANGE"
+        timestamp="1535074809295"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
             type="SPLIT" />
+        <artifact
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        ir-eligibility="R_CLASS_CHANGE"
+        timestamp="1535076338538"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            type="SPLIT" />
+    </build>
+    <build
+        build-mode="COLD"
+        timestamp="1535076964532"
+        verifier="FIELD_ADDED" >
         <artifact
             location="C:\workspaceGIT\TFG2018\app\build\outputs\apk\debug\app-debug.apk"
             type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
-        ir-eligibility="COMPATIBLE"
-        timestamp="1535050177478"
+        timestamp="1535077208640"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
-            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
     </build>
     <build
         build-mode="HOT_WARM"
-        timestamp="1535051627259"
+        timestamp="1535077282790"
         verifier="COMPATIBLE" >
         <artifact
-            location="C:\workspaceGIT\TFG2018\app\build\intermediates\builds\debug\1535051627259\classes.dex"
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\builds\debug\1535077282790\classes.dex"
             type="RELOAD_DEX" />
     </build>
     <build
         build-mode="HOT_WARM"
-        timestamp="1535052360547"
+        timestamp="1535077652711"
         verifier="COMPATIBLE" >
         <artifact
             location="C:\workspaceGIT\TFG2018\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
             type="RESOURCES" />
+        <artifact
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\builds\debug\1535077652711\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        build-mode="HOT_WARM"
+        timestamp="1535077697163"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\workspaceGIT\TFG2018\app\build\intermediates\reload-dex\debug\classes.dex"
+            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

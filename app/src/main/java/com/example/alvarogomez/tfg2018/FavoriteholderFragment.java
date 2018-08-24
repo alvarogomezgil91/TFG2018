@@ -1,6 +1,7 @@
 package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -98,7 +99,15 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
 
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
+        //lock screen to portrait
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        //set rotation to sensor dependent
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 
     private void setIconInMenu(Menu menu, int menuItemId, int labelId, int iconId) {
@@ -180,10 +189,12 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                 if (stock.getEsMercado() == 1000) {
                     Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
+                    intent.putExtra("descripcion", stock.getDescription());
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
+                    intent.putExtra("descripcion", stock.getDescription());
                     startActivity(intent);
                 }
 
@@ -208,10 +219,12 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                 if (stock.getEsMercado() == 1000) {
                     Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
+                    intent.putExtra("descripcion", stock.getDescription());
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
+                    intent.putExtra("descripcion", stock.getDescription());
                     startActivity(intent);
                 }
 
@@ -318,10 +331,12 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                     if (stock.getEsMercado() == 1000) {
                         Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                         intent.putExtra("simbolo", stock.getSimbolo());
+                        intent.putExtra("descripcion", stock.getDescription());
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                         intent.putExtra("simbolo", stock.getSimbolo());
+                        intent.putExtra("descripcion", stock.getDescription());
                         startActivity(intent);
                     }
 

@@ -2,6 +2,7 @@ package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -64,12 +65,14 @@ public class StockPredictionholderFragment extends Fragment {
     private static String mSimbolo;
 
 
+    private TextView tvFecha;
     private TextView tvApertura;
     private TextView tvCierre;
     private TextView tvPorcentaje;
     private ImageView ivIcono;
 
 
+    private String mFecha;
     private float mApertura;
     private float mCierre;
     private float mPorcentaje;
@@ -105,6 +108,7 @@ public class StockPredictionholderFragment extends Fragment {
 
         mMCalendarView = (MaterialCalendarView) view.findViewById(R.id.prediction_calendar);
 
+        tvFecha = (TextView) view.findViewById(R.id.tv_fecha_calendar);
         tvApertura = (TextView) view.findViewById(R.id.tv_apertura);
         tvCierre = (TextView) view.findViewById(R.id.tv_cierre);
         tvPorcentaje = (TextView) view.findViewById(R.id.tv_porcentaje);
@@ -142,8 +146,10 @@ public class StockPredictionholderFragment extends Fragment {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 
                 Date dateAux = date.getDate();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String fechaAux = dateFormat.format(dateAux);
+                SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd-MM-yyyy");
+                String fechaAux = dateFormat1.format(dateAux);
+                mFecha = dateFormat2.format(dateAux);
 
                 if (mStockListFechas.contains(fechaAux)) {
 
@@ -154,6 +160,7 @@ public class StockPredictionholderFragment extends Fragment {
                     mPorcentaje = (mCierre - mApertura) / 100;
 
 
+                    tvFecha.setText(mFecha);
                     tvApertura.setText(String.format(Locale.US, "%.2f", mApertura));
                     tvCierre.setText(String.format(Locale.US, "%.2f", mCierre));
                     mTextPorcentaje = String.format(Locale.US, "%.2f", mPorcentaje) + "%";
@@ -228,6 +235,23 @@ public class StockPredictionholderFragment extends Fragment {
         return result;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ThreadCreation threadCreation = new ThreadCreation();
+        threadCreation.execute().toString();
+        //lock screen to portrait
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //set rotation to sensor dependent
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+    }
+
     public class ThreadCreation extends AsyncTask<Void, Integer, Void> {
 
         @Override
@@ -293,9 +317,11 @@ public class StockPredictionholderFragment extends Fragment {
         protected void onPostExecute(Void voids) {
             super.onPostExecute(voids);
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dateFormat2 = new SimpleDateFormat("dd-MM-yyyy");
             Date date = new Date();
-            currentDay = dateFormat.format(date);
+            currentDay = dateFormat1.format(date);
+            mFecha = dateFormat2.format(date);
 
             String previousBussinessDate;
 
@@ -316,6 +342,7 @@ public class StockPredictionholderFragment extends Fragment {
                 mCierre = mStockList.get(position).getCierre();
                 mPorcentaje = (mCierre - mApertura) / 100;
 
+                tvFecha.setText(mFecha);
                 tvApertura.setText(String.format(Locale.US, "%.2f", mApertura));
                 tvCierre.setText(String.format(Locale.US, "%.2f", mCierre));
                 mTextPorcentaje = String.format(Locale.US, "%.2f", mPorcentaje) + "%";

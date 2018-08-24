@@ -2,6 +2,7 @@ package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -79,12 +80,20 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
     }
 
+    @Override public void onPause() {
+        super.onPause();
+        //set rotation to sensor dependent
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
 
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     }
 
@@ -263,10 +272,12 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
                     if (stock.getEsMercado() == 1000) {
                         Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                         intent.putExtra("simbolo", stock.getSimbolo());
+                        intent.putExtra("descripcion", stock.getDescription());
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                         intent.putExtra("simbolo", stock.getSimbolo());
+                        intent.putExtra("descripcion", stock.getDescription());
                         startActivity(intent);
                     }
 

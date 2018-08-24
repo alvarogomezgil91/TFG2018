@@ -1,6 +1,7 @@
 package com.example.alvarogomez.tfg2018;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -112,6 +113,21 @@ public class MainGraphicholderFragment extends Fragment {
 
         }
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        //lock screen to portrait
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //set rotation to sensor dependent
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 
     private class ThreadCreation extends AsyncTask<Void, Integer, Void> {

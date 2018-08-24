@@ -24,112 +24,144 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:background="@drawable/bg_calen"
-        android:layout_marginTop="10dp"
-        android:id="@+id/prediction_info">
+        android:layout_marginTop="10dp">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:background="@drawable/bg_calen"
             android:layout_marginTop="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:id="@+id/tv_fecha_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:gravity="bottom"
-                android:text="Apertura"
+                android:text="DD-MM-YYYY"
                 android:textAlignment="center"
-                android:textColor="#00a7f5"
-                android:textSize="18dp" />
-
-            <TextView
-                android:id="@+id/tv_apertura"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="top"
-                android:text="Name"
-                android:textAlignment="center"
-                android:textColor="#00a7f5"
-                android:textSize="18dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="bottom"
-                android:text="Cierre"
-                android:textAlignment="center"
-                android:textColor="#00a7f5"
-                android:textSize="18dp" />
-
-            <TextView
-                android:id="@+id/tv_cierre"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="top"
-                android:text="9999,99"
-                android:textAlignment="center"
-                android:textColor="#f92a3f"
-                android:textSize="16dp" />
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="horizontal"
             android:background="@drawable/bg_calen"
             android:layout_marginTop="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_weight="1"
-                android:gravity="bottom"
-                android:text="Porcentaje"
-                android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="24dp" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/bg_calen"
+                android:layout_marginTop="5dp">
 
-            <TextView
-                android:id="@+id/tv_porcentaje"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:text="Apertura"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="22dp" />
+
+                <TextView
+                    android:id="@+id/tv_apertura"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:text="Name"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:text="Cierre"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="22dp" />
+
+                <TextView
+                    android:id="@+id/tv_cierre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:text="9999,99"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_weight="1"
-                android:gravity="top|center_vertical"
-                android:text="descripcion"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/bg_calen"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:text="Porcentaje"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="22dp" />
+
+                <TextView
+                    android:id="@+id/tv_porcentaje"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="top|center_vertical"
+                    android:text="descripcion"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center"
                 android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="24dp" />
+                app:srcCompat="@drawable/flecha_alza"/>
+
+
 
         </LinearLayout>
 
 
-
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            app:srcCompat="@drawable/flecha_alza"/>
 
     </LinearLayout>
 

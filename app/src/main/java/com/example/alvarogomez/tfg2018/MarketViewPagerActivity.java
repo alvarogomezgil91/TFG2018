@@ -1,6 +1,7 @@
 package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -29,7 +30,8 @@ public class MarketViewPagerActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private String mSimbolo = "^IBEX";
+    private String mSimbolo;
+    private String mDescripcion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +41,12 @@ public class MarketViewPagerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_market_view_pager);
         mSimbolo = getIntent().getStringExtra("simbolo");
+        mDescripcion = getIntent().getStringExtra("descripcion");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        toolbar.setTitle(mDescripcion);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -105,11 +110,11 @@ public class MarketViewPagerActivity extends AppCompatActivity {
                 case 0:
                     return MainGraphicholderFragment.newInstance(position + 1, mSimbolo);
                 case 1:
-                    return PredictionholderFragment.newInstance(position + 1);
+                    return StockPredictionholderFragment.newInstance(position + 1, mSimbolo);
                 case 2:
                     return PlaceholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_MARKET_STOCKS_DATA_URL, mSimbolo);
                 case 3:
-                    return FeedholderFragment.newInstance(position + 1, "");
+                    return StockFeedholderFragment.newInstance(position + 1, "");
 
             }
 

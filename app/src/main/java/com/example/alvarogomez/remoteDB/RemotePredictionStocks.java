@@ -32,12 +32,10 @@ import java.util.List;
 public class RemotePredictionStocks {
 
     private String REMOTE_URL = Constants.REMOTE_URL;
-    String GET_FAVOURITE_STOCKS_DATA = Constants.GET_PREDICTIONS_DATA;
-    private String mUserName;
+    String GET_PREDICTIONS_DATA = Constants.GET_PREDICTIONS_DATA;
     private String mFecha;
 
-    public RemotePredictionStocks(String userName, String fecha){
-        mUserName = userName;
+    public RemotePredictionStocks(String fecha){
         mFecha = fecha;
     }
 
@@ -53,7 +51,7 @@ public class RemotePredictionStocks {
 
             DataOutputStream printout;
             DataInputStream input;
-            URL url = new URL(REMOTE_URL + GET_FAVOURITE_STOCKS_DATA);
+            URL url = new URL(REMOTE_URL + GET_PREDICTIONS_DATA);
             urlConn = (HttpURLConnection) url.openConnection();
             urlConn.setRequestProperty("User-Agent", "Mozilla/5.0" +
                     " (Linux; Android 1.5; es-ES) Ejemplo HTTP");
@@ -65,9 +63,7 @@ public class RemotePredictionStocks {
             urlConn.connect();
             // Envio los parámetros post.
             JSONObject jsonParam = new JSONObject();
-            jsonParam.put("user_name", mUserName);
             jsonParam.put("fecha", mFecha);
-            System.out.println("******************************************************************" + jsonParam.toString());
             OutputStream os = urlConn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
@@ -98,13 +94,9 @@ public class RemotePredictionStocks {
                 //Accedemos al vector de resultados
                 String resultCode = respuestaJSON.getString("estado");   // estado es el nombre del campo en el JSON
 
-                if (resultCode.equals("1")) {      // hay un alumno que mostrar
+                if (resultCode.equals("1")) {
 
                     JSONArray arrayJSON = new JSONArray(respuestaJSON.getString("mensaje"));
-
-                    listSize = arrayJSON.length();
-
-                    System.out.println("**********************   Recibimos una lista de stocks predecidos" + listSize + " elementos **************");
 
                     for (int i = 0; i < arrayJSON.length(); i++){
 
@@ -114,14 +106,12 @@ public class RemotePredictionStocks {
 
                         stockData.setSimbolo(jsonStockData.getString("simbolo"));
                         stockData.setDescription(jsonStockData.getString("nombre_stock"));
+                        stockData.setFecha(jsonStockData.getString("fecha"));
                         stockData.setApertura(Float.valueOf(jsonStockData.getString("apertura")));
                         stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre_predecido")));
                         stockData.setEsMercado(Integer.valueOf(jsonStockData.getString("es_mercado")));
 
                         stockDataList.add(stockData);
-
-                        //System.out.println("*********** Elemento " + i + " de la lista: ");
-                        //System.out.println("*********** " + arrayJSON.getString(i) + "*************");
 
                     }
 

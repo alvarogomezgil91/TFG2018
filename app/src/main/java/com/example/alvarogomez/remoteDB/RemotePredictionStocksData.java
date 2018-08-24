@@ -30,7 +30,7 @@ import java.util.List;
 public class RemotePredictionStocksData {
     private String mSimbolo;
     private String mFecha;
-    String GET_FAVOURITE_STOCKS_DATA = Constants.GET_PREDICTION_STOCKS_DATA;
+    String GET_STOCK_PREDICTIONS_DATA = Constants.GET_STOCK_PREDICTIONS_DATA;
     String REMOTE_URL = Constants.REMOTE_URL;
 
     public RemotePredictionStocksData(String simbolo, String fecha){
@@ -49,7 +49,7 @@ public class RemotePredictionStocksData {
             HttpURLConnection urlConn;
             DataOutputStream printout;
             DataInputStream input;
-            URL url = new URL(REMOTE_URL + GET_FAVOURITE_STOCKS_DATA);
+            URL url = new URL(REMOTE_URL + GET_STOCK_PREDICTIONS_DATA);
             urlConn = (HttpURLConnection) url.openConnection();
             urlConn.setRequestProperty("User-Agent", "Mozilla/5.0" +
                     " (Linux; Android 1.5; es-ES) Ejemplo HTTP");
@@ -63,7 +63,6 @@ public class RemotePredictionStocksData {
             JSONObject jsonParam = new JSONObject();
             jsonParam.put("simbolo", mSimbolo);
             jsonParam.put("fecha", mFecha);
-            System.out.println("******************************************************************" + jsonParam.toString());
             OutputStream os = urlConn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));

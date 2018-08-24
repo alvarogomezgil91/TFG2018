@@ -2,6 +2,7 @@ package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.example.alvarogomez.remoteDB.RemoteFavouriteStocksData;
 import com.example.alvarogomez.remoteDB.RemotePredictionStocks;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
@@ -43,11 +46,16 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
     private Context mContext;
     List<String> mStockListNames;
 
+    private static String mMetodo;
+
+
+
     public PredictionholderFragment(){
     }
 
     public static PredictionholderFragment newInstance(int sectionNumber) {
 
+        mMetodo = Constants.GET_REMOTE_PREDICTION_STOCKS;
         PredictionholderFragment fragment = new PredictionholderFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -162,15 +170,17 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Stock stock = mStockList.get(position);
+                Stock stock = filteredStockValues.get(position);
 
                 if (stock.getEsMercado() == 1000) {
                     Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
+                    intent.putExtra("descripcion", stock.getDescription());
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
+                    intent.putExtra("descripcion", stock.getDescription());
                     startActivity(intent);
                 }
 
@@ -195,10 +205,12 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
                 if (stock.getEsMercado() == 1000) {
                     Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
+                    intent.putExtra("descripcion", stock.getDescription());
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
+                    intent.putExtra("descripcion", stock.getDescription());
                     startActivity(intent);
                 }
 
@@ -219,6 +231,23 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
         return true;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ThreadCreation threadCreation = new ThreadCreation();
+        threadCreation.execute().toString();
+        //lock screen to portrait
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //set rotation to sensor dependent
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+    }
+
     public class ThreadCreation extends AsyncTask<Void, Integer, Void> {
 
 
@@ -237,19 +266,13 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
             mStockList = new ArrayList<>();
             mStockListNames = new ArrayList<>();
 
-
             try {
-                String mMetodo = "GetRemotePredictionStocks";
                 method = RemotePredictionStocks.class.getMethod(mMetodo);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
             String userName = "Alvaro1";
-            Date sysdate = Calendar.getInstance().getTime();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String currentDate = dateFormat.format(sysdate);
-            RemotePredictionStocks remoteStocksData = new RemotePredictionStocks(userName, currentDate);
-
+            RemotePredictionStocks remoteStocksData = new RemotePredictionStocks("2018-08-17");
 
             try{
                 stockDataList = (List<Stock>) method.invoke(remoteStocksData);
@@ -268,19 +291,24 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
 
                 stockData = iter.next();
                 String simbolo = stockData.getSimbolo();
-                String nombreStock = stockData.getDescription();
+                String descripcion = stockData.getDescription();
+                String fecha = stockData.getFecha();
                 float apertura = stockData.getApertura();
-                float cierrePredecido = stockData.getCierre();
+                float cierre = stockData.getCierre();
+                int favorito = stockData.getFavorito();
+                int tendencia = stockData.getTendencia();
                 int esMercado = stockData.getEsMercado();
 
                 Stock stockAux = new Stock();
 
                 stockAux.setSimbolo(simbolo);
-                stockAux.setDescription(nombreStock);
+                stockAux.setDescription(descripcion);
+                stockAux.setFecha(fecha);
                 stockAux.setApertura(apertura);
-                stockAux.setCierre(cierrePredecido);
+                stockAux.setCierre(cierre);
+                stockAux.setFavorito(favorito);
+                stockAux.setTendencia(tendencia);
                 stockAux.setEsMercado(esMercado);
-
 
                 mStockList.add(stockAux);
                 mStockListNames.add(simbolo);
@@ -291,18 +319,11 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
             return null;
         }
 
-
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            //Toast.makeText(getBaseContext(), "Tarea pesada cancelada", Toast.LENGTH_SHORT).show();
-        }
-
         @Override
         protected void onPostExecute(Void voids) {
             super.onPostExecute(voids);
 
-            mAdapter = new PredictionListAdapter(view.getContext(), mStockList);
+            mAdapter = new PredictionListAdapter(getContext(), mStockList);
             lvStock.setAdapter(mAdapter);
             lvStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -313,17 +334,26 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
                     if (stock.getEsMercado() == 1000) {
                         Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                         intent.putExtra("simbolo", stock.getSimbolo());
+                        intent.putExtra("descripcion", stock.getDescription());
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                         intent.putExtra("simbolo", stock.getSimbolo());
+                        intent.putExtra("descripcion", stock.getDescription());
                         startActivity(intent);
                     }
 
 
                 }
             });
+            lvStock.invalidate();
 
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            //Toast.makeText(getBaseContext(), "Tarea pesada cancelada", Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -2,6 +2,7 @@ package com.example.alvarogomez.tfg2018;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -116,6 +117,18 @@ public class FeedholderFragment extends Fragment {
         menu.removeItem(R.id.item_search);
 
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        //lock screen to portrait
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    @Override public void onPause() {
+        super.onPause();
+        //set rotation to sensor dependent
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
     }
 
     @Override
@@ -266,10 +279,6 @@ public class FeedholderFragment extends Fragment {
                 }
             }
         }
-
-
-        System.out.println(">>>>>>>>>>>>>>>>>>>   link de imagenes " + imageLink);
-
 
         return imageLink;
 
