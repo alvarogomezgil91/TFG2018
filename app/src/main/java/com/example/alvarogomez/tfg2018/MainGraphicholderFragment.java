@@ -1,5 +1,6 @@
 package com.example.alvarogomez.tfg2018;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -7,8 +8,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.alvarogomez.ChartFormatter.MyXAxisValueFormatter;
@@ -36,6 +43,7 @@ public class MainGraphicholderFragment extends Fragment {
     private static int mLineColor = R.color.cyan;
     private static int mAreaColor = R.color.light_blue;
     public static String mMetodo;
+    private Context mContext;
 
     List<GraphicData> graphicDataList;
     private LineChart mChart;
@@ -70,6 +78,8 @@ public class MainGraphicholderFragment extends Fragment {
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
         view = inflater.inflate(R.layout.fragment_main_graphic, container, false);
+        mContext = getActivity();
+        setHasOptionsMenu(true);
 
         mChart = (LineChart) view.findViewById(R.id.linechart);
         mChart.setDrawBorders(true);
@@ -130,6 +140,44 @@ public class MainGraphicholderFragment extends Fragment {
         super.onPause();
         //set rotation to sensor dependent
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+    }
+
+    private void setIconInMenu(Menu menu, int menuItemId, int labelId, int iconId) {
+
+        MenuItem item = menu.findItem(menuItemId);
+        SpannableStringBuilder builder = new SpannableStringBuilder("   " + getResources().getString(labelId));
+        builder.setSpan(new ImageSpan(mContext, iconId), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(builder);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+        setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
+        menu.removeItem(R.id.item_search);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId()){
+
+            case R.id.item1:
+                return true;
+            case R.id.item2:
+                return true;
+            case R.id.item_log_out:
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.putExtra("logOut", "1");
+                startActivity(intent);
+                getActivity().finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private class ThreadCreation extends AsyncTask<Void, Integer, Void> {

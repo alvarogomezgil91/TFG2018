@@ -10,10 +10,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.BackgroundColorSpan;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -105,6 +111,7 @@ public class StockPredictionholderFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_prediction_calendar, container, false);
         mContext = getActivity();
+        setHasOptionsMenu(true);
 
         mMCalendarView = (MaterialCalendarView) view.findViewById(R.id.prediction_calendar);
 
@@ -168,12 +175,18 @@ public class StockPredictionholderFragment extends Fragment {
                     tvPorcentaje.setText(mTextPorcentaje);
 
                     if (mApertura > mCierre) {
+                        mTextPorcentaje = String.format(Locale.US, "%.2f", mPorcentaje) + "%";
+                        tvPorcentaje.setText(mTextPorcentaje);
                         tvPorcentaje.setTextColor(Color.RED);
                         ivIcono.setImageResource(R.drawable.flecha_baja);
                     } else if (mApertura < mCierre) {
+                        mTextPorcentaje = "+" + String.format(Locale.US, "%.2f", mPorcentaje) + "%";
+                        tvPorcentaje.setText(mTextPorcentaje);
                         tvPorcentaje.setTextColor(Color.GREEN);
                         ivIcono.setImageResource(R.drawable.flecha_alza);
                     } else {
+                        mTextPorcentaje = String.format(Locale.US, "%.2f", mPorcentaje) + "%";
+                        tvPorcentaje.setText(mTextPorcentaje);
                         tvPorcentaje.setTextColor(Color.BLUE);
                         ivIcono.setImageResource(R.drawable.igual);
                     }
@@ -187,7 +200,6 @@ public class StockPredictionholderFragment extends Fragment {
         return view;
 
     }
-
 
     @Override
     public void onResume() {
@@ -204,6 +216,44 @@ public class StockPredictionholderFragment extends Fragment {
         super.onPause();
         //set rotation to sensor dependent
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+    }
+
+    private void setIconInMenu(Menu menu, int menuItemId, int labelId, int iconId) {
+
+        MenuItem item = menu.findItem(menuItemId);
+        SpannableStringBuilder builder = new SpannableStringBuilder("   " + getResources().getString(labelId));
+        builder.setSpan(new ImageSpan(mContext, iconId), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(builder);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+        setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
+        menu.removeItem(R.id.item_search);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId()){
+
+            case R.id.item1:
+                return true;
+            case R.id.item2:
+                return true;
+            case R.id.item_log_out:
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.putExtra("logOut", "1");
+                startActivity(intent);
+                getActivity().finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public class ThreadCreation extends AsyncTask<Void, Integer, Void> {
@@ -299,16 +349,20 @@ public class StockPredictionholderFragment extends Fragment {
                 tvFecha.setText(mFecha);
                 tvApertura.setText(String.format(Locale.US, "%.2f", mApertura));
                 tvCierre.setText(String.format(Locale.US, "%.2f", mCierre));
-                mTextPorcentaje = String.format(Locale.US, "%.2f", mPorcentaje) + "%";
-                tvPorcentaje.setText(mTextPorcentaje);
 
                 if (mApertura > mCierre) {
+                    mTextPorcentaje = String.format(Locale.US, "%.2f", mPorcentaje) + "%";
+                    tvPorcentaje.setText(mTextPorcentaje);
                     tvPorcentaje.setTextColor(Color.RED);
                     ivIcono.setImageResource(R.drawable.flecha_baja);
                 } else if (mApertura < mCierre) {
+                    mTextPorcentaje = "+" + String.format(Locale.US, "%.2f", mPorcentaje) + "%";
+                    tvPorcentaje.setText(mTextPorcentaje);
                     tvPorcentaje.setTextColor(Color.GREEN);
                     ivIcono.setImageResource(R.drawable.flecha_alza);
                 } else {
+                    mTextPorcentaje = String.format(Locale.US, "%.2f", mPorcentaje) + "%";
+                    tvPorcentaje.setText(mTextPorcentaje);
                     tvPorcentaje.setTextColor(Color.BLUE);
                     ivIcono.setImageResource(R.drawable.igual);
                 }

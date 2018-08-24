@@ -45,6 +45,7 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
     private List<Stock> filteredStockValues;
     private Context mContext;
     List<String> mStockListNames;
+    List<String> mStockListDescriptions;
 
     public MarketsholderFragment() {
     }
@@ -160,13 +161,11 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
 
         filteredStockValues = new ArrayList<>();
 
-        int position = 0;
-        for (String value : mStockListNames) {
-
-            if (value.toLowerCase().contains(newText.toLowerCase())) {
-                filteredStockValues.add(mStockList.get(position));
+        for (int i = 0; i < mStockListNames.size(); i++) {
+            if ( (mStockListNames.get(i).toLowerCase().contains(newText.toLowerCase()))
+                    || (mStockListDescriptions.get(i).toLowerCase().contains(newText.toLowerCase())) ) {
+                filteredStockValues.add(mStockList.get(i));
             }
-            position++;
         }
 
         StockListAdapter mAdapter = new StockListAdapter(mContext, filteredStockValues);
@@ -246,6 +245,7 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
 
             mStockList = new ArrayList<>();
             mStockListNames = new ArrayList<>();
+            mStockListDescriptions = new ArrayList<>();
 
             List<Stock> stockDataList = new ArrayList<Stock>();
             java.lang.reflect.Method method = null;
@@ -297,7 +297,8 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
 
 
                 mStockList.add(stockAux);
-                mStockListNames.add(simbolo);
+                mStockListNames.add(nombreStock);
+                mStockListDescriptions.add(descripcion);
                 cont++;
 
             }

@@ -32,10 +32,6 @@ public class StockViewPagerActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private int RED = Color.RED;
-    private int BLUE = Color.BLUE;
-    private int YELLOW = Color.YELLOW;
-    private int GREEN = Color.GREEN;
 
     private String mSimbolo;
     private String mDescripcion;
@@ -85,48 +81,6 @@ public class StockViewPagerActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-    }
-
-    private void setIconInMenu(Menu menu, int menuItemId, int labelId, int iconId) {
-
-        MenuItem item = menu.findItem(menuItemId);
-        SpannableStringBuilder builder = new SpannableStringBuilder("   " + getResources().getString(labelId));
-        builder.setSpan(new ImageSpan(this, iconId), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        item.setTitle(builder);
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        menu.removeItem(R.id.item_search);
-        setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
-
-        return true;
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-
-        switch (item.getItemId()){
-
-            case R.id.item1:
-                return true;
-            case R.id.item2:
-                return true;
-            case R.id.item_log_out:
-                Intent intent = new Intent(this, LoginActivity.class);
-                intent.putExtra("logOut", "1");
-                startActivity(intent);
-                finish();
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
 
     }
 
