@@ -122,9 +122,9 @@ class StocksData
 	$fecha
 	)
     {
-        $consulta = "SELECT a.simbolo, c.nombre_stock, a.apertura, a.cierre_predecido, c.es_mercado
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.fecha, a.apertura, a.cierre_predecido, c.es_mercado
 					FROM stocks_prediccion a, cod_stocks c
-					WHERE a.fecha > ?
+					WHERE a.fecha in (select min(fecha) from stocks_prediccion where fecha > ? )
                     	AND a.simbolo=c.simbolo
 					GROUP BY a.simbolo
 					ORDER BY a.cierre_predecido desc";
