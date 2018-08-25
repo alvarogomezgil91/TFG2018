@@ -15,6 +15,7 @@ import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ImageSpan;
+import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -60,10 +61,13 @@ public class StockPredictionholderFragment extends Fragment {
     private LinearLayout mPredictionLayout;
     private Context mContext;
     private View view;
-    private List<Stock> mStockList;
     public static String mMetodo;
     public static String mURL;
     private List<String> mStockListFechas;
+    private List<CalendarDay> mStockListCalendarFechasAlza;
+    private List<CalendarDay> mStockListCalendarFechasBaja;
+    private List<CalendarDay> mStockListCalendarFechasIgual;
+    private List<Stock> mStockList;
     private static final String ARG_SECTION_NUMBER = "section_number2";
 
     int position = 0;
@@ -133,7 +137,6 @@ public class StockPredictionholderFragment extends Fragment {
 
         final CalendarDay cd = CalendarDay.from(new Date());
 
-
         mMCalendarView.addDecorators(new DayViewDecorator() {
             @Override
             public boolean shouldDecorate(CalendarDay day) {
@@ -144,7 +147,6 @@ public class StockPredictionholderFragment extends Fragment {
             public void decorate(DayViewFacade view) {
                 //view.addSpan(new ForegroundColorSpan(Color.RED));
                 //view.addSpan(new BackgroundColorSpan(Color.GREEN));
-
                 Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.current_day_calendar);
                 view.setBackgroundDrawable(drawable);
             }
@@ -192,10 +194,8 @@ public class StockPredictionholderFragment extends Fragment {
                     }
                 }
 
-
             }
         });
-
 
         return view;
 
@@ -268,6 +268,9 @@ public class StockPredictionholderFragment extends Fragment {
 
             mStockList = new ArrayList<>();
             mStockListFechas = new ArrayList<>();
+            mStockListCalendarFechasAlza = new ArrayList<>();
+            mStockListCalendarFechasBaja = new ArrayList<>();
+            mStockListCalendarFechasIgual = new ArrayList<>();
 
             List<Stock> stockDataList = new ArrayList<Stock>();
             java.lang.reflect.Method method = null;
@@ -309,6 +312,19 @@ public class StockPredictionholderFragment extends Fragment {
 
                 mStockList.add(stockAux);
                 mStockListFechas.add(fecha);
+
+                DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    if (cierre > apertura) {
+                        mStockListCalendarFechasAlza.add(CalendarDay.from(dateFormat1.parse(fecha)));
+                    } else if (cierre < apertura) {
+                        mStockListCalendarFechasBaja.add(CalendarDay.from(dateFormat1.parse(fecha)));
+                    } else {
+                        mStockListCalendarFechasIgual.add(CalendarDay.from(dateFormat1.parse(fecha)));
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 cont++;
 
@@ -373,6 +389,10 @@ public class StockPredictionholderFragment extends Fragment {
                 tvPorcentaje.setTextColor(Color.BLUE);
                 ivIcono.setImageResource(R.drawable.igual);
             }
+
+            mMCalendarView.addDecorators(new EventDayDecorator(R.drawable.bg_green_holo, mStockListCalendarFechasAlza, mContext));
+            mMCalendarView.addDecorators(new EventDayDecorator(R.drawable.bg_red_holo, mStockListCalendarFechasBaja, mContext));
+            mMCalendarView.addDecorators(new EventDayDecorator(R.drawable.bg_green_holo, mStockListCalendarFechasIgual, mContext));
 
         }
 

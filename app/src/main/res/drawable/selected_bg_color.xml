@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape
+<inset
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
+    android:insetBottom="@dimen/bg_calen_inset"
+    android:insetLeft="@dimen/bg_calen_inset"
+    android:insetRight="@dimen/bg_calen_inset"
+    android:insetTop="@dimen/bg_calen_inset">
+    <shape android:shape="oval">
+        <solid android:color="@color/gold" />
+        <size
+            android:width="120dp"
+            android:height="120dp"/>
+    </shape>
+</inset>
 
-    <solid
-        android:color="@color/cyan"/>
-
-    <size
-        android:width="120dp"
-        android:height="120dp"/>
-
-</shape>
