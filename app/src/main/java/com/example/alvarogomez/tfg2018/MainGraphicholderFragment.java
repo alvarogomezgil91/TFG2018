@@ -89,6 +89,7 @@ public class MainGraphicholderFragment extends Fragment {
         mChart.setScaleEnabled(true);
         mChart.setPinchZoom(true);
         mChart.setNoDataText(Constants.NO_DATA_SET);
+        mChart.setDoubleTapToZoomEnabled(false);
         Legend legend = mChart.getLegend();
         legend.setEnabled(false);
 
@@ -99,7 +100,8 @@ public class MainGraphicholderFragment extends Fragment {
         mChart1.setAutoScaleMinMaxEnabled(true);
         mChart1.setScaleEnabled(true);
         mChart1.setPinchZoom(true);
-        mChart.setNoDataText(Constants.NO_DATA_SET);
+        mChart1.setNoDataText(Constants.NO_DATA_SET);
+        mChart1.setDoubleTapToZoomEnabled(false);
 
         mChart.setOnChartGestureListener(new CoupleChartGestureListener(mChart, new Chart[] { mChart1}));
         mChart1.setOnChartGestureListener(new CoupleChartGestureListener(mChart, new Chart[] { mChart}));

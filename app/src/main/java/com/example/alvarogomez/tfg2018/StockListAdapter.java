@@ -17,7 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.example.alvarogomez.remoteDB.RemoteFavouriteStocks;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -75,7 +77,8 @@ public class StockListAdapter extends BaseAdapter {
         final ImageView ivIcono = (ImageView)v.findViewById(R.id.imageView2);
 
         mNombreStock = mStockList.get(position).getNombreStock();
-        mFecha = mStockList.get(position).getFecha();
+        String fechaAux = mStockList.get(position).getFecha();
+        mFecha = fechaAux.substring(8,10) + "-" + fechaAux.substring(5,7) + "-" + fechaAux.substring(0,4);
 
         cierre = mStockList.get(position).getCierre();
         apertura = mStockList.get(position).getApertura();

@@ -240,7 +240,6 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
                 int tendencia = stockData.getTendencia();
                 int esMercado = stockData.getEsMercado();
 
-
                 Stock stockAux = new Stock();
 
                 stockAux.setSimbolo(simbolo);
@@ -251,7 +250,6 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
                 stockAux.setFavorito(favorito);
                 stockAux.setTendencia(tendencia);
                 stockAux.setEsMercado(esMercado);
-
 
                 mStockList.add(stockAux);
                 mStockListNames.add(simbolo);
@@ -288,6 +286,7 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
 
                 }
             });
+
             lvStock.invalidate();
 
         }

@@ -23,6 +23,7 @@
 #       STRY00021 - PredictionStockList creation and format improvments
 #       STRY00022 - Visual improvements
 #       STRY00023 - Search by stock name and description
+#       STRY00024 - Vidual improvement PredictionStockCalendar
 #
 #
 #
