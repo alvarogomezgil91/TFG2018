@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,16 +21,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.alvarogomez.ChartFormatter.MyXAxisValueFormatter;
 import com.example.alvarogomez.remoteDB.RemoteGraphicData;
+import com.example.alvarogomez.remoteDB.RemoteTecnicoStocksData;
 import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.CombinedData;
+import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -42,14 +52,16 @@ public class MainGraphicholderFragment extends Fragment {
     public static String mSimbolo;
     private static int mLineColor = R.color.cyan;
     private static int mAreaColor = R.color.light_blue;
-    public static String mMetodo;
+    public static String mMetodoGraphic;
+    public static String mMetodoTecnico;
     private Context mContext;
 
     List<GraphicData> graphicDataList;
-    private LineChart mChart;
-    private LineChart mChart1;
-    private LineData data;
-    private LineData data2;
+    List<TecnicoStock> tecnicoDataList;
+    private LineChart mChartGraphic;
+    private CombinedChart mChartTecnico;
+    private LineData dataGraphic;
+    private CombinedData dataTecnico;
 
     View view;
 
@@ -63,7 +75,8 @@ public class MainGraphicholderFragment extends Fragment {
         MainGraphicholderFragment fragment = new MainGraphicholderFragment();
 
         mSimbolo = simbolo;
-        mMetodo = Constants.GET_REMOTE_GRAPHIC_DATA;
+        mMetodoGraphic = Constants.GET_REMOTE_GRAPHIC_DATA;
+        mMetodoTecnico = Constants.GET_REMOTE_TECNICO_STOCKS_DATA;
 
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -81,30 +94,11 @@ public class MainGraphicholderFragment extends Fragment {
         mContext = getActivity();
         setHasOptionsMenu(true);
 
-        mChart = (LineChart) view.findViewById(R.id.linechart);
-        mChart.setDrawBorders(true);
-        mChart.setBorderWidth((float) 2.0);
-        mChart.setDragEnabled(true);
-        mChart.setAutoScaleMinMaxEnabled(true);
-        mChart.setScaleEnabled(true);
-        mChart.setPinchZoom(true);
-        mChart.setNoDataText(Constants.NO_DATA_SET);
-        mChart.setDoubleTapToZoomEnabled(false);
-        Legend legend = mChart.getLegend();
-        legend.setEnabled(false);
+        setUpGraphicChart();
+        setUpTecnicoCHart();
 
-        mChart1 = (LineChart) view.findViewById(R.id.linechart2);
-        mChart1.setDrawBorders(true);
-        mChart1.setBorderWidth((float) 2.0);
-        mChart1.setDragEnabled(true);
-        mChart1.setAutoScaleMinMaxEnabled(true);
-        mChart1.setScaleEnabled(true);
-        mChart1.setPinchZoom(true);
-        mChart1.setNoDataText(Constants.NO_DATA_SET);
-        mChart1.setDoubleTapToZoomEnabled(false);
-
-        mChart.setOnChartGestureListener(new CoupleChartGestureListener(mChart, new Chart[] { mChart1}));
-        mChart1.setOnChartGestureListener(new CoupleChartGestureListener(mChart, new Chart[] { mChart}));
+        mChartGraphic.setOnChartGestureListener(new CoupleChartGestureListener(mChartGraphic, new Chart[] { mChartTecnico}));
+        mChartTecnico.setOnChartGestureListener(new CoupleChartGestureListener(mChartTecnico, new Chart[] { mChartGraphic}));
 
         ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
@@ -182,6 +176,57 @@ public class MainGraphicholderFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    public void setUpGraphicChart() {
+        mChartGraphic = (LineChart) view.findViewById(R.id.graphic_chart);
+        mChartGraphic.setDrawBorders(true);
+        mChartGraphic.setBorderWidth((float) 2.0);
+        mChartGraphic.setDragEnabled(true);
+        mChartGraphic.setAutoScaleMinMaxEnabled(true);
+        mChartGraphic.setScaleEnabled(true);
+        mChartGraphic.setPinchZoom(true);
+        mChartGraphic.setNoDataText(Constants.NO_DATA_SET);
+        mChartGraphic.setDoubleTapToZoomEnabled(false);
+        mChartGraphic.setAutoScaleMinMaxEnabled(true);
+        mChartGraphic.getDescription().setEnabled(false);
+        Legend legendGraphic = mChartGraphic.getLegend();
+        legendGraphic.setEnabled(true);
+        LegendEntry legendEntryCierre = new LegendEntry();
+        legendEntryCierre.label = Constants.DATA_SET_CIERRE;
+        legendEntryCierre.formColor = Color.WHITE;
+        LegendEntry legendEntryMA26 = new LegendEntry();
+        legendEntryMA26.label = Constants.DATA_SET_MA26;
+        legendEntryMA26.formColor = Constants.COLOR_EMA26;
+        LegendEntry legendEntryMA12 = new LegendEntry();
+        legendEntryMA12.label = Constants.DATA_SET_MA12;
+        legendEntryMA12.formColor = Constants.COLOR_EMA12;
+        legendGraphic.setCustom(Arrays.asList(legendEntryCierre, legendEntryMA26, legendEntryMA12));
+    }
+
+    public void setUpTecnicoCHart() {
+        mChartTecnico = (CombinedChart) view.findViewById(R.id.tecnico_chart);
+        mChartTecnico.setDrawBorders(true);
+        mChartTecnico.setBorderWidth((float) 2.0);
+        mChartTecnico.setDragEnabled(true);
+        mChartTecnico.setAutoScaleMinMaxEnabled(true);
+        mChartTecnico.setScaleEnabled(true);
+        mChartTecnico.setPinchZoom(true);
+        mChartTecnico.setNoDataText(Constants.NO_DATA_SET);
+        mChartTecnico.setDoubleTapToZoomEnabled(false);
+        mChartTecnico.setAutoScaleMinMaxEnabled(true);
+        Legend legendTecnicos = mChartTecnico.getLegend();
+        legendTecnicos.setEnabled(true);
+        LegendEntry legendEntryMACD = new LegendEntry();
+        legendEntryMACD.label = Constants.DATA_SET_MACD;
+        legendEntryMACD.formColor = Constants.COLOR_MACD;
+        LegendEntry legendEntrySENAL = new LegendEntry();
+        legendEntrySENAL.label = Constants.DATA_SET_SENAL;
+        legendEntrySENAL.formColor = Constants.COLOR_SENAL;
+        LegendEntry legendEntryHISTOGRAMA = new LegendEntry();
+        legendEntryHISTOGRAMA.label = Constants.DATA_SET_HISTOGRAMA;
+        legendEntryHISTOGRAMA.formColor = Constants.COLOR_HISTOGRAMA_POSITIVO;
+        legendTecnicos.setCustom(Arrays.asList(legendEntryMACD, legendEntrySENAL, legendEntryHISTOGRAMA));
+    }
+
     private class ThreadCreation extends AsyncTask<Void, Integer, Void> {
 
         @Override
@@ -192,10 +237,10 @@ public class MainGraphicholderFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            java.lang.reflect.Method method = null;
+            java.lang.reflect.Method methodStock = null;
 
             try {
-                method = RemoteGraphicData.class.getMethod(mMetodo);
+                methodStock = RemoteGraphicData.class.getMethod(mMetodoGraphic);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
@@ -203,63 +248,169 @@ public class MainGraphicholderFragment extends Fragment {
             RemoteGraphicData remoteGraphicData = new RemoteGraphicData(mSimbolo);
 
             try{
-                graphicDataList = (List<GraphicData>) method.invoke(remoteGraphicData);
+                graphicDataList = (List<GraphicData>) methodStock.invoke(remoteGraphicData);
 
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
 
-            ArrayList<Entry> yValues = new ArrayList<>();
-            List<String> xList = new ArrayList<String>();
-            String[] xValues;
+            ArrayList<Entry> yValuesGraphic = new ArrayList<>();
+            List<String> xListGraphic = new ArrayList<String>();
+            String[] xValuesGraphic;
 
             GraphicData graphicData;
-            float yAxis = 0;
-            int cont = 0;
+            float yAxisGraphic = 0;
+            int contGraphic = 0;
+            String xDia;
+            String xMes;
 
             for (ListIterator<GraphicData> iter = graphicDataList.listIterator(); iter.hasNext(); ){
 
                 graphicData = iter.next();
-                xList.add(graphicData.getFecha().replace("-","").substring(6, 8));
-                yAxis = Float.valueOf(graphicData.getMaximo());
 
-                yValues.add(new Entry(cont, yAxis));
+                xDia = graphicData.getFecha().replace("-","").substring(6, 8);
+                xMes = graphicData.getFecha().replace("-","").substring(4, 6);
+                xListGraphic.add(xDia + "/" + xMes);
+                yAxisGraphic = graphicData.getCierre();
 
-                cont++;
+                yValuesGraphic.add(new Entry(contGraphic, yAxisGraphic));
+
+                contGraphic++;
 
             }
 
-            xValues = xList.toArray(new String[xList.size()]);
+            xValuesGraphic = xListGraphic.toArray(new String[xListGraphic.size()]);
 
-            LineDataSet set1 = new LineDataSet(yValues, Constants.DATA_SET_1);
-            LineDataSet set2 = new LineDataSet(yValues, Constants.DATA_SET_2);
+            LineDataSet setGraphic = new LineDataSet(yValuesGraphic, Constants.DATA_SET_CIERRE);
 
-            set1.setDrawCircles(false);
-            set2.setDrawCircles(false);
-            set1.setFillAlpha(110);
-            set1.setValueTextSize(0f);
-            set2.setFillAlpha(110);
-            set2.setValueTextSize(0f);
+            setGraphic.setDrawCircles(false);
+            setGraphic.setFillAlpha(110);
+            setGraphic.setValueTextSize(0f);
 
-            XAxis xAxis = mChart.getXAxis();
-            xAxis.setValueFormatter(new MyXAxisValueFormatter(xValues));
-            xAxis.setGranularity(1f);
+            XAxis xAxisGraphic = mChartGraphic.getXAxis();
+            xAxisGraphic.setValueFormatter(new MyXAxisValueFormatter(xValuesGraphic));
+            xAxisGraphic.setGranularity(0.1f);
 
-            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-            ArrayList<ILineDataSet> dataSets2 = new ArrayList<>();
-            set1.setColors(mLineColor);
-            set2.setColors(mLineColor);
+            ArrayList<ILineDataSet> dataSetsGraphic = new ArrayList<>();
+            setGraphic.setColors(mLineColor);
 
-            set1.setDrawFilled(true);
-            set1.setFillColor(mAreaColor);
-            set2.setDrawFilled(true);
-            set2.setFillColor(mAreaColor);
+            setGraphic.setDrawFilled(true);
 
-            dataSets.add(set1);
-            dataSets2.add(set2);
+            java.lang.reflect.Method methodTecnico = null;
 
-            data = new LineData(dataSets);
-            data2 = new LineData(dataSets2);
+            try {
+                methodTecnico = RemoteTecnicoStocksData.class.getMethod(mMetodoTecnico);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+
+            RemoteTecnicoStocksData remoteTecnicoStocksData = new RemoteTecnicoStocksData(mSimbolo);
+
+            try{
+                tecnicoDataList = (List<TecnicoStock>) methodTecnico.invoke(remoteTecnicoStocksData);
+
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+
+            ArrayList<Entry> yValuesTecnicoEMA26 = new ArrayList<>();
+            ArrayList<Entry> yValuesTecnicoEMA12 = new ArrayList<>();
+            ArrayList<Entry> yValuesTecnicoMACD = new ArrayList<>();
+            ArrayList<Entry> yValuesTecnicoSENAL = new ArrayList<>();
+            ArrayList<BarEntry> yValuesTecnicoHISTOGRAMA = new ArrayList<>();
+            List<String> xListTecnico = new ArrayList<String>();
+            String[] xValuesTecnico;
+
+            TecnicoStock tecnicoStock;
+            float yAxisTecnicoEMA26 = 0;
+            float yAxisTecnicoEMA12 = 0;
+            float yAxisTecnicoMACD = 0;
+            float yAxisTecnicoSENAL = 0;
+            float yAxisTecnicoHISTOGRAMA = 0;
+            int contTecnico = 0;
+            List<Integer> colorTecnicoHISTOGRAMA = new ArrayList<>();
+
+            for (ListIterator<TecnicoStock> iter = tecnicoDataList.listIterator(); iter.hasNext(); ){
+
+                tecnicoStock = iter.next();
+                xDia = tecnicoStock.getFecha().replace("-","").substring(6, 8);
+                xMes = tecnicoStock.getFecha().replace("-","").substring(4, 6);
+                xListTecnico.add(xDia + "/" + xMes);
+                yAxisTecnicoEMA26 = tecnicoStock.getEMA26();
+                yAxisTecnicoEMA12 = tecnicoStock.getEMA12();
+                yAxisTecnicoMACD = tecnicoStock.getMACD();
+                yAxisTecnicoSENAL = tecnicoStock.getSENAL();
+                yAxisTecnicoHISTOGRAMA = tecnicoStock.getHISTOGRAMA();
+
+                if (yAxisTecnicoHISTOGRAMA > 0){
+                    colorTecnicoHISTOGRAMA.add(Constants.COLOR_HISTOGRAMA_POSITIVO);
+                } else if (yAxisTecnicoHISTOGRAMA < 0){
+                    colorTecnicoHISTOGRAMA.add(Constants.COLOR_HISTOGRAMA_NEGATIVO);
+                } else {
+                    colorTecnicoHISTOGRAMA.add(Constants.COLOR_HISTOGRAMA_NEUTRO);
+                }
+
+                yValuesTecnicoEMA26.add(new Entry(contTecnico, yAxisTecnicoEMA26));
+                yValuesTecnicoEMA12.add(new Entry(contTecnico, yAxisTecnicoEMA12));
+                yValuesTecnicoMACD.add(new Entry(contTecnico, yAxisTecnicoMACD));
+                yValuesTecnicoSENAL.add(new Entry(contTecnico, yAxisTecnicoSENAL));
+                yValuesTecnicoHISTOGRAMA.add(new BarEntry(contTecnico, yAxisTecnicoHISTOGRAMA));
+
+                contTecnico++;
+
+            }
+
+            xValuesTecnico = xListTecnico.toArray(new String[xListTecnico.size()]);
+
+            LineDataSet setTecnicoEMA26 = new LineDataSet(yValuesTecnicoEMA26, Constants.DATA_SET_EMA26);
+            LineDataSet setTecnicoEMA12 = new LineDataSet(yValuesTecnicoEMA12, Constants.DATA_SET_EMA12);
+            LineDataSet setTecnicoMACD = new LineDataSet(yValuesTecnicoMACD, Constants.DATA_SET_MACD);
+            LineDataSet setTecnicoSENAL = new LineDataSet(yValuesTecnicoSENAL, Constants.DATA_SET_SENAL);
+            BarDataSet setTecnicoHISTOGRAMA = new BarDataSet(yValuesTecnicoHISTOGRAMA, Constants.DATA_SET_HISTOGRAMA);
+
+            setTecnicoEMA26.setDrawCircles(false);
+            setTecnicoEMA12.setDrawCircles(false);
+            setTecnicoMACD.setDrawCircles(false);
+            setTecnicoSENAL.setDrawCircles(false);
+            setTecnicoEMA26.setFillAlpha(110);
+            setTecnicoEMA12.setFillAlpha(110);
+            setTecnicoMACD.setFillAlpha(110);
+            setTecnicoSENAL.setFillAlpha(110);
+            setTecnicoEMA26.setValueTextSize(0f);
+            setTecnicoEMA12.setValueTextSize(0f);
+            setTecnicoMACD.setValueTextSize(0f);
+            setTecnicoSENAL.setValueTextSize(0f);
+            setTecnicoHISTOGRAMA.setValueTextSize(0f);
+
+            XAxis xAxisTecnico = mChartTecnico.getXAxis();
+            xAxisTecnico.setValueFormatter(new MyXAxisValueFormatter(xValuesTecnico));
+            xAxisTecnico.setGranularity(1f);
+
+            setTecnicoEMA26.setColors(Constants.COLOR_EMA26);
+            setTecnicoEMA12.setColors(Constants.COLOR_EMA12);
+            setTecnicoMACD.setColors(Constants.COLOR_MACD);
+            setTecnicoSENAL.setColors(Constants.COLOR_SENAL);
+            setTecnicoHISTOGRAMA.setColors(colorTecnicoHISTOGRAMA);
+
+            dataSetsGraphic.add(setGraphic);
+            dataSetsGraphic.add(setTecnicoEMA26);
+            dataSetsGraphic.add(setTecnicoEMA12);
+            dataGraphic = new LineData(dataSetsGraphic);
+
+
+
+            LineData lineDataTecnico = new LineData();
+            BarData barDataTecnico = new BarData();
+
+            lineDataTecnico.addDataSet(setTecnicoMACD);
+            lineDataTecnico.addDataSet(setTecnicoSENAL);
+            barDataTecnico.addDataSet(setTecnicoHISTOGRAMA);
+
+
+            dataTecnico = new CombinedData();
+            dataTecnico.setData(lineDataTecnico);
+            dataTecnico.setData(barDataTecnico);
 
             return null;
 
@@ -268,12 +419,12 @@ public class MainGraphicholderFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
 
-            mChart.setData(data);
-            mChart1.setData(data2);
-            mChart.notifyDataSetChanged();
-            mChart.invalidate();
-            mChart1.notifyDataSetChanged();
-            mChart1.invalidate();
+            mChartGraphic.setData(dataGraphic);
+            mChartTecnico.setData(dataTecnico);
+            mChartGraphic.notifyDataSetChanged();
+            mChartGraphic.invalidate();
+            mChartTecnico.notifyDataSetChanged();
+            mChartTecnico.invalidate();
 
         }
 

@@ -16,9 +16,8 @@
     <color name="light_blue">#7EB3C9</color>
     <color name="cyan">#E69579</color>
     <color name="blue">#0404B4</color>
+    <color name="red">#FF0000</color>
     <color name="holo_green">#088A08</color>
     <color name="holo_gray">#6E6E6E</color>
-
-    <!-- @android:color/holo_green_light !-->
 
 </resources>

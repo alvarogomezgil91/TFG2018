@@ -50,7 +50,7 @@ public class CombinedChartActivity extends AppCompatActivity {
         combinedChart = (CombinedChart) findViewById(R.id.combined_chart);
         mSimbolo = getIntent().getStringExtra("simbolo");
 
-        CombinedChartActivity.ThreadCreation threadCreation = new CombinedChartActivity.ThreadCreation();
+        ThreadCreation threadCreation = new ThreadCreation();
         threadCreation.execute().toString();
 
     }

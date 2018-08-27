@@ -370,7 +370,35 @@ class StocksData
             return false;
         }
 		
-    } 
+    }
+	
+	public static function getTecnicoStocksData(
+	$simbolo
+	)
+    {
+        $consulta = "SELECT a.simbolo, c.nombre_stock, a.fecha, a.EMA26, a.EMA12, a.MACD, a.SENAL, a.HISTOGRAMA
+					FROM tecnicos_stocks a, cod_stocks c
+					WHERE a.simbolo=c.simbolo
+                        AND a.simbolo = ? 
+					ORDER BY a.fecha ASC";
+							
+        try {
+            // Preparar sentencia
+            $comando = Database::getInstance()->getDb()->prepare($consulta);
+            // Ejecutar sentencia preparada
+            $comando->execute(
+				array(
+					$simbolo
+					)
+				);
+
+            return $comando->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            return false;
+        }
+		
+    }
 	
 	
 	

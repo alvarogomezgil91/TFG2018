@@ -1,5 +1,7 @@
 package com.example.alvarogomez.tfg2018;
 
+import android.graphics.Color;
+
 /**
  * Created by Alvaro Gomez on 06/07/2018.
  */
@@ -20,6 +22,7 @@ public final class Constants {
     public static final String GET_PREDICTIONS_DATA = "/GetPredictionsData.php";
     public static final String GET_PREDICTION_STOCKS_DATA = "/GetPredictionStocksData.php";
     public static final String GET_STOCK_PREDICTIONS_DATA = "/GetStockPredictionsData.php";
+    public static final String GET_TECNICO_STOCKS_DATA = "/GetTecnicoStocksData.php";
     public static final String RSS_YAHOO_FINANCE = "https://es.finance.yahoo.com/rss/topstories";
     public static final String RSS_YAHOO_FINANCE_BY_TICKER_START = "https://feeds.finance.yahoo.com/rss/2.0/headline?s=";
     public static final String RSS_YAHOO_FINANCE_BY_TICKER_END = "&region=US&lang=en-US";
@@ -30,6 +33,7 @@ public final class Constants {
     public static final String GET_REMOTE_GRAPHIC_DATA = "GetRemoteGraphicData";
     public static final String GET_REMOTE_PREDICTION_STOCKS = "GetRemotePredictionStocks";
     public static final String GET_REMOTE_PREDICTION_STOCKS_DATA = "GetRemotePredictionStocksData";
+    public static final String GET_REMOTE_TECNICO_STOCKS_DATA = "GetRemoteTecnicoStocksData";
 
     // Etiquetas XML para formateo
     public static final String ITEM = "item";
@@ -46,9 +50,26 @@ public final class Constants {
     public static final String SEARCH = "Search";
 
     // DataSets y Valores de graficas
-    public static final String DATA_SET_1 = "Data Set 1";
-    public static final String DATA_SET_2 = "Data Set 2";
+    public static final String DATA_SET_CIERRE = "Cierre";
+    public static final String DATA_SET_MA26 = "MA26";
+    public static final String DATA_SET_MA12 = "MA12";
+    public static final String DATA_SET_EMA26 = "EMA26";
+    public static final String DATA_SET_EMA12 = "EMA12";
+    public static final String DATA_SET_MACD = "MACD";
+    public static final String DATA_SET_SENAL = "SENAL";
+    public static final String DATA_SET_HISTOGRAMA = "HISTOGRAMA";
     public static final String NO_DATA_SET = "Cargando...";
+
+
+    public static final int COLOR_EMA26 = Color.RED;
+    public static final int COLOR_EMA12 = Color.BLUE;
+    public static final int COLOR_MACD = Color.RED;
+    public static final int COLOR_SENAL = Color.BLUE;
+    public static final int COLOR_HISTOGRAMA_POSITIVO = Color.GREEN;
+    public static final int COLOR_HISTOGRAMA_NEGATIVO = Color.RED;
+    public static final int COLOR_HISTOGRAMA_NEUTRO = Color.BLUE;
+
+
 
 
 

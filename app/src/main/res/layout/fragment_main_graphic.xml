@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/linechart"
+            android:id="@+id/graphic_chart"
             android:layout_width="match_parent"
             android:layout_weight="2"
             android:layout_marginLeft="10dp"
@@ -28,8 +28,8 @@
             tools:layout_editor_absoluteY="18dp"
             android:layout_height="0dp" />
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/linechart2"
+        <com.github.mikephil.charting.charts.CombinedChart
+            android:id="@+id/tecnico_chart"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_marginLeft="10dp"

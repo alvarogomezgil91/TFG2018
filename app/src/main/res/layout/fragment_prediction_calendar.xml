@@ -19,7 +19,8 @@
         app:mcv_tileWidth="match_parent"
         app:mcv_showOtherDates="none"
         app:mcv_dateTextAppearance="@style/CustomTextAppearance"
-        app:mcv_selectionColor="@color/black_greyish"/>
+        app:mcv_headerTextAppearance="@style/CustomTextAppearance"
+        app:mcv_selectionColor="@color/holo_gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
