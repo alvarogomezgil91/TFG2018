@@ -26,6 +26,7 @@
 #       STRY00024 - Visual improvement PredictionStockCalendar
 #       STRY00025 - Tecnicos graphic creation
 #       STRY00026 - Internet connection check during PresentationActivity
+#       STRY00027 - LoginActivity bug fix
 #
 #
 #

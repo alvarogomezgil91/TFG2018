@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Aug 27 06:23:51 CEST 2018
+#Mon Aug 27 06:51:22 CEST 2018
 1.base=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\10
 0.baseType=DIRECTORY
 1.baseType=DIRECTORY
@@ -7,5 +7,5 @@ count=2
 1.set=DEX
 0.path=classes.dex
 0.set=DEX
-0.base=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\86
+0.base=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\103
 1.path=classes.dex
