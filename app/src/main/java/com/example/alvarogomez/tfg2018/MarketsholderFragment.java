@@ -112,14 +112,35 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu){
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.item_search).getActionView();
+        searchView.setQuery("", false);
+        searchView.setIconified(true);
+        searchView.clearFocus();
+        searchView.onActionViewCollapsed();
+
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
         setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
 
-        MenuItem searchItem = menu.findItem(R.id.item_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        final MenuItem searchItem = menu.findItem(R.id.item_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint(Constants.SEARCH);
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean queryTextFocused) {
+                if(!queryTextFocused) {
+                    searchItem.collapseActionView();
+                    searchView.setQuery("", false);
+                }
+            }
+        });
 
         super.onCreateOptionsMenu(menu, inflater);
     }

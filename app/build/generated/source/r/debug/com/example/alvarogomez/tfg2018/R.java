@@ -3664,31 +3664,32 @@ public final class R {
     public static final int ic_action_search=0x7f07006f;
     public static final int ic_launcher_background=0x7f070070;
     public static final int ic_launcher_foreground=0x7f070071;
-    public static final int igual=0x7f070072;
-    public static final int imagen_prueba=0x7f070073;
-    public static final int loginbutton_selector=0x7f070074;
-    public static final int mcv_action_next=0x7f070075;
-    public static final int mcv_action_previous=0x7f070076;
-    public static final int navigation_empty_icon=0x7f070077;
-    public static final int noticias=0x7f070078;
-    public static final int notification_action_background=0x7f070079;
-    public static final int notification_bg=0x7f07007a;
-    public static final int notification_bg_low=0x7f07007b;
-    public static final int notification_bg_low_normal=0x7f07007c;
-    public static final int notification_bg_low_pressed=0x7f07007d;
-    public static final int notification_bg_normal=0x7f07007e;
-    public static final int notification_bg_normal_pressed=0x7f07007f;
-    public static final int notification_icon_background=0x7f070080;
-    public static final int notification_template_icon_bg=0x7f070081;
-    public static final int notification_template_icon_low_bg=0x7f070082;
-    public static final int notification_tile_bg=0x7f070083;
-    public static final int notify_panel_notification_icon_bg=0x7f070084;
-    public static final int presentation_image=0x7f070085;
-    public static final int red_circle=0x7f070086;
-    public static final int selected_bg_color=0x7f070087;
-    public static final int text_selector=0x7f070088;
-    public static final int tooltip_frame_dark=0x7f070089;
-    public static final int tooltip_frame_light=0x7f07008a;
+    public static final int ic_launcher_tfg2018=0x7f070072;
+    public static final int igual=0x7f070073;
+    public static final int imagen_prueba=0x7f070074;
+    public static final int loginbutton_selector=0x7f070075;
+    public static final int mcv_action_next=0x7f070076;
+    public static final int mcv_action_previous=0x7f070077;
+    public static final int navigation_empty_icon=0x7f070078;
+    public static final int noticias=0x7f070079;
+    public static final int notification_action_background=0x7f07007a;
+    public static final int notification_bg=0x7f07007b;
+    public static final int notification_bg_low=0x7f07007c;
+    public static final int notification_bg_low_normal=0x7f07007d;
+    public static final int notification_bg_low_pressed=0x7f07007e;
+    public static final int notification_bg_normal=0x7f07007f;
+    public static final int notification_bg_normal_pressed=0x7f070080;
+    public static final int notification_icon_background=0x7f070081;
+    public static final int notification_template_icon_bg=0x7f070082;
+    public static final int notification_template_icon_low_bg=0x7f070083;
+    public static final int notification_tile_bg=0x7f070084;
+    public static final int notify_panel_notification_icon_bg=0x7f070085;
+    public static final int presentation_image=0x7f070086;
+    public static final int red_circle=0x7f070087;
+    public static final int selected_bg_color=0x7f070088;
+    public static final int text_selector=0x7f070089;
+    public static final int tooltip_frame_dark=0x7f07008a;
+    public static final int tooltip_frame_light=0x7f07008b;
   }
   public static final class id {
     public static final int ALT=0x7f080000;
@@ -4033,7 +4034,8 @@ public final class R {
   }
   public static final class mipmap {
     public static final int ic_launcher=0x7f0c0000;
-    public static final int ic_launcher_round=0x7f0c0001;
+    public static final int ic_launcher_foreground=0x7f0c0001;
+    public static final int ic_launcher_round=0x7f0c0002;
   }
   public static final class string {
     public static final int abc_action_bar_home_description=0x7f0d0000;

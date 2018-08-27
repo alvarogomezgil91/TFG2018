@@ -25,6 +25,7 @@
 #       STRY00023 - Search by stock name and description
 #       STRY00024 - Visual improvement PredictionStockCalendar
 #       STRY00025 - Tecnicos graphic creation
+#       STRY00026 - Internet connection check during PresentationActivity
 #
 #
 #

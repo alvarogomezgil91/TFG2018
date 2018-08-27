@@ -1,6 +1,9 @@
 package com.example.alvarogomez.tfg2018;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +16,7 @@ public class PresentationActivity extends AppCompatActivity {
 
     private static boolean splashLoaded = false;
     private static boolean credentialsOK = false;
+    Boolean internetConnection;
     private static String mLogOut = "0";
 
     @Override
@@ -55,18 +59,9 @@ public class PresentationActivity extends AppCompatActivity {
 
     public Boolean presentationActivity() throws InterruptedException {
 
-        Boolean credentialsOK = false;
-        Boolean internetConnection;
         internetConnection = retrieveInternetConnection();
 
         if (internetConnection != true) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getBaseContext(), "No existe conexión a internet", Toast.LENGTH_SHORT).show();
-                }
-            });
-
             return credentialsOK;
         }
 
@@ -114,15 +109,38 @@ public class PresentationActivity extends AppCompatActivity {
 
     }
 
+    private boolean isNetDisponible() {
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
+
+        return (actNetInfo != null && actNetInfo.isConnected());
+    }
+
+    public Boolean isOnlineNet() {
+
+        try {
+            Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.es");
+
+            int val = p.waitFor();
+            boolean reachable = (val == 0);
+            return reachable;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public Boolean retrieveInternetConnection() throws InterruptedException {
 
         Boolean connectionOK = false;
 
-        //Servicio de consulta de conexión a internet, método ping.php (RetrieveConection.java)
-        System.out.println("Llamando al WS PHP de consulta de conexión a internet");
-        sleep(1000);
-        System.out.println("Conexión a internet correcta");
-        connectionOK = true;
+        if (isNetDisponible() && isOnlineNet()) {
+            connectionOK = true;
+        }
 
         return connectionOK;
     }
@@ -162,16 +180,22 @@ public class PresentationActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean credentialsOK) {
             super.onPostExecute(credentialsOK);
-            Toast.makeText(getBaseContext(), "Conexión realizada", Toast.LENGTH_SHORT).show();
 
             if (credentialsOK){
 
+                Toast.makeText(getBaseContext(), "Conexión realizada", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), ViewPagerActivity.class);
                 startActivity(intent);
                 finish();
 
+            } else if (!internetConnection) {
+                Toast.makeText(getBaseContext(), "No existe conexión a internet", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
             } else {
-
+                Toast.makeText(getBaseContext(), "", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
