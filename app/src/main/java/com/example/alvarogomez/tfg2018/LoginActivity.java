@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             Intent intent = new Intent(LoginActivity.this, ViewPagerActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.putExtra("user_name", mEmailView.getText().toString());
             startActivity(intent);
             finish();
 
@@ -389,7 +390,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 if(db != null) {
 
-                    localUserDB.onUpdateLastSuccesfullLogin(db, rememberMe, user);
+                    localUserDB.onUpdateLastSuccesfullLogin(db, rememberMe, user, password);
 
                 }else {
                     System.out.println("***** No existe la BBDD que esta intentando abrir *****");
@@ -399,6 +400,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 db.close();
 
                 Intent intent = new Intent(getApplicationContext(), ViewPagerActivity.class);
+                intent.putExtra("user_name", user);
                 startActivity(intent);
                 finish();
 

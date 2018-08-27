@@ -16,6 +16,7 @@ public class PresentationActivity extends AppCompatActivity {
 
     private static boolean splashLoaded = false;
     private static boolean credentialsOK = false;
+    Credential credential;
     Boolean internetConnection;
     private static String mLogOut = "0";
 
@@ -43,6 +44,7 @@ public class PresentationActivity extends AppCompatActivity {
 
             Intent intent = new Intent(PresentationActivity.this, ViewPagerActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.putExtra("user_name", credential.getUser());
             startActivity(intent);
             finish();
 
@@ -70,7 +72,7 @@ public class PresentationActivity extends AppCompatActivity {
         //de datos SQL del móvil (GetLocalCredentials.java)
 
         GetLocalCredentials localcredentials = new GetLocalCredentials();
-        Credential credential = localcredentials.getLocalCredentials(this);
+        credential = localcredentials.getLocalCredentials(this);
 
         String user = credential.getUser();
         String password = credential.getPass();
@@ -185,6 +187,7 @@ public class PresentationActivity extends AppCompatActivity {
 
                 Toast.makeText(getBaseContext(), "Conexión realizada", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), ViewPagerActivity.class);
+                intent.putExtra("user_name", credential.getUser());
                 startActivity(intent);
                 finish();
 

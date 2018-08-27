@@ -31,9 +31,9 @@ public class GetLocalCredentials {
                 credential.setRememberMe(true);
 
                 System.out.println("**************      ejecutando historias en la BBDD            ****************");
-                System.out.println("**************      User:" + credential.getUser() +"            ****************");
-                System.out.println("**************      Password:" + credential.getPass() +"            ****************");
-                System.out.println("**************      RememberMe:" + credential.getRememberMe() +"            ****************");
+                System.out.println("**************      User: " + credential.getUser() +"            ****************");
+                System.out.println("**************      Password: " + credential.getPass() +"            ****************");
+                System.out.println("**************      RememberMe: " + credential.getRememberMe() +"            ****************");
 
             }else {
                 System.out.println("***** No existe la BBDD que esta intentando abrir *****");

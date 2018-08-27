@@ -87,13 +87,15 @@ class StocksData
 	 
 	 
 	
-	public static function getIndexStocksData()
+	public static function getIndexStocksData(
+	$user_name
+	)
     {
         $consulta = "SELECT a.simbolo, c.nombre_stock, c.descripcion_stock,
 							a.fecha, a.apertura, a.cierre, a.tendencia, c.es_mercado, (
     									select count(*)
     									from stocks_favoritos f
-    									where f.user_name='Alvaro1' and f.stock=a.simbolo
+    									where f.user_name= ? and f.stock=a.simbolo
 										) as favorito
 					FROM stocks a, cod_stocks c
 					WHERE a.fecha in (select max(a.fecha) from stocks)
@@ -107,7 +109,7 @@ class StocksData
             // Ejecutar sentencia preparada
             $comando->execute(
 				array(
-					$simbolo
+					$user_name
 					)
 				);
 

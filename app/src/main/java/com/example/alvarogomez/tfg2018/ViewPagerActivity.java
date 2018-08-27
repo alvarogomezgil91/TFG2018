@@ -22,6 +22,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private String mUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         Log.i("audit",this.getClass().getSimpleName() + " >>>>>> Entrando en el método " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
+        mUserName = getIntent().getStringExtra("user_name");
         setContentView(R.layout.activity_view_pager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -99,9 +101,9 @@ public class ViewPagerActivity extends AppCompatActivity {
             switch (position){
 
                 case 0:
-                    return MarketsholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_INDEX_STOCKS_DATA_URL, "");
+                    return MarketsholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_INDEX_STOCKS_DATA_URL, "", mUserName);
                 case 1:
-                    return FavoriteholderFragment.newInstance(position + 1);
+                    return FavoriteholderFragment.newInstance(position + 1, mUserName);
                 case 2:
                     return PredictionholderFragment.newInstance(position + 1);
                 case 3:
@@ -109,7 +111,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
             }
 
-            return MarketsholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_INDEX_STOCKS_DATA_URL, "");
+            return MarketsholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_INDEX_STOCKS_DATA_URL, "", mUserName);
 
         }
 

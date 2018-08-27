@@ -39,6 +39,7 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
     View view;
     FavoriteStockListAdapter mAdapter;
     private static String mMetodo;
+    private static String mUserName;
 
     private List<Stock> filteredStockValues;
     private Context mContext;
@@ -47,7 +48,9 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
     public FavoriteholderFragment(){
     }
 
-    public static FavoriteholderFragment newInstance(int sectionNumber) {
+    public static FavoriteholderFragment newInstance(int sectionNumber, String userName) {
+
+        mUserName = userName;
 
         mMetodo = Constants.GET_REMOTE_FAVOURITE_STOCKS_DATA;
         FavoriteholderFragment fragment = new FavoriteholderFragment();
@@ -268,8 +271,7 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
-            String userName = "Alvaro1";
-            RemoteFavouriteStocksData remoteStocksData = new RemoteFavouriteStocksData(userName);
+            RemoteFavouriteStocksData remoteStocksData = new RemoteFavouriteStocksData(mUserName);
 
             try{
                 stockDataList = (List<Stock>) method.invoke(remoteStocksData);

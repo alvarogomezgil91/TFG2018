@@ -53,10 +53,10 @@ public class LocalUserDB extends SQLiteOpenHelper {
 
         System.out.println("Ejecutando query SQL -> " + sqlCreate + "\n");
         db.execSQL(sqlCreate);
-        System.out.println("Ejecutando query SQL -> " + sqlInsert + "\n");
-        db.execSQL(sqlInsert);
-        System.out.println("Ejecutando query SQL INSERT2 -> ++++++++" + "\n");
-        onInsert2(db, null);
+        //System.out.println("Ejecutando query SQL -> " + sqlInsert + "\n");
+        //db.execSQL(sqlInsert);
+        //System.out.println("Ejecutando query SQL INSERT2 -> ++++++++" + "\n");
+        //onInsert2(db, null);
 
     }
 
@@ -114,7 +114,10 @@ public class LocalUserDB extends SQLiteOpenHelper {
         db.rawQuery(sqlUpdateRememberMe, args);
     }
 
-    public void onUpdateLastSuccesfullLogin(SQLiteDatabase db, Boolean rememberMe, String userName){
+    public void onUpdateLastSuccesfullLogin(SQLiteDatabase db, Boolean rememberMe, String userName, String pass){
+
+        String deleteSql = "DELETE FROM local_user_credentials WHERE user_name = '" + userName + "'";
+        db.execSQL(deleteSql);
 
         Date sysdate = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -122,11 +125,13 @@ public class LocalUserDB extends SQLiteOpenHelper {
 
         int rememberMeInt = rememberMe ? 1 : 0;
 
+        String sqlStatement = "INSERT INTO local_user_credentials (user_name, email, password, remember_me, last_sucessfull_login) " +
+                "VALUES ('" + userName + "', '" + userName + "@correo.com', '" + pass + "', '" + rememberMeInt + "', '" + date + "')";
 
-        String updateSql = "UPDATE local_user_credentials ";
-        String setSql = "SET remember_me = " + rememberMeInt + ", last_sucessfull_login = '" + date + "' ";
-        String whereSql = "WHERE user_name = '" + userName +"'";
-        String sqlStatement = updateSql + setSql + whereSql;
+        //String updateSql = "UPDATE local_user_credentials ";
+        //String setSql = "SET remember_me = " + rememberMeInt + ", last_sucessfull_login = '" + date + "' ";
+        //String whereSql = "WHERE user_name = '" + userName +"'";
+        //String sqlStatement = updateSql + setSql + whereSql;
 
         System.out.println("*************vamos a pintar la SQL --> " + sqlStatement);
 

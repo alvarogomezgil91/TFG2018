@@ -31,13 +31,15 @@ public class RemoteStocksData {
     String REMOTE_URL = "http://algomez.atwebpages.com/WebServicesPhp";
     String mURL;
     String mSimbolo;
+    String mUserName;
 
-    public List<Stock> GetRemoteStocksData(String inputUrl, String imputSimbolo){
+    public List<Stock> GetRemoteStocksData(String inputUrl, String imputSimbolo, String userName){
 
         System.out.println("********* Entrando al comando GetRemoteStocksData **************");
 
         mURL = inputUrl;
         mSimbolo = imputSimbolo;
+        mUserName = userName;
 
         List<Stock> stockDataList = new ArrayList<Stock>();
         int listSize;
@@ -60,6 +62,7 @@ public class RemoteStocksData {
             //Creo el Objeto JSON
             JSONObject jsonParam = new JSONObject();
             jsonParam.put("simbolo", mSimbolo);
+            jsonParam.put("user_name", mUserName);
             // Envio los parámetros post.
             OutputStream os = urlConn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(

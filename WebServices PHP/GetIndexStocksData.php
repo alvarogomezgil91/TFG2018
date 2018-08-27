@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Decodificando formato Json
 	$body = json_decode(file_get_contents("php://input"), true);
 
-    $retorno = StocksData::getIndexStocksData();
+    $retorno = StocksData::getIndexStocksData($body['user_name']);
 		
 
 

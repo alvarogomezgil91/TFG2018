@@ -38,6 +38,7 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
     private List<Stock> mStockList;
     public static String mMetodo;
     public static String mURL;
+    public static String mUserName;
     public static String mSimbolo;
     private static final String ARG_SECTION_NUMBER = "section_number";
     View view;
@@ -50,12 +51,13 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
     public MarketsholderFragment() {
     }
 
-    public static MarketsholderFragment newInstance(int sectionNumber, String metodo, String url, String simbolo) {
+    public static MarketsholderFragment newInstance(int sectionNumber, String metodo, String url, String simbolo, String userName) {
 
         MarketsholderFragment fragment = new MarketsholderFragment();
 
         mMetodo = metodo;
         mURL = url;
+        mUserName = userName;
         mSimbolo = simbolo;
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -272,14 +274,14 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
             java.lang.reflect.Method method = null;
 
             try {
-                method = RemoteStocksData.class.getMethod(mMetodo, String.class, String.class);
+                method = RemoteStocksData.class.getMethod(mMetodo, String.class, String.class, String.class);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
             RemoteStocksData remoteStocksData = new RemoteStocksData();
 
             try{
-                stockDataList = (List<Stock>) method.invoke(remoteStocksData, mURL, mSimbolo);
+                stockDataList = (List<Stock>) method.invoke(remoteStocksData, mURL, mSimbolo, mUserName);
 
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
