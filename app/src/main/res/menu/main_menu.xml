@@ -9,15 +9,6 @@
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
     <item
-        android:id="@+id/item3"
-        android:orderInCategory="100"
-        android:title="item3" />
-    <item
-        android:id="@+id/item2"
-        android:title="item2"
-        android:orderInCategory="101" />
-
-    <item
         android:id="@+id/item_log_out"
         android:icon="@drawable/ic_action_log_out"
         android:title="LogOut"

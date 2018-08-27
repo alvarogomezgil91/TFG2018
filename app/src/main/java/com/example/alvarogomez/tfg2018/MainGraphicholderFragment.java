@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -28,11 +27,11 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.CombinedData;
-import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -56,19 +55,19 @@ public class MainGraphicholderFragment extends Fragment {
     public static String mMetodoTecnico;
     private Context mContext;
 
-    List<GraphicData> graphicDataList;
-    List<TecnicoStock> tecnicoDataList;
-    private LineChart mChartGraphic;
-    private CombinedChart mChartTecnico;
-    private LineData dataGraphic;
-    private CombinedData dataTecnico;
+    static List<GraphicData> graphicDataList;
+    static List<TecnicoStock> tecnicoDataList;
+    private static LineChart mChartGraphic;
+    private static CombinedChart mChartTecnico;
+    private static LineData dataGraphic;
+    private static CombinedData dataTecnico;
 
-    LineDataSet setTecnicoEMA26;
-    LineDataSet setTecnicoEMA12;
-    LineDataSet setTecnicoMACD;
-    LineDataSet setTecnicoSENAL;
-    LineData lineDataTecnico;
-    BarData barDataTecnico;
+    static LineDataSet setTecnicoEMA26;
+    static LineDataSet setTecnicoEMA12;
+    static LineDataSet setTecnicoMACD;
+    static LineDataSet setTecnicoSENAL;
+    static LineData lineDataTecnico;
+    static BarData barDataTecnico;
 
     View view;
 
@@ -247,6 +246,8 @@ public class MainGraphicholderFragment extends Fragment {
         mChartGraphic.setDoubleTapToZoomEnabled(false);
         mChartGraphic.setAutoScaleMinMaxEnabled(true);
         mChartGraphic.getDescription().setEnabled(false);
+        YAxis rightAxis = mChartGraphic.getAxisRight();
+        rightAxis.setEnabled(false);
         Legend legendGraphic = mChartGraphic.getLegend();
         legendGraphic.setEnabled(true);
         LegendEntry legendEntryCierre = new LegendEntry();
@@ -259,6 +260,7 @@ public class MainGraphicholderFragment extends Fragment {
         legendEntryMA12.label = Constants.DATA_SET_MA12;
         legendEntryMA12.formColor = Constants.COLOR_EMA12;
         legendGraphic.setCustom(Arrays.asList(legendEntryCierre, legendEntryMA26, legendEntryMA12));
+        mChartGraphic.invalidate();
     }
 
     public void setUpTecnicoCHart() {
@@ -272,6 +274,8 @@ public class MainGraphicholderFragment extends Fragment {
         mChartTecnico.setNoDataText(Constants.NO_DATA_SET);
         mChartTecnico.setDoubleTapToZoomEnabled(false);
         mChartTecnico.setAutoScaleMinMaxEnabled(true);
+        YAxis rightAxis = mChartTecnico.getAxisRight();
+        rightAxis.setEnabled(false);
         Legend legendTecnicos = mChartTecnico.getLegend();
         legendTecnicos.setEnabled(true);
         LegendEntry legendEntryMACD = new LegendEntry();
@@ -287,9 +291,10 @@ public class MainGraphicholderFragment extends Fragment {
         legendEntryHISTOGRAMA2.label = Constants.DATA_SET_HISTOGRAMA;
         legendEntryHISTOGRAMA2.formColor = Constants.COLOR_HISTOGRAMA_NEGATIVO;
         legendTecnicos.setCustom(Arrays.asList(legendEntryMACD, legendEntrySENAL, legendEntryHISTOGRAMA1, legendEntryHISTOGRAMA2));
+        mChartTecnico.invalidate();
     }
 
-    private class ThreadCreation extends AsyncTask<Void, Integer, Void> {
+    private static class ThreadCreation extends AsyncTask<Void, Integer, Void> {
 
         @Override
         protected void onPreExecute() {
