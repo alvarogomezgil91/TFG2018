@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/item_search"
+        android:icon="@drawable/ic_action_search"
+        android:title="Search"
+        app:showAsAction="always"
+        app:actionViewClass="android.support.v7.widget.SearchView" />
+
+        <item
+            android:id="@+id/item_MA26"
+            android:title="@string/MA26"
+            android:checkable="true"
+            android:checked="true"/>
+
+        <item
+            android:id="@+id/item_MA12"
+            android:title="@string/MA12"
+            android:checkable="true"
+            android:checked="true" />
+
+        <item
+            android:id="@+id/item_MACD"
+            android:title="@string/MACD"
+            android:checkable="true"
+            android:checked="true" />
+
+        <item
+            android:id="@+id/item_SENAL"
+            android:title="@string/SENAL"
+            android:checkable="true"
+            android:checked="true"/>
+
+    <item
+        android:id="@+id/item_log_out"
+        android:icon="@drawable/ic_action_log_out"
+        android:title="LogOut"
+        app:showAsAction="never"
+        android:orderInCategory="101" />
+
+</menu>

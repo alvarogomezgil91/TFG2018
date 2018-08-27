@@ -28,6 +28,7 @@
 #       STRY00026 - Internet connection check during PresentationActivity
 #       STRY00027 - LoginActivity bug fix
 #       STRY00028 - RememberMe Log in fix
+#       STRY00029 - MainGraphic Menu creation
 #
 #
 #

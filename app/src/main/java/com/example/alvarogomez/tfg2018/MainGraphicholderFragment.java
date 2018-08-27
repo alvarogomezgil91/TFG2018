@@ -63,6 +63,13 @@ public class MainGraphicholderFragment extends Fragment {
     private LineData dataGraphic;
     private CombinedData dataTecnico;
 
+    LineDataSet setTecnicoEMA26;
+    LineDataSet setTecnicoEMA12;
+    LineDataSet setTecnicoMACD;
+    LineDataSet setTecnicoSENAL;
+    LineData lineDataTecnico;
+    BarData barDataTecnico;
+
     View view;
 
     private static final String ARG_SECTION_NUMBER = "section_number2";
@@ -149,7 +156,7 @@ public class MainGraphicholderFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu, menu);
+        inflater.inflate(R.menu.main_graphic_menu, menu);
         setIconInMenu(menu, R.id.item_log_out, R.string.log_out, R.drawable.ic_action_log_out);
         menu.removeItem(R.id.item_search);
 
@@ -161,9 +168,61 @@ public class MainGraphicholderFragment extends Fragment {
 
         switch (item.getItemId()){
 
-            case R.id.item1:
+            case R.id.item_MA26:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                    dataGraphic.removeDataSet(dataGraphic.getDataSetByLabel(Constants.DATA_SET_EMA26, false));
+                } else {
+                    item.setChecked(true);
+                    dataGraphic.addDataSet(setTecnicoEMA26);
+                }
+                mChartGraphic.notifyDataSetChanged();
+                mChartGraphic.invalidate();
                 return true;
-            case R.id.item2:
+            case R.id.item_MA12:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                    dataGraphic.removeDataSet(dataGraphic.getDataSetByLabel(Constants.DATA_SET_EMA12, false));
+                } else {
+                    item.setChecked(true);
+                    dataGraphic.addDataSet(setTecnicoEMA12);
+                }
+                mChartGraphic.notifyDataSetChanged();
+                mChartGraphic.invalidate();
+                return true;
+            case R.id.item_MACD:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                    lineDataTecnico.removeDataSet(lineDataTecnico.getDataSetByLabel(Constants.DATA_SET_MACD, false));
+                    dataTecnico.clearValues();
+                    dataTecnico.setData(lineDataTecnico);
+                    dataTecnico.setData(barDataTecnico);
+                } else {
+                    item.setChecked(true);
+                    lineDataTecnico.addDataSet(setTecnicoMACD);
+                    dataTecnico.clearValues();
+                    dataTecnico.setData(lineDataTecnico);
+                    dataTecnico.setData(barDataTecnico);
+                }
+                mChartTecnico.notifyDataSetChanged();
+                mChartTecnico.invalidate();
+                return true;
+            case R.id.item_SENAL:
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                    lineDataTecnico.removeDataSet(lineDataTecnico.getDataSetByLabel(Constants.DATA_SET_SENAL, false));
+                    dataTecnico.clearValues();
+                    dataTecnico.setData(lineDataTecnico);
+                    dataTecnico.setData(barDataTecnico);
+                } else {
+                    item.setChecked(true);
+                    lineDataTecnico.addDataSet(setTecnicoSENAL);
+                    dataTecnico.clearValues();
+                    dataTecnico.setData(lineDataTecnico);
+                    dataTecnico.setData(barDataTecnico);
+                }
+                mChartTecnico.notifyDataSetChanged();
+                mChartTecnico.invalidate();
                 return true;
             case R.id.item_log_out:
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -221,10 +280,13 @@ public class MainGraphicholderFragment extends Fragment {
         LegendEntry legendEntrySENAL = new LegendEntry();
         legendEntrySENAL.label = Constants.DATA_SET_SENAL;
         legendEntrySENAL.formColor = Constants.COLOR_SENAL;
-        LegendEntry legendEntryHISTOGRAMA = new LegendEntry();
-        legendEntryHISTOGRAMA.label = Constants.DATA_SET_HISTOGRAMA;
-        legendEntryHISTOGRAMA.formColor = Constants.COLOR_HISTOGRAMA_POSITIVO;
-        legendTecnicos.setCustom(Arrays.asList(legendEntryMACD, legendEntrySENAL, legendEntryHISTOGRAMA));
+        LegendEntry legendEntryHISTOGRAMA1 = new LegendEntry();
+        legendEntryHISTOGRAMA1.label = "";
+        legendEntryHISTOGRAMA1.formColor = Constants.COLOR_HISTOGRAMA_POSITIVO;
+        LegendEntry legendEntryHISTOGRAMA2 = new LegendEntry();
+        legendEntryHISTOGRAMA2.label = Constants.DATA_SET_HISTOGRAMA;
+        legendEntryHISTOGRAMA2.formColor = Constants.COLOR_HISTOGRAMA_NEGATIVO;
+        legendTecnicos.setCustom(Arrays.asList(legendEntryMACD, legendEntrySENAL, legendEntryHISTOGRAMA1, legendEntryHISTOGRAMA2));
     }
 
     private class ThreadCreation extends AsyncTask<Void, Integer, Void> {
@@ -363,10 +425,10 @@ public class MainGraphicholderFragment extends Fragment {
 
             xValuesTecnico = xListTecnico.toArray(new String[xListTecnico.size()]);
 
-            LineDataSet setTecnicoEMA26 = new LineDataSet(yValuesTecnicoEMA26, Constants.DATA_SET_EMA26);
-            LineDataSet setTecnicoEMA12 = new LineDataSet(yValuesTecnicoEMA12, Constants.DATA_SET_EMA12);
-            LineDataSet setTecnicoMACD = new LineDataSet(yValuesTecnicoMACD, Constants.DATA_SET_MACD);
-            LineDataSet setTecnicoSENAL = new LineDataSet(yValuesTecnicoSENAL, Constants.DATA_SET_SENAL);
+            setTecnicoEMA26 = new LineDataSet(yValuesTecnicoEMA26, Constants.DATA_SET_EMA26);
+            setTecnicoEMA12 = new LineDataSet(yValuesTecnicoEMA12, Constants.DATA_SET_EMA12);
+            setTecnicoMACD = new LineDataSet(yValuesTecnicoMACD, Constants.DATA_SET_MACD);
+            setTecnicoSENAL = new LineDataSet(yValuesTecnicoSENAL, Constants.DATA_SET_SENAL);
             BarDataSet setTecnicoHISTOGRAMA = new BarDataSet(yValuesTecnicoHISTOGRAMA, Constants.DATA_SET_HISTOGRAMA);
 
             setTecnicoEMA26.setDrawCircles(false);
@@ -398,10 +460,8 @@ public class MainGraphicholderFragment extends Fragment {
             dataSetsGraphic.add(setTecnicoEMA12);
             dataGraphic = new LineData(dataSetsGraphic);
 
-
-
-            LineData lineDataTecnico = new LineData();
-            BarData barDataTecnico = new BarData();
+            lineDataTecnico = new LineData();
+            barDataTecnico = new BarData();
 
             lineDataTecnico.addDataSet(setTecnicoMACD);
             lineDataTecnico.addDataSet(setTecnicoSENAL);

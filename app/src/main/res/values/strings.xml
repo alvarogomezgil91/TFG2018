@@ -61,6 +61,12 @@
     <string name="data_set_1">Data Set 1</string>
     <string name="data_set_2">Data Set 2</string>
     <string name="no_data_set">"Cargando..."</string>
+    <string name="MA26">"MA26"</string>
+    <string name="MA12">"MA12"</string>
+    <string name="MACD">"MACD"</string>
+    <string name="SENAL">"SEÑAL"</string>
+    <string name="HIST">"HIST"</string>
+
 
 
     <!--         Strings related to PlaceholderFragment -->

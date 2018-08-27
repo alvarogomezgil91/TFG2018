@@ -576,10 +576,6 @@
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
-        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\menu_test_activity_menu.xml.flat",
-        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\menu\\test_activity_menu.xml"
-    },
-    {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xhdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\drawable-ldrtl-xhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
     },
@@ -1316,6 +1312,10 @@
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\drawable-mdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
     },
     {
+        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\menu_main_graphic_menu.xml.flat",
+        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\menu\\main_graphic_menu.xml"
+    },
+    {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_popup_menu_header_item_layout.xml.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\layout\\abc_popup_menu_header_item_layout.xml"
     },
@@ -1470,10 +1470,6 @@
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_alert_dialog_title_material.xml.flat",
         "source": "C:\\Users\\Alvaro Gomez\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b21c2517a473124f6920f430bb35f1fb\\res\\layout\\abc_alert_dialog_title_material.xml"
-    },
-    {
-        "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\menu_menu_view_pager.xml.flat",
-        "source": "C:\\workspaceGIT\\TFG2018\\app\\src\\main\\res\\menu\\menu_view_pager.xml"
     },
     {
         "merged": "C:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",

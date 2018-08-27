@@ -136,8 +136,6 @@ public class FeedholderFragment extends Fragment {
 
         switch (item.getItemId()){
 
-            case R.id.item1:
-                return true;
             case R.id.item2:
                 return true;
             case R.id.item_log_out:

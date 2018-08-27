@@ -154,8 +154,6 @@ public class MarketsholderFragment extends ListFragment implements SearchView.On
 
             case R.id.item_search:
                 return true;
-            case R.id.item1:
-                return true;
             case R.id.item2:
                 return true;
             case R.id.item_log_out:
