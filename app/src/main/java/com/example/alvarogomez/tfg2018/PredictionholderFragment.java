@@ -47,15 +47,17 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
     List<String> mStockListNames;
 
     private static String mMetodo;
+    private static String mUserName;
 
 
 
     public PredictionholderFragment(){
     }
 
-    public static PredictionholderFragment newInstance(int sectionNumber) {
+    public static PredictionholderFragment newInstance(int sectionNumber, String userName) {
 
         mMetodo = Constants.GET_REMOTE_PREDICTION_STOCKS;
+        mUserName = userName;
         PredictionholderFragment fragment = new PredictionholderFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -87,6 +89,7 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
 
                 Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                 intent.putExtra("simbolo", stock.getSimbolo());
+                intent.putExtra("user_name", mUserName);
                 startActivity(intent);
 
             }
@@ -172,11 +175,13 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
                     Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
                     intent.putExtra("descripcion", stock.getDescription());
+                    intent.putExtra("user_name", mUserName);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
                     intent.putExtra("descripcion", stock.getDescription());
+                    intent.putExtra("user_name", mUserName);
                     startActivity(intent);
                 }
 
@@ -202,11 +207,13 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
                     Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
                     intent.putExtra("descripcion", stock.getDescription());
+                    intent.putExtra("user_name", mUserName);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
                     intent.putExtra("descripcion", stock.getDescription());
+                    intent.putExtra("user_name", mUserName);
                     startActivity(intent);
                 }
 

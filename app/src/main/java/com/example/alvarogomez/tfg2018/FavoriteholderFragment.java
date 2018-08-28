@@ -87,6 +87,7 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
 
                 Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                 intent.putExtra("simbolo", stock.getSimbolo());
+                intent.putExtra("user_name", mUserName);
                 startActivity(intent);
 
             }
@@ -189,11 +190,13 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                     Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
                     intent.putExtra("descripcion", stock.getDescription());
+                    intent.putExtra("user_name", mUserName);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
                     intent.putExtra("descripcion", stock.getDescription());
+                    intent.putExtra("user_name", mUserName);
                     startActivity(intent);
                 }
 
@@ -219,11 +222,13 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                     Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
                     intent.putExtra("descripcion", stock.getDescription());
+                    intent.putExtra("user_name", mUserName);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                     intent.putExtra("simbolo", stock.getSimbolo());
                     intent.putExtra("descripcion", stock.getDescription());
+                    intent.putExtra("user_name", mUserName);
                     startActivity(intent);
                 }
 
@@ -332,11 +337,13 @@ public class FavoriteholderFragment extends ListFragment implements SearchView.O
                         Intent intent = new Intent(getActivity(), StockViewPagerActivity.class);
                         intent.putExtra("simbolo", stock.getSimbolo());
                         intent.putExtra("descripcion", stock.getDescription());
+                        intent.putExtra("user_name", mUserName);
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(getActivity(), MarketViewPagerActivity.class);
                         intent.putExtra("simbolo", stock.getSimbolo());
                         intent.putExtra("descripcion", stock.getDescription());
+                        intent.putExtra("user_name", mUserName);
                         startActivity(intent);
                     }
 

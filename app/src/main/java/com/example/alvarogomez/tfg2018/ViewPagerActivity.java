@@ -105,7 +105,7 @@ public class ViewPagerActivity extends AppCompatActivity {
                 case 1:
                     return FavoriteholderFragment.newInstance(position + 1, mUserName);
                 case 2:
-                    return PredictionholderFragment.newInstance(position + 1);
+                    return PredictionholderFragment.newInstance(position + 1, mUserName);
                 case 3:
                     return FeedholderFragment.newInstance(position + 1, "");
 

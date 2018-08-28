@@ -33,6 +33,7 @@ public class MarketViewPagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private String mSimbolo;
     private String mDescripcion;
+    private String mUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,8 @@ public class MarketViewPagerActivity extends AppCompatActivity {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
+
+        mUserName = getIntent().getStringExtra("user_name");
 
         setContentView(R.layout.activity_market_view_pager);
         mSimbolo = getIntent().getStringExtra("simbolo");
@@ -118,7 +121,7 @@ public class MarketViewPagerActivity extends AppCompatActivity {
                 case 1:
                     return StockPredictionholderFragment.newInstance(position + 1, mSimbolo);
                 case 2:
-                    return PlaceholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_MARKET_STOCKS_DATA_URL, mSimbolo);
+                    return PlaceholderFragment.newInstance(position + 1, Constants.GET_REMOTE_STOCKS_DATA, Constants.GET_MARKET_STOCKS_DATA_URL, mSimbolo, mUserName);
                 case 3:
                     return StockFeedholderFragment.newInstance(position + 1, "");
 

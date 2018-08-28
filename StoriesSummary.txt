@@ -29,7 +29,8 @@
 #       STRY00027 - LoginActivity bug fix
 #       STRY00028 - RememberMe Log in fix
 #       STRY00029 - MainGraphic Menu creation
-#       STRY00030 - Adjustments in menus and graphics
+#       STRY00030 - MainGraphic Menu creation
+#       STRY00031 - MarketViewPagerActivity error fix
 #
 #
 #

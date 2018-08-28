@@ -73,6 +73,7 @@ public class PresentationActivity extends AppCompatActivity {
 
         GetLocalCredentials localcredentials = new GetLocalCredentials();
         credential = localcredentials.getLocalCredentials(this);
+        credential = localcredentials.getLocalCredentials(this);
 
         String user = credential.getUser();
         String password = credential.getPass();

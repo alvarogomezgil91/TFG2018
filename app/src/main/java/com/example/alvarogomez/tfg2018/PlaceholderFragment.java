@@ -36,6 +36,7 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
     public static String mMetodo;
     public static String mURL;
     public static String mSimbolo;
+    public static String mUserName;
     private static final String ARG_SECTION_NUMBER = "section_number";
     View view;
 
@@ -46,13 +47,14 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
     public PlaceholderFragment() {
     }
 
-    public static PlaceholderFragment newInstance(int sectionNumber, String metodo, String url, String simbolo) {
+    public static PlaceholderFragment newInstance(int sectionNumber, String metodo, String url, String simbolo, String userName) {
 
         PlaceholderFragment fragment = new PlaceholderFragment();
 
         mMetodo = metodo;
         mURL = url;
         mSimbolo = simbolo;
+        mUserName = userName;
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -205,14 +207,14 @@ public class PlaceholderFragment extends ListFragment implements SearchView.OnQu
             java.lang.reflect.Method method = null;
 
             try {
-                method = RemoteStocksData.class.getMethod(mMetodo, String.class, String.class);
+                method = RemoteStocksData.class.getMethod(mMetodo, String.class, String.class, String.class);
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
             RemoteStocksData remoteStocksData = new RemoteStocksData();
 
             try{
-                stockDataList = (List<Stock>) method.invoke(remoteStocksData, mURL, mSimbolo);
+                stockDataList = (List<Stock>) method.invoke(remoteStocksData, mURL, mSimbolo, mUserName);
 
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
