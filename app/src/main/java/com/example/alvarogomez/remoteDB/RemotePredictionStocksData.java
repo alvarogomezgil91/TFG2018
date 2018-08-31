@@ -130,7 +130,7 @@ public class RemotePredictionStocksData {
                         stockData.setSimbolo(jsonStockData.getString("simbolo"));
                         stockData.setFecha(jsonStockData.getString("fecha"));
                         stockData.setApertura(Float.valueOf(jsonStockData.getString("apertura")));
-                        stockData.setCierre(Float.valueOf(jsonStockData.getString("cierre_predecido")));
+                        stockData.setCierre(Float.valueOf(jsonStockData.getString("apertura_prediccion")));
 
                         stockDataList.add(stockData);
 

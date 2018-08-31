@@ -1,7 +1,19 @@
-#Tue Aug 28 05:30:07 CEST 2018
-base.0=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\137
+#Fri Aug 31 00:39:53 CEST 2018
 path.1=classes.dex
-renamed.1=classes2.dex
 path.0=classes.dex
+renamed.5=classes6.dex
+renamed.4=classes5.dex
+renamed.3=classes4.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
 renamed.0=classes.dex
-base.1=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\10
+base.5=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\150
+base.4=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\153
+base.3=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\148
+base.2=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\151
+base.1=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\149
+base.0=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\152
+path.5=classes.dex
+path.4=classes.dex
+path.3=classes.dex
+path.2=classes.dex

@@ -23,6 +23,7 @@ import android.widget.ListView;
 import com.example.alvarogomez.remoteDB.RemoteFavouriteStocksData;
 import com.example.alvarogomez.remoteDB.RemotePredictionStocks;
 import java.lang.reflect.InvocationTargetException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +49,7 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
 
     private static String mMetodo;
     private static String mUserName;
+    private static String currentDay;
 
 
 
@@ -58,6 +60,11 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
 
         mMetodo = Constants.GET_REMOTE_PREDICTION_STOCKS;
         mUserName = userName;
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        currentDay = dateFormat.format(date);
+
         PredictionholderFragment fragment = new PredictionholderFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -274,8 +281,7 @@ public class PredictionholderFragment extends Fragment implements SearchView.OnQ
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
-            String userName = "Alvaro1";
-            RemotePredictionStocks remoteStocksData = new RemotePredictionStocks("2018-08-17");
+            RemotePredictionStocks remoteStocksData = new RemotePredictionStocks(currentDay);
 
             try{
                 stockDataList = (List<Stock>) method.invoke(remoteStocksData);

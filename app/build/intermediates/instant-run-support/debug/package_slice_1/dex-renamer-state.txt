@@ -1,4 +1,4 @@
-#Tue Aug 28 05:10:11 CEST 2018
-base.0=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\122
+#Wed Aug 29 13:26:51 CEST 2018
+base.0=C\:\\workspaceGIT\\TFG2018\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\139
 path.0=classes.dex
 renamed.0=classes.dex
