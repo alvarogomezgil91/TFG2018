@@ -32,6 +32,7 @@
 #       STRY00030 - MainGraphic Menu creation
 #       STRY00031 - Adjustments in menus and graphics
 #       STRY00032 - LogIn fix
+#       STRY00033 - MainGraphicholderFragment chart axis fix
 #
 #
 #

@@ -461,8 +461,11 @@ public class MainGraphicholderFragment extends Fragment {
             setTecnicoHISTOGRAMA.setColors(colorTecnicoHISTOGRAMA);
 
             dataSetsGraphic.add(setGraphic);
-            dataSetsGraphic.add(setTecnicoEMA26);
-            dataSetsGraphic.add(setTecnicoEMA12);
+            int diff = xValuesGraphic.length - xValuesTecnico.length;
+            if ((diff>0 && diff<50) || (diff < 0 && diff > (-50)) || (diff == 0)) {
+                dataSetsGraphic.add(setTecnicoEMA26);
+                dataSetsGraphic.add(setTecnicoEMA12);
+            }
             dataGraphic = new LineData(dataSetsGraphic);
 
             lineDataTecnico = new LineData();
