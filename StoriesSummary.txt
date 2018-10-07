@@ -33,6 +33,7 @@
 #       STRY00031 - Adjustments in menus and graphics
 #       STRY00032 - LogIn fix
 #       STRY00033 - MainGraphicholderFragment chart axis fix
+#       STRY00034 - Data processing script migration to Phyton
 #
 #
 #

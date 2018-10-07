@@ -41,8 +41,12 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 	fi
 
 	
-	echo "./genera_query.sh $line"
-	./genera_query.sh $line
+	#echo "./genera_query.sh $line"
+	#./genera_query.sh $line
+	
+	## Aquí vamos a poner nuestro pedazo de Python
+	echo "python /C/workspaceGIT/TFG2018/BashScripts/PythonScripts/genera_query.py -f=$line"
+	python /C/workspaceGIT/TFG2018/BashScripts/PythonScripts/genera_query.py -f=$line
 	
 	cont=$[${cont}+1]
 	
